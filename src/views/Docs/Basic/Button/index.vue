@@ -1,12 +1,12 @@
 <template>
-  <div class="home">Home</div>
+  <div class="doc-nc-button">Nc-Button Docs</div>
 </template>
 
 <script setup>
 </script>
 
 <style scoped lang="postcss">
-.home {
+.doc-nc-button {
   @apply flex justify-center w-full h-full;
 }
 </style>

@@ -52,6 +52,7 @@ function openExtraLinks (u) {
 <style scoped lang="postcss">
 .header {
   @apply flex justify-between items-center w-full h-20 px-4
+  sticky top-0
 bg-gray-50 dark:bg-gray-700
   transition select-none z-10;
 }
@@ -67,7 +68,7 @@ bg-gray-50 dark:bg-gray-700
 }
 .colorScheme {
   @apply flex items-center px-2 h-12 rounded-full
-  hover:bg-gray-400
+  hover:bg-gray-300 dark:hover:bg-gray-900
   transition-all cursor-pointer;
 }
 .colorScheme .obj {

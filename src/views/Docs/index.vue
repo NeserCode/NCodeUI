@@ -1,12 +1,12 @@
 <template>
-  <div class="home">Home</div>
+  <div class="doc">Docs</div>
 </template>
 
 <script setup>
 </script>
 
 <style scoped lang="postcss">
-.home {
+.doc {
   @apply flex justify-center w-full h-full;
 }
 </style>
