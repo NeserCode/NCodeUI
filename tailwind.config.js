@@ -6,6 +6,7 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
+      xs: '360px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -715,7 +716,7 @@ module.exports = {
       1000: '1000ms',
     },
     transitionDuration: {
-      DEFAULT: '150ms',
+      DEFAULT: '300ms',
       75: '75ms',
       100: '100ms',
       150: '150ms',

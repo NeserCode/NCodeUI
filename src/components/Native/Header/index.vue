@@ -1,12 +1,28 @@
 <template>
   <div class="header">
-    <button @click="ToggleDark">Dark</button>
+    <div class="left">
+      <span class="logo">NCodeUI</span>
+      <span class="colorScheme" @click="ToggleDark">
+        <span class="obj">{{ !isDark ? "☀" : "🌙" }}</span>
+        <span class="text">{{ `${!isDark ? "日" : "夜"}间模式` }}</span>
+      </span>
+    </div>
+    <div class="right">
+      <span class="links" @click="openExtraLinks(uiLink)">⭐Github</span>
+      <span class="links" @click="openExtraLinks(authorLink)">👨作者</span>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { watch, ref } from 'vue'
+import { watch, onBeforeMount, ref } from 'vue'
 var isDark = ref(false)
+const uiLink = 'http://github.com/NeserCode/NCodeUI'
+const authorLink = 'http://github.com/NeserCode'
+
+onBeforeMount(() => {
+  isDark.value = Boolean(localStorage.getItem('theme'))
+})
 
 watch(isDark, () => {
   if (
@@ -26,10 +42,49 @@ function ToggleDark () {
 
   isDark.value = !isDark.value
 }
+
+function openExtraLinks (u) {
+  if (u) window.open(new URL(u), '_blank')
+  else return 0
+}
 </script>
 
 <style scoped lang="postcss">
 .header {
-  @apply h-12 bg-green-200 dark:bg-gray-200;
+  @apply flex justify-between items-center w-full h-20 px-4
+bg-gray-50 dark:bg-gray-700
+  transition select-none z-10;
+}
+
+.left,
+.right {
+  @apply flex justify-center items-center w-auto;
+}
+
+/* left area */
+.logo {
+  @apply inline-block font-mono font-thin text-2xl mx-4;
+}
+.colorScheme {
+  @apply flex items-center px-2 h-12 rounded-full
+  hover:bg-gray-400
+  transition-all cursor-pointer;
+}
+.colorScheme .obj {
+  @apply flex justify-center items-center w-12 h-12 rounded-full;
+}
+.colorScheme .text {
+  @apply w-0 font-thin
+  whitespace-nowrap overflow-hidden transition-all;
+}
+.colorScheme:hover .text {
+  @apply w-full;
+}
+
+/* right area */
+.links {
+  @apply inline-block font-mono font-thin py-px mx-2 border-b
+  border-gray-700 dark:border-gray-100 opacity-75 hover:opacity-100
+  transition-all cursor-pointer;
 }
 </style>
