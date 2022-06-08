@@ -30,7 +30,7 @@ var docs = ref([
     type: 'title'
   },
   {
-    title: 'Nc-Docs',
+    title: 'Docs',
     type: 'node',
     path: '/docs'
   },
@@ -117,13 +117,13 @@ function initNodeClass (id) {
 
 /* Aside Title */
 .asideTitle {
-  @apply flex items-center font-semibold text-xl
+  @apply flex items-center font-semibold text-xl my-2
   select-none;
 }
 
 /* View */
 .view {
-  @apply p-1;
+  @apply p-4;
 }
 
 /* Calc Value */
