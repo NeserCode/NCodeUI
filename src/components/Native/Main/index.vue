@@ -2,7 +2,7 @@
   <div class="main">
     <div ref="aside" class="aside">
       <span
-        class="asideItem"
+        :class="initNodeClass(index)"
         v-for="(i, index) in docs"
         :key="i"
         @click="handleActiveItem(index, $event)"
@@ -17,40 +17,77 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 const $router = useRouter()
+const $route = useRoute()
 
-var activedId = ref(0)
+var activedId = ref(1)
 var aside = ref(null)
 var docs = ref([
   {
+    title: '总览',
+    type: 'title'
+  },
+  {
+    title: 'Nc-Docs',
+    type: 'node',
+    path: '/docs'
+  },
+  {
+    title: '基础',
+    type: 'title'
+  },
+  {
     title: 'Nc-Button',
-    pathName: 'Docs-Basic-Button'
+    type: 'node',
+    path: '/docs/basic/button'
   },
   {
     title: 'Nc-Link',
-    pathName: 'Docs-Basic-Link'
+    type: 'node',
+    path: '/docs/basic/link'
+  },
+  {
+    title: 'Nc-Scrollbar',
+    type: 'node',
+    path: '/docs/basic/scrollbar'
   }
 ])
 
+watch($route, () => {
+  if ($route.params.pathMatch) console.log($route.params.pathMatch)
+  if ($route.name === 'Docs') initActiveItem(1)
+  docs.value.forEach((element, index) => {
+    if (element.path === $route.path) initActiveItem(index)
+  })
+})
+
 onMounted(() => {
-  initActiveItem()
+  initActiveItem(1)
 })
 
 function handleActiveItem (id, e) {
-  if (id !== activedId.value && e) {
+  if (id !== activedId.value && docs.value[id].type !== 'title' && e.target) {
     e.target.classList.add('active')
     aside.value.children[activedId.value].classList.remove('active')
     activedId.value = id
 
-    $router.push({ name: docs.value[id].pathName })
+    $router.push({ path: docs.value[id].path })
   }
 }
 
-function initActiveItem () {
-  if (aside.value.children[0]) aside.value.children[0].classList.add('active')
+function initActiveItem (id) {
+  if (activedId.value !== id) {
+    aside.value.children[activedId.value].classList.remove('active')
+    activedId.value = id
+  }
+  if (aside.value.children[id]) aside.value.children[id].classList.add('active')
   else console.log('Aside 元素数为零')
+}
+
+function initNodeClass (id) {
+  return docs.value[id].type === 'node' ? 'asideItem' : 'asideTitle'
 }
 </script>
 
@@ -78,9 +115,15 @@ function initActiveItem () {
   @apply bg-gray-100 dark:bg-gray-500 shadow-md;
 }
 
+/* Aside Title */
+.asideTitle {
+  @apply flex items-center font-semibold text-xl
+  select-none;
+}
+
 /* View */
 .view {
-  @apply bg-gray-500;
+  @apply p-1;
 }
 
 /* Calc Value */

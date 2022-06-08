@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <span class="logo">NCodeUI</span>
+      <span class="logo" @click="handleBackDocs">NCodeUI</span>
       <span class="colorScheme" @click="ToggleDark">
         <span class="obj">{{ !isDark ? "☀" : "🌙" }}</span>
         <span class="text">{{ `${!isDark ? "日" : "夜"}间模式` }}</span>
@@ -16,6 +16,10 @@
 
 <script setup>
 import { watch, onBeforeMount, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+const $router = useRouter()
+const $route = useRoute()
+
 var isDark = ref(false)
 const uiLink = 'http://github.com/NeserCode/NCodeUI'
 const authorLink = 'http://github.com/NeserCode'
@@ -47,13 +51,17 @@ function openExtraLinks (u) {
   if (u) window.open(new URL(u), '_blank')
   else return 0
 }
+
+function handleBackDocs () {
+  if ($route.name !== 'Home') $router.push({ name: 'Docs' })
+}
 </script>
 
 <style scoped lang="postcss">
 .header {
   @apply flex justify-between items-center w-full h-20 px-4
-  sticky top-0
-bg-gray-50 dark:bg-gray-700
+  sticky top-0 border-b box-border
+bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-500
   transition select-none z-10;
 }
 
