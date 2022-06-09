@@ -1,12 +1,19 @@
 <template>
   <div class="doc">
-    <sapn class="title">文档</sapn>
+    <headTitle :level="1">文档</headTitle>
+    <span class="text">以下为代码高亮测试</span>
+    <headTitle :level="2">文档</headTitle>
+    <span class="text">以下为代码高亮测试</span>
+    <headTitle :level="3">文档</headTitle>
+    <span class="text">以下为代码高亮测试</span>
+    <headTitle :level="4">文档</headTitle>
     <span class="text">以下为代码高亮测试</span>
     <highlightjs lang="javascript" :code="testCode" />
   </div>
 </template>
 
 <script setup>
+import headTitle from '@/components/Native/HeadTitle/index.vue'
 import { ref } from 'vue'
 
 var testCode = ref(`watch($route, () => {
@@ -27,7 +34,7 @@ var testCode = ref(`watch($route, () => {
   @apply inline-block mx-2 my-2 font-semibold text-3xl;
 }
 .text {
-  @apply inline-block mx-4 my-4;
+  @apply inline-block mx-4 my-4 text-base;
 }
 
 /* highlight.js Css */
