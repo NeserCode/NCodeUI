@@ -1,6 +1,6 @@
 <template>
-  <span class="headTitle">
-    <a :class="['titleNode', haneleLevelClass()]" :href="nodeLink">#</a>
+  <span class="headTitle" :id="nodeLink">
+    <a :class="['titleNode', haneleLevelClass()]" :href="'#' + nodeLink">#</a>
     <span :class="['titleText', haneleLevelClass()]" ref="textContent"
       ><slot></slot
     ></span>
@@ -16,10 +16,10 @@ const $props = defineProps({
 
 const { level } = toRefs($props)
 var textContent = ref(null)
-var nodeLink = ref('#')
+var nodeLink = ref('')
 
 onMounted(() => {
-  nodeLink.value += textContent.value.textContent
+  nodeLink.value = textContent.value.textContent
 })
 
 function haneleLevelClass () {

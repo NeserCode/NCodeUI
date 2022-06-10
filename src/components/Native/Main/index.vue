@@ -123,7 +123,8 @@ function initNodeClass (id) {
 
 /* View */
 .view {
-  @apply p-4;
+  @apply p-4
+  overflow-y-auto overflow-x-hidden;
 }
 
 /* Calc Value */
@@ -138,5 +139,10 @@ function initNodeClass (id) {
 /* srcoll reset */
 .aside::-webkit-scrollbar {
   display: none;
+}
+
+/* Unsupport less */
+.view {
+  scroll-behavior: smooth;
 }
 </style>

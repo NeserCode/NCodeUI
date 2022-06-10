@@ -1,12 +1,12 @@
 <template>
   <div class="doc">
-    <headTitle :level="1">文档</headTitle>
+    <headTitle :level="1">文档1</headTitle>
     <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="2">文档</headTitle>
+    <headTitle :level="2">文档2</headTitle>
     <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="3">文档</headTitle>
+    <headTitle :level="3">文档3</headTitle>
     <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="4">文档</headTitle>
+    <headTitle :level="4">文档4</headTitle>
     <span class="text">以下为代码高亮测试</span>
     <highlightjs lang="javascript" :code="testCode" />
   </div>
@@ -28,6 +28,7 @@ var testCode = ref(`watch($route, () => {
 <style scoped lang="postcss">
 .doc {
   @apply flex flex-col w-full h-full;
+  min-height: 200vh;
 }
 
 .title {
