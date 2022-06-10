@@ -8,8 +8,8 @@
       </span>
     </div>
     <div class="right">
-      <span class="links" @click="openExtraLinks(uiLink)">⭐Github</span>
-      <span class="links" @click="openExtraLinks(authorLink)">👨作者</span>
+      <span class="links" @click="openExtraLinks(uiLink)">Github</span>
+      <span class="links" @click="openExtraLinks(authorLink)">作者</span>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, defineProps } from 'vue'
+import { ref, toRefs, onMounted, defineProps, nextTick } from 'vue'
 
 const $props = defineProps({
   level: Number
@@ -22,8 +22,20 @@ onMounted(() => {
   nodeLink.value = textContent.value.textContent
 })
 
+nextTick(() => {
+  handleThrowRename(nodeLink.value)
+})
+
 function haneleLevelClass () {
   return `levelTitle${level.value}`
+}
+
+function handleThrowRename (s) {
+  if (document.querySelectorAll(`#${s}`).length > 1) {
+    console.warn(
+      `Note that in this page you have multiple components (Native: headTitle) with the same title, which will affect the location of the anchor points on the page. The repeat title: ${s}`
+    )
+  }
 }
 </script>
 
@@ -55,7 +67,7 @@ function haneleLevelClass () {
 
 /* Title Text */
 .titleText {
-  @apply inline-flex;
+  @apply inline-flex font-semibold;
 }
 
 /* Handle Hover Hidden */

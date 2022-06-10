@@ -1,124 +1,127 @@
 <template>
   <div class="doc">
-    <headTitle :level="1">文档1</headTitle>
-    <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="2">文档2</headTitle>
-    <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="3">文档3</headTitle>
-    <span class="text">以下为代码高亮测试</span>
-    <headTitle :level="4">文档4</headTitle>
-    <span class="text">以下为代码高亮测试</span>
-    <highlightjs lang="javascript" :code="testCode" />
+    <headTitle :level="1">开始使用</headTitle>
+    <para>从这里开始，您将学习到如何一步步使用 NCodeUI 组件库。</para>
+    <para>首先，使用包管理器添加组件库。</para>
+    <highlightjs lang="javascript" :code="code[0]" />
+    <para
+      >然后，如果您选择使用 NCodeUI, 那么您必须安装 Vue.js v3.0+, NCodeUI 是基于
+      Vue3 来开发的。</para
+    >
+    <highlightjs lang="javascript" :code="code[1]" />
+    <para>安装完 Vue 后, 创建一个新的工程, 并在 main.js 中添加：</para>
+    <highlightjs lang="javascript" :code="code[2]" />
   </div>
 </template>
 
 <script setup>
 import headTitle from '@/components/Native/HeadTitle/index.vue'
+import para from '@/components/Native/Para/index.vue'
 import { ref } from 'vue'
 
-var testCode = ref(`watch($route, () => {
-  if ($route.params.pathMatch) console.log($route.params.pathMatch)
-  if ($route.name === 'Docs') initActiveItem(1)
-  docs.value.forEach((element, index) => {
-    if (element.path === $route.path) initActiveItem(index)
-  })
-})`)
+var code = ref([
+  'npm install @nesercode/ncodeui -g',
+  'npm install vue@lastest -g',
+  `// main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import { installNCodeUI } from '@nesercode/ncodeui'
+
+createApp(App).use(installNCodeUI).mount('#app')`
+])
 </script>
 
 <style scoped lang="postcss">
 .doc {
   @apply flex flex-col w-full h-full;
-  min-height: 200vh;
-}
-
-.title {
-  @apply inline-block mx-2 my-2 font-semibold text-3xl;
-}
-.text {
-  @apply inline-block mx-4 my-4 text-base;
 }
 
 /* highlight.js Css */
 pre {
-  @apply px-8 py-4 rounded-lg
-  bg-gray-900;
+  @apply px-6 py-4 mx-16 my-4 rounded-md border
+  bg-gray-300 dark:bg-gray-900 border-gray-600
+  overflow-auto;
 }
-:deep(.hljs) {
-  @apply text-gray-300 bg-gray-900;
+</style>
+
+<style lang="postcss">
+.hljs {
+  @apply text-gray-800 bg-gray-300
+  dark:text-gray-300 dark:bg-gray-900;
 }
-:deep(.hljs-doctag),
-:deep(.hljs-keyword),
-:deep(.hljs-meta .hljs-keyword),
-:deep(.hljs-template-tag),
-:deep(.hljs-template-variable),
-:deep(.hljs-type),
-:deep(.hljs-variable.language_) {
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
   color: #d73a49;
 }
-:deep(.hljs-title),
-:deep(.hljs-title.class_),
-:deep(.hljs-title.class_.inherited__),
-:deep(.hljs-title.function_) {
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
   color: #6f42c1;
 }
-:deep(.hljs-attr),
-:deep(.hljs-attribute),
-:deep(.hljs-literal),
-:deep(.hljs-meta),
-:deep(.hljs-number),
-:deep(.hljs-operator),
-:deep(.hljs-selector-attr),
-:deep(.hljs-selector-class),
-:deep(.hljs-selector-id),
-:deep(.hljs-variable) {
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-variable {
   color: #005cc5;
 }
-:deep(.hljs-meta .hljs-string),
-:deep(.hljs-regexp),
-:deep(.hljs-string) {
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
   color: #a32f62;
 }
-:deep(.hljs-property) {
+.hljs-property {
   color: aqua;
 }
-:deep(.hljs-built_in),
-:deep(.hljs-symbol) {
+.hljs-built_in,
+.hljs-symbol {
   color: #e36209;
 }
-:deep(.hljs-code),
-:deep(.hljs-comment),
-:deep(.hljs-formula) {
+.hljs-code,
+.hljs-comment,
+.hljs-formula {
   color: #6a737d;
 }
-:deep(.hljs-name),
-:deep(.hljs-quote),
-:deep(.hljs-selector-pseudo),
-:deep(.hljs-selector-tag) {
+.hljs-name,
+.hljs-quote,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
   color: #22863a;
 }
-:deep(.hljs-subst) {
+.hljs-subst {
   color: #24292e;
 }
-:deep(.hljs-section) {
+.hljs-section {
   color: #005cc5;
   font-weight: 700;
 }
-:deep(.hljs-bullet) {
+.hljs-bullet {
   color: #735c0f;
 }
-:deep(.hljs-emphasis) {
+.hljs-emphasis {
   color: #24292e;
   font-style: italic;
 }
-:deep(.hljs-strong) {
+.hljs-strong {
   color: #24292e;
   font-weight: 700;
 }
-:deep(.hljs-addition) {
+.hljs-addition {
   color: #22863a;
   background-color: #f0fff4;
 }
-:deep(.hljs-deletion) {
+.hljs-deletion {
   color: #b31d28;
   background-color: #ffeef0;
 }

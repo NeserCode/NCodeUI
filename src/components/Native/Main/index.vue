@@ -123,7 +123,7 @@ function initNodeClass (id) {
 
 /* View */
 .view {
-  @apply p-4
+  @apply p-4 px-6
   overflow-y-auto overflow-x-hidden;
 }
 
@@ -136,8 +136,11 @@ function initNodeClass (id) {
   height: calc(100vh - 5rem);
 }
 
-/* srcoll reset */
+/* srcollbar reset */
 .aside::-webkit-scrollbar {
+  display: none;
+}
+.view::-webkit-scrollbar {
   display: none;
 }
 
