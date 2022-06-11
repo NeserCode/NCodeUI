@@ -37,6 +37,7 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   border-gray-200 dark:border-gray-600 bg-white dark:bg-black
   transition-all cursor-pointer overflow-hidden box-border;
 }
+/* Default */
 .nc-button:hover {
   @apply opacity-90
   bg-gray-50 dark:bg-gray-900 border-blue-300;
@@ -51,7 +52,7 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply opacity-100
   bg-gray-50 border-blue-400;
 }
-
+/* Success */
 .nc-button.success {
   @apply border-green-300 dark:border-green-400 bg-green-400 dark:bg-green-500;
 }
@@ -63,7 +64,15 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply opacity-100
   bg-green-400 border-green-500 dark:bg-green-500 dark:border-green-400;
 }
-
+.nc-button.lightBar.success:hover {
+  @apply opacity-90
+  bg-white dark:bg-black border-green-400 dark:border-green-500;
+}
+.nc-button.lightBar.success:active {
+  @apply opacity-100
+  bg-white dark:bg-black border-green-500 dark:border-green-400;
+}
+/* Info */
 .nc-button.info {
   @apply border-purple-300 dark:border-purple-400 bg-purple-400 dark:bg-purple-500;
 }
@@ -75,7 +84,15 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply opacity-100
   bg-purple-400 border-purple-500 dark:bg-purple-500 dark:border-purple-400;
 }
-
+.nc-button.lightBar.info:hover {
+  @apply opacity-90
+  bg-white dark:bg-black border-purple-400 dark:border-purple-500;
+}
+.nc-button.lightBar.info:active {
+  @apply opacity-100
+  bg-white dark:bg-black border-purple-500 dark:border-purple-400;
+}
+/* Warning */
 .nc-button.warning {
   @apply border-yellow-300 dark:border-yellow-400 bg-yellow-400 dark:bg-yellow-500;
 }
@@ -87,7 +104,15 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply opacity-100
   bg-yellow-400 border-yellow-500 dark:bg-yellow-500 dark:border-yellow-400;
 }
-
+.nc-button.lightBar.warning:hover {
+  @apply opacity-90
+  bg-white dark:bg-black border-yellow-400 dark:border-yellow-500;
+}
+.nc-button.lightBar.warning:active {
+  @apply opacity-100
+  bg-white dark:bg-black border-yellow-500 dark:border-yellow-400;
+}
+/* Danger */
 .nc-button.danger {
   @apply border-red-300 dark:border-red-400 bg-red-400 dark:bg-red-500;
 }
@@ -98,6 +123,19 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 .nc-button.danger:active {
   @apply opacity-100
   bg-red-400 border-red-500 dark:bg-red-500 dark:border-red-400;
+}
+.nc-button.lightBar.danger:hover {
+  @apply opacity-90
+  bg-white dark:bg-black border-red-400 dark:border-red-500;
+}
+.nc-button.lightBar.danger:active {
+  @apply opacity-100
+  bg-white dark:bg-black border-red-500 dark:border-red-400;
+}
+
+/* lightBar reset */
+.nc-button.lightBar {
+  @apply bg-white dark:bg-black;
 }
 
 /* nc-button-inner-text */
@@ -114,10 +152,57 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply text-gray-50;
 }
 
+.nc-button.lightBar.success .nc-button-inner-text {
+  @apply text-green-400;
+}
+.nc-button.lightBar.info .nc-button-inner-text {
+  @apply text-purple-400;
+}
+.nc-button.lightBar.warning .nc-button-inner-text {
+  @apply text-yellow-400;
+}
+.nc-button.lightBar.danger .nc-button-inner-text {
+  @apply text-red-400;
+}
+
 /* nc-button-line */
-.nc-button .nc-button-line {
-  @apply absolute inline-block min-w-full h-1 bottom-0
-  bg-blue-300;
+.nc-button.lightBar .nc-button-line {
+  @apply absolute inline-block min-w-full h-1 bottom-0;
+}
+
+.nc-button.lightBar .nc-button-line {
+  @apply bg-blue-300;
+}
+.nc-button.lightBar:active .nc-button-line {
+  @apply bg-blue-400;
+}
+
+.nc-button.lightBar.success .nc-button-line {
+  @apply bg-green-300;
+}
+.nc-button.lightBar.success:active .nc-button-line {
+  @apply bg-green-400;
+}
+
+.nc-button.lightBar.info .nc-button-line {
+  @apply bg-purple-300;
+}
+.nc-button.lightBar.info:active .nc-button-line {
+  @apply bg-purple-400;
+}
+
+.nc-button.lightBar.warning .nc-button-line {
+  @apply bg-yellow-300;
+}
+.nc-button.lightBar.warning:active .nc-button-line {
+  @apply bg-yellow-400;
+}
+
+.nc-button.lightBar.danger .nc-button-line {
+  @apply bg-red-300;
+}
+.nc-button.lightBar.danger:active .nc-button-line {
+  @apply bg-red-400;
 }
 
 /* Disabled Button */

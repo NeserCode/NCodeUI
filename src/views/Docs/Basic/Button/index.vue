@@ -40,6 +40,41 @@
         >危险样式</nc-button
       >
     </div>
+    <headTitle :level="2">简明样式</headTitle>
+    <para>你可以使用 btnStyle 属性来定义按钮是否启用简明样式</para>
+    <para
+      >使用 btnStyle = 'lightBar'
+      属性来控制按钮是否为简明样式，该样式可以执行加载方面的动画反馈。</para
+    >
+    <div class="viewBox">
+      <nc-button @click="logInnerText($event)" btnStyle="lightBar"
+        >默认样式</nc-button
+      >
+      <nc-button
+        @click="logInnerText($event)"
+        meaning="success"
+        btnStyle="lightBar"
+        >成功样式</nc-button
+      >
+      <nc-button
+        @click="logInnerText($event)"
+        meaning="info"
+        btnStyle="lightBar"
+        >提醒样式</nc-button
+      >
+      <nc-button
+        @click="logInnerText($event)"
+        meaning="warning"
+        btnStyle="lightBar"
+        >警告样式</nc-button
+      >
+      <nc-button
+        @click="logInnerText($event)"
+        meaning="danger"
+        btnStyle="lightBar"
+        >危险样式</nc-button
+      >
+    </div>
   </div>
 </template>
 
@@ -60,7 +95,7 @@ function logInnerText (e) {
 }
 
 .viewBox {
-  @apply flex justify-evenly items-center min-w-max mx-auto my-6;
+  @apply flex justify-evenly items-center min-w-max mx-auto my-12;
 }
 
 .nc-button {
