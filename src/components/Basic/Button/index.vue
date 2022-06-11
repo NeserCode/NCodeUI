@@ -2,9 +2,10 @@
   <button
     type="button"
     :disabled="disabled"
-    :class="['nc-button', disableClass, btnStyle]"
+    :class="['nc-button', disableClass, btnStyle, meaning]"
   >
     <span :class="['nc-button-inner-text']"><slot></slot></span>
+    <span v-if="!btnStyle" class="nc-button-line"> </span>
   </button>
 </template>
 
@@ -19,9 +20,13 @@ var $props = defineProps({
   btnStyle: {
     type: String,
     defalut: null
+  },
+  meaning: {
+    type: String,
+    defalut: null
   }
 })
-const { disabled, btnStyle } = toRefs($props)
+const { disabled, btnStyle, meaning } = toRefs($props)
 var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 
 var isDisable = ref(false)
@@ -31,7 +36,7 @@ console.log(isDisable.value ?? '')
 <style scoped lang="postcss">
 /* nc-button */
 .nc-button {
-  @apply inline-flex justify-center items-center py-1.5 px-5 max-w-min h-full border-2 rounded-md
+  @apply relative inline-flex justify-center items-center py-1.5 px-5 max-w-min h-full border-2 rounded-md
   border-gray-200 dark:border-gray-600 bg-white dark:bg-black
   transition-all cursor-pointer overflow-hidden box-border;
 }
@@ -40,14 +45,14 @@ console.log(isDisable.value ?? '')
   bg-gray-50 dark:bg-gray-900 border-blue-300;
 }
 .nc-button:focus .nc-button-inner-text {
-  @apply text-blue-500;
+  @apply text-blue-400;
 }
 .nc-button:hover .nc-button-inner-text {
-  @apply text-blue-500;
+  @apply text-blue-400;
 }
 .nc-button:active {
   @apply opacity-100
-  bg-gray-50 border-blue-500;
+  bg-gray-50 border-blue-400;
 }
 
 /* nc-button-inner-text */
@@ -56,6 +61,13 @@ console.log(isDisable.value ?? '')
   text-gray-800 dark:text-gray-100
   transition-all;
 }
+
+/* nc-button-line */
+.nc-button .nc-button-line {
+  @apply absolute inline-block min-w-full h-1 bottom-0
+  bg-yellow-300;
+}
+
 /* Disabled Button */
 .nc-button.disabled {
   @apply opacity-60
@@ -63,6 +75,10 @@ console.log(isDisable.value ?? '')
 }
 .nc-button.disabled:active,
 .nc-button.disabled:hover {
-  @apply border-gray-200 dark:border-gray-600 bg-white dark:bg-black;
+  @apply border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-800 dark:text-gray-100;
+}
+.nc-button.disabled:active .nc-button-inner-text,
+.nc-button.disabled:hover .nc-button-inner-text {
+  @apply text-gray-800 dark:text-gray-100;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <span class="headTitle" :id="nodeLink">
-    <a :class="['titleNode', haneleLevelClass()]" :href="'#' + nodeLink">#</a>
+    <a :class="['titleNode', haneleLevelClass()]" :href="'#' + nodeLink"
+      >#<sup>{{ level }}</sup></a
+    >
     <span :class="['titleText', haneleLevelClass()]" ref="textContent"
       ><slot></slot
     ></span>
@@ -64,6 +66,9 @@ function handleThrowRename (s) {
   hover:text-blue-300
   overflow-hidden transition-all select-none;
 }
+.titleNode sup {
+  @apply text-xs;
+}
 
 /* Title Text */
 .titleText {
@@ -71,16 +76,7 @@ function handleThrowRename (s) {
 }
 
 /* Handle Hover Hidden */
-.headTitle:hover .titleNode.levelTitle1 {
+.headTitle:hover .titleNode {
   @apply w-8;
-}
-.headTitle:hover .titleNode.levelTitle2 {
-  @apply w-6;
-}
-.headTitle:hover .titleNode.levelTitle3 {
-  @apply w-5;
-}
-.headTitle:hover .titleNode.levelTitle4 {
-  @apply w-4;
 }
 </style>
