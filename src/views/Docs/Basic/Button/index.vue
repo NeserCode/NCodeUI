@@ -6,7 +6,7 @@
     <para>在默认未传入 btnStyle 情况下，按钮将会以默认风格呈现</para>
     <div>
       <nc-button @click="testLog('测试')">测试</nc-button> |
-      <nc-button @click="testLog('Test')">Test</nc-button>
+      <nc-button @click="testLog('Test')" :disabled="true">Test</nc-button>
     </div>
   </div>
 </template>

@@ -62,7 +62,7 @@ function handleThrowRename (s) {
 .titleNode {
   @apply inline-flex items-center w-0 h-full mx-2
   hover:text-blue-300
-  overflow-hidden transition-all;
+  overflow-hidden transition-all select-none;
 }
 
 /* Title Text */
