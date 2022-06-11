@@ -5,12 +5,12 @@
     :class="['nc-button', disableClass, btnStyle, meaning]"
   >
     <span :class="['nc-button-inner-text']"><slot></slot></span>
-    <span v-if="!btnStyle" class="nc-button-line"> </span>
+    <span v-if="btnStyle" class="nc-button-line"> </span>
   </button>
 </template>
 
 <script setup>
-import { ref, defineProps, computed, toRefs } from 'vue'
+import { defineProps, computed, toRefs } from 'vue'
 
 var $props = defineProps({
   disabled: {
@@ -28,15 +28,12 @@ var $props = defineProps({
 })
 const { disabled, btnStyle, meaning } = toRefs($props)
 var disableClass = computed(() => (disabled.value ? 'disabled' : null))
-
-var isDisable = ref(false)
-console.log(isDisable.value ?? '')
 </script>
 
 <style scoped lang="postcss">
 /* nc-button */
 .nc-button {
-  @apply relative inline-flex justify-center items-center py-1.5 px-5 max-w-min h-full border-2 rounded-md
+  @apply relative inline-flex justify-center items-center py-1.5 px-5 m-0 max-w-min h-full border-2 rounded-md
   border-gray-200 dark:border-gray-600 bg-white dark:bg-black
   transition-all cursor-pointer overflow-hidden box-border;
 }
@@ -55,6 +52,54 @@ console.log(isDisable.value ?? '')
   bg-gray-50 border-blue-400;
 }
 
+.nc-button.success {
+  @apply border-green-300 dark:border-green-400 bg-green-400 dark:bg-green-500;
+}
+.nc-button.success:hover {
+  @apply opacity-90
+  bg-green-300 border-green-400 dark:bg-green-400 dark:border-green-500;
+}
+.nc-button.success:active {
+  @apply opacity-100
+  bg-green-400 border-green-500 dark:bg-green-500 dark:border-green-400;
+}
+
+.nc-button.info {
+  @apply border-purple-300 dark:border-purple-400 bg-purple-400 dark:bg-purple-500;
+}
+.nc-button.info:hover {
+  @apply opacity-90
+  bg-purple-300 border-purple-400 dark:bg-purple-400 dark:border-purple-500;
+}
+.nc-button.info:active {
+  @apply opacity-100
+  bg-purple-400 border-purple-500 dark:bg-purple-500 dark:border-purple-400;
+}
+
+.nc-button.warning {
+  @apply border-yellow-300 dark:border-yellow-400 bg-yellow-400 dark:bg-yellow-500;
+}
+.nc-button.warning:hover {
+  @apply opacity-90
+  bg-yellow-300 border-yellow-400 dark:bg-yellow-400 dark:border-yellow-500;
+}
+.nc-button.warning:active {
+  @apply opacity-100
+  bg-yellow-400 border-yellow-500 dark:bg-yellow-500 dark:border-yellow-400;
+}
+
+.nc-button.danger {
+  @apply border-red-300 dark:border-red-400 bg-red-400 dark:bg-red-500;
+}
+.nc-button.danger:hover {
+  @apply opacity-90
+  bg-red-300 border-red-400 dark:bg-red-400 dark:border-red-500;
+}
+.nc-button.danger:active {
+  @apply opacity-100
+  bg-red-400 border-red-500 dark:bg-red-500 dark:border-red-400;
+}
+
 /* nc-button-inner-text */
 .nc-button-inner-text {
   @apply inline-block min-w-max text-lg
@@ -62,10 +107,17 @@ console.log(isDisable.value ?? '')
   transition-all;
 }
 
+.nc-button.success .nc-button-inner-text,
+.nc-button.info .nc-button-inner-text,
+.nc-button.warning .nc-button-inner-text,
+.nc-button.danger .nc-button-inner-text {
+  @apply text-gray-50;
+}
+
 /* nc-button-line */
 .nc-button .nc-button-line {
   @apply absolute inline-block min-w-full h-1 bottom-0
-  bg-yellow-300;
+  bg-blue-300;
 }
 
 /* Disabled Button */
