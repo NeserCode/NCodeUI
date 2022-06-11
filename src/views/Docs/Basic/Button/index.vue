@@ -60,7 +60,7 @@ function logInnerText (e) {
 }
 
 .viewBox {
-  @apply flex justify-evenly items-center min-w-max mx-auto;
+  @apply flex justify-evenly items-center min-w-max mx-auto my-6;
 }
 
 .nc-button {

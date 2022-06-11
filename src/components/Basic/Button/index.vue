@@ -133,4 +133,36 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 .nc-button.disabled:hover .nc-button-inner-text {
   @apply text-gray-800 dark:text-gray-100;
 }
+
+.nc-button.disabled.success:active,
+.nc-button.disabled.success:hover {
+  @apply bg-green-400 dark:bg-green-500 border-green-300 dark:border-gray-400 text-gray-100
+  opacity-60;
+}
+.nc-button.disabled.info:active,
+.nc-button.disabled.info:hover {
+  @apply bg-purple-400 dark:bg-purple-500 border-purple-300 dark:border-purple-400 text-gray-100
+  opacity-60;
+}
+.nc-button.disabled.warning:active,
+.nc-button.disabled.warning:hover {
+  @apply bg-yellow-400 dark:bg-yellow-500 border-yellow-300 dark:border-yellow-400 text-gray-100
+  opacity-60;
+}
+.nc-button.disabled.danger:active,
+.nc-button.disabled.danger:hover {
+  @apply bg-red-400 dark:bg-red-500 border-red-300 dark:border-red-400 text-gray-100
+  opacity-60;
+}
+
+.nc-button.disabled.success:active .nc-button-inner-text,
+.nc-button.disabled.success:hover .nc-button-inner-text,
+.nc-button.disabled.info:active .nc-button-inner-text,
+.nc-button.disabled.info:hover .nc-button-inner-text,
+.nc-button.disabled.warning:active .nc-button-inner-text,
+.nc-button.disabled.warning:hover .nc-button-inner-text,
+.nc-button.disabled.danger:active .nc-button-inner-text,
+.nc-button.disabled.danger:hover .nc-button-inner-text {
+  @apply text-gray-100;
+}
 </style>
