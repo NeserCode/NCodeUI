@@ -4,6 +4,11 @@
     <para>常用的操作组件</para>
     <headTitle :level="2">基础用法</headTitle>
     <para>在默认未传入 btnStyle 情况下，按钮将会以默认风格呈现</para>
+    <para
+      >另外，可使用 meaning
+      属性传入含有感情色彩的值，该属性接受一个字符串。可选的预设值有 success /
+      info / warning / danger</para
+    >
     <example-button-basic />
     <headTitle :level="2">禁用状态</headTitle>
     <para>你可以使用 disabled 属性来定义按钮是否被禁用</para>
@@ -19,12 +24,14 @@
       属性来控制按钮是否为简明样式，该样式可以执行加载方面的动画反馈。</para
     >
     <example-button-lightbar />
+    <placeholder />
   </div>
 </template>
 
 <script setup>
 import headTitle from '@/components/Native/HeadTitle/index.vue'
 import para from '@/components/Native/Para/index.vue'
+import placeholder from '@/components/Native/Placeholder/index.vue'
 
 import ExampleButtonBasic from '@/views/Docs/Basic/Button/Example/basic.vue'
 import ExampleButtonDisabled from '@/views/Docs/Basic/Button/Example/disabled.vue'
@@ -34,7 +41,7 @@ import ExampleButtonLightbar from '@/views/Docs/Basic/Button/Example/lightbar.vu
 
 <style scoped lang="postcss">
 .doc-nc-button {
-  @apply inline-flex flex-col w-full h-full;
+  @apply inline-flex flex-col w-full h-full min-h-full;
 }
 
 .nc-button {

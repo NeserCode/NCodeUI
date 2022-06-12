@@ -35,7 +35,7 @@ function toggleCodeShow () {
 
 <style scoped lang="postcss">
 .viewBox {
-  @apply relative flex flex-col w-full px-8 py-12 mx-auto my-4 border-2 rounded
+  @apply relative flex flex-col w-full px-8 py-12 mx-auto my-4 border-2 rounded-tr-lg
   border-gray-300 dark:border-gray-700 bg-white dark:bg-black;
 }
 
@@ -51,7 +51,7 @@ function toggleCodeShow () {
 
 /* Code Toggle */
 .codeToggle {
-  @apply absolute inline-block w-max -top-px -right-px py-2 px-4 border font-thin text-xs
+  @apply absolute inline-block w-max -top-px -right-px py-2 px-4 border font-thin text-xs rounded-tr-lg
   bg-transparent border-gray-300 dark:border-gray-700
   opacity-75 hover:opacity-90 cursor-pointer select-none;
 }
