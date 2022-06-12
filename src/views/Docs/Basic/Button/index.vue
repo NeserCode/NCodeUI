@@ -24,6 +24,10 @@
       属性来控制按钮是否为简明样式，该样式可以执行加载方面的动画反馈。</para
     >
     <example-button-lightbar />
+    <para
+      >使用 btnStyle = 'lightBar-top'属性来控制简明样式的标志线位于上方</para
+    >
+    <example-button-lightbar-top />
     <placeholder />
   </div>
 </template>
@@ -36,6 +40,7 @@ import placeholder from '@/components/Native/Placeholder/index.vue'
 import ExampleButtonBasic from '@/views/Docs/Basic/Button/Example/basic.vue'
 import ExampleButtonDisabled from '@/views/Docs/Basic/Button/Example/disabled.vue'
 import ExampleButtonLightbar from '@/views/Docs/Basic/Button/Example/lightbar.vue'
+import ExampleButtonLightbarTop from '@/views/Docs/Basic/Button/Example/lightbar-top.vue'
 // import { ref } from 'vue'
 </script>
 
