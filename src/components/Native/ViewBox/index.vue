@@ -1,10 +1,10 @@
 <template>
   <div class="viewBox">
-    <div class="assetsContainer"><slot></slot></div>
-    <div :class="['codeContainer', codeShowClass]">
+    <div class="assetsContainer" v-show="!isCodeShow"><slot></slot></div>
+    <div class="codeContainer" v-show="isCodeShow">
       <highlightjs autodetect :code="code" :lang="lang" />
     </div>
-    <span :class="['codeToggle', codeShowClass]">
+    <span :class="['codeToggle', codeShowClass]" @click="toggleCodeShow">
       <span class="sc">代码</span>
       /
       <span class="se">示例</span>
@@ -26,24 +26,27 @@ const $props = defineProps({
 const { code, lang } = toRefs($props)
 const isCodeShow = ref(false)
 
-const codeShowClass = computed(() => (isCodeShow.value ? 'codeshow' : null))
+const codeShowClass = computed(() => (isCodeShow.value ? 'codeShow' : null))
+
+function toggleCodeShow () {
+  isCodeShow.value = !isCodeShow.value
+}
 </script>
 
 <style scoped lang="postcss">
 .viewBox {
-  @apply relative flex flex-col justify-evenly items-center w-full px-8 py-12 mx-auto my-4 border-2 rounded
+  @apply relative flex flex-col w-full px-8 py-12 mx-auto my-4 border-2 rounded
   border-gray-300 dark:border-gray-700 bg-white dark:bg-black;
 }
 
 /* Assets Container */
 .assetsContainer {
-  @apply flex justify-evenly items-baseline w-full;
+  @apply flex justify-evenly w-full;
 }
 
 /* Code Container */
 .codeContainer {
-  @apply w-full h-0
-  overflow-hidden;
+  @apply w-full h-full;
 }
 
 /* Code Toggle */
