@@ -4,98 +4,37 @@
     <para>常用的操作组件</para>
     <headTitle :level="2">基础用法</headTitle>
     <para>在默认未传入 btnStyle 情况下，按钮将会以默认风格呈现</para>
-    <div class="viewBox">
-      <nc-button @click="logInnerText($event)">默认样式</nc-button>
-      <nc-button @click="logInnerText($event)" meaning="success"
-        >成功样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="info"
-        >提醒样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="warning"
-        >警告样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="danger"
-        >危险样式</nc-button
-      >
-    </div>
+    <example-button-basic />
     <headTitle :level="2">禁用状态</headTitle>
     <para>你可以使用 disabled 属性来定义按钮是否被禁用</para>
     <para
       >使用 disabled 属性来控制按钮是否为禁用状态。 该属性接受一个 Boolean
       类型的值。</para
     >
-    <div class="viewBox">
-      <nc-button @click="logInnerText($event)" disabled>默认样式</nc-button>
-      <nc-button @click="logInnerText($event)" meaning="success" disabled
-        >成功样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="info" disabled
-        >提醒样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="warning" disabled
-        >警告样式</nc-button
-      >
-      <nc-button @click="logInnerText($event)" meaning="danger" disabled
-        >危险样式</nc-button
-      >
-    </div>
+    <example-button-disabled />
     <headTitle :level="2">简明样式</headTitle>
     <para>你可以使用 btnStyle 属性来定义按钮是否启用简明样式</para>
     <para
       >使用 btnStyle = 'lightBar'
       属性来控制按钮是否为简明样式，该样式可以执行加载方面的动画反馈。</para
     >
-    <div class="viewBox">
-      <nc-button @click="logInnerText($event)" btnStyle="lightBar"
-        >默认样式</nc-button
-      >
-      <nc-button
-        @click="logInnerText($event)"
-        meaning="success"
-        btnStyle="lightBar"
-        >成功样式</nc-button
-      >
-      <nc-button
-        @click="logInnerText($event)"
-        meaning="info"
-        btnStyle="lightBar"
-        >提醒样式</nc-button
-      >
-      <nc-button
-        @click="logInnerText($event)"
-        meaning="warning"
-        btnStyle="lightBar"
-        >警告样式</nc-button
-      >
-      <nc-button
-        @click="logInnerText($event)"
-        meaning="danger"
-        btnStyle="lightBar"
-        >危险样式</nc-button
-      >
-    </div>
+    <example-button-lightbar />
   </div>
 </template>
 
 <script setup>
 import headTitle from '@/components/Native/HeadTitle/index.vue'
 import para from '@/components/Native/Para/index.vue'
-import NcButton from '@/components/Basic/Button/index.vue'
-// import { ref } from 'vue'
 
-function logInnerText (e) {
-  console.log(e.target.textContent)
-}
+import ExampleButtonBasic from '@/views/Docs/Basic/Button/Example/basic.vue'
+import ExampleButtonDisabled from '@/views/Docs/Basic/Button/Example/disabled.vue'
+import ExampleButtonLightbar from '@/views/Docs/Basic/Button/Example/lightbar.vue'
+// import { ref } from 'vue'
 </script>
 
 <style scoped lang="postcss">
 .doc-nc-button {
   @apply inline-flex flex-col w-full h-full;
-}
-
-.viewBox {
-  @apply flex justify-evenly items-center min-w-max mx-auto my-12;
 }
 
 .nc-button {
