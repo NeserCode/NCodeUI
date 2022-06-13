@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-button btnStyle="lightBar-top">默认样式</nc-button>
+    <nc-button btnStyle="lightBar-top" disa>默认样式</nc-button>
     <nc-button meaning="success" btnStyle="lightBar-top">成功样式</nc-button>
     <nc-button meaning="info" btnStyle="lightBar-top">提醒样式</nc-button>
     <nc-button meaning="warning" btnStyle="lightBar-top">警告样式</nc-button>

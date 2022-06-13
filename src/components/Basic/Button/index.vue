@@ -2,9 +2,14 @@
   <button
     type="button"
     :disabled="disabled"
-    :class="['nc-button', disableClass, btnStyle, meaning]"
+    :class="['nc-button', disableClass, btnStyle, meaning, loadingClass]"
   >
-    <span :class="['nc-button-inner-text']"><slot></slot></span>
+    <span v-show="!loading || !loadingText" :class="['nc-button-inner-text']"
+      ><slot></slot
+    ></span>
+    <span v-show="loading && loadingText" :class="['nc-button-inner-text']">{{
+      loadingText
+    }}</span>
     <span v-if="btnStyle" class="nc-button-line"> </span>
   </button>
 </template>
@@ -24,10 +29,19 @@ var $props = defineProps({
   meaning: {
     type: String,
     defalut: null
+  },
+  loading: {
+    type: Boolean,
+    defalut: false
+  },
+  loadingText: {
+    type: String,
+    defalut: null
   }
 })
-const { disabled, btnStyle, meaning } = toRefs($props)
+const { disabled, btnStyle, meaning, loading } = toRefs($props)
 var disableClass = computed(() => (disabled.value ? 'disabled' : null))
+var loadingClass = computed(() => (loading.value ? 'loading' : null))
 </script>
 
 <style scoped lang="postcss">
@@ -181,7 +195,8 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 /* nc-button-line */
 .nc-button.lightBar .nc-button-line,
 .nc-button.lightBar-top .nc-button-line {
-  @apply absolute inline-block min-w-full h-1 bottom-0;
+  @apply absolute inline-block min-w-full h-1 bottom-0
+  transition-all;
 }
 
 .nc-button.lightBar-top .nc-button-line {
@@ -349,5 +364,116 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 .nc-button.lightBar.disabled.danger:active .nc-button-inner-text,
 .nc-button.lightBar-top.disabled.danger:active .nc-button-inner-text {
   @apply text-red-400;
+}
+
+/* Loading Keyframes */
+.nc-button.lightBar.loading .nc-button-line,
+.nc-button.lightBar-top.loading .nc-button-line {
+  animation: load-bg 1.8s ease-in-out infinite;
+}
+
+.nc-button.lightBar.success.loading .nc-button-line,
+.nc-button.lightBar-top.success.loading .nc-button-line {
+  animation: load-bg-success 1.8s ease-in-out infinite;
+}
+.nc-button.lightBar.info.loading .nc-button-line,
+.nc-button.lightBar-top.info.loading .nc-button-line {
+  animation: load-bg-info 1.8s ease-in-out infinite;
+}
+.nc-button.lightBar.warning.loading .nc-button-line,
+.nc-button.lightBar-top.warning.loading .nc-button-line {
+  animation: load-bg-warning 1.8s ease-in-out infinite;
+}
+.nc-button.lightBar.danger.loading .nc-button-line,
+.nc-button.lightBar-top.danger.loading .nc-button-line {
+  animation: load-bg-danger 1.8s ease-in-out infinite;
+}
+
+/* Keyframes Define */
+@keyframes load-bg {
+  0% {
+    @apply bg-blue-400;
+  }
+  25% {
+    @apply bg-blue-300;
+  }
+  50% {
+    @apply bg-blue-600;
+  }
+  75% {
+    @apply bg-blue-300;
+  }
+  100% {
+    @apply bg-blue-400;
+  }
+}
+
+@keyframes load-bg-success {
+  0% {
+    @apply bg-green-400;
+  }
+  25% {
+    @apply bg-green-300;
+  }
+  50% {
+    @apply bg-green-600;
+  }
+  75% {
+    @apply bg-green-300;
+  }
+  100% {
+    @apply bg-green-400;
+  }
+}
+@keyframes load-bg-info {
+  0% {
+    @apply bg-purple-400;
+  }
+  25% {
+    @apply bg-purple-300;
+  }
+  50% {
+    @apply bg-purple-600;
+  }
+  75% {
+    @apply bg-purple-300;
+  }
+  100% {
+    @apply bg-purple-400;
+  }
+}
+@keyframes load-bg-warning {
+  0% {
+    @apply bg-yellow-400;
+  }
+  25% {
+    @apply bg-yellow-300;
+  }
+  50% {
+    @apply bg-yellow-600;
+  }
+  75% {
+    @apply bg-yellow-300;
+  }
+  100% {
+    @apply bg-yellow-400;
+  }
+}
+@keyframes load-bg-danger {
+  0% {
+    @apply bg-red-400;
+  }
+  25% {
+    @apply bg-red-300;
+  }
+  50% {
+    @apply bg-red-600;
+  }
+  75% {
+    @apply bg-red-300;
+  }
+  100% {
+    @apply bg-red-400;
+  }
 }
 </style>

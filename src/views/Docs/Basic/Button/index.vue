@@ -28,6 +28,17 @@
       >使用 btnStyle = 'lightBar-top'属性来控制简明样式的标志线位于上方</para
     >
     <example-button-lightbar-top />
+    <headTitle :level="2">加载状态</headTitle>
+    <para>另外，作为一个效果反馈组件，我们提供了一个 loading 属性</para>
+    <para
+      >使用 loading 属性，决定按钮是否处于加载样式，该属性接受一个 Boolean
+      类型的值</para
+    >
+    <para
+      >最后，为按钮添加 loadingText 属性可使按钮于 loading
+      状态下使用该字段值为按钮显示文本。该字段值接受一个 String 类型的值</para
+    >
+    <example-button-lightbar-loading />
     <placeholder />
   </div>
 </template>
@@ -41,6 +52,7 @@ import ExampleButtonBasic from '@/views/Docs/Basic/Button/Example/basic.vue'
 import ExampleButtonDisabled from '@/views/Docs/Basic/Button/Example/disabled.vue'
 import ExampleButtonLightbar from '@/views/Docs/Basic/Button/Example/lightbar.vue'
 import ExampleButtonLightbarTop from '@/views/Docs/Basic/Button/Example/lightbar-top.vue'
+import ExampleButtonLightbarLoading from '@/views/Docs/Basic/Button/Example/lightbar-loading.vue'
 // import { ref } from 'vue'
 </script>
 
