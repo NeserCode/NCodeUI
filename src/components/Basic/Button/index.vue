@@ -242,6 +242,10 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 .nc-button.disabled:hover {
   @apply border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-800 dark:text-gray-100;
 }
+.nc-button.lightBar.disabled:active .nc-button-line,
+.nc-button.lightBar-top.disabled:active .nc-button-line {
+  @apply bg-blue-300;
+}
 .nc-button.disabled:active .nc-button-inner-text,
 .nc-button.disabled:hover .nc-button-inner-text {
   @apply text-gray-800 dark:text-gray-100;
@@ -252,20 +256,64 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
   @apply bg-green-400 dark:bg-green-500 border-green-300 dark:border-gray-400 text-gray-100
   opacity-60;
 }
+.nc-button.lightBar.disabled.success:active,
+.nc-button.lightBar.disabled.success:hover,
+.nc-button.lightBar-top.disabled.success:active,
+.nc-button.lightBar-top.disabled.success:hover {
+  @apply bg-white dark:bg-black border-green-300 dark:border-green-400 text-red-400
+  opacity-60;
+}
+.nc-button.lightBar.disabled.success:active .nc-button-line,
+.nc-button.lightBar-top.disabled.success:active .nc-button-line {
+  @apply bg-green-300;
+}
 .nc-button.disabled.info:active,
 .nc-button.disabled.info:hover {
   @apply bg-purple-400 dark:bg-purple-500 border-purple-300 dark:border-purple-400 text-gray-100
   opacity-60;
+}
+.nc-button.lightBar.disabled.info:active,
+.nc-button.lightBar.disabled.info:hover,
+.nc-button.lightBar-top.disabled.info:active,
+.nc-button.lightBar-top.disabled.info:hover {
+  @apply bg-white dark:bg-black border-purple-300 dark:border-purple-400 text-purple-400
+  opacity-60;
+}
+.nc-button.lightBar.disabled.info:active .nc-button-line,
+.nc-button.lightBar-top.disabled.info:active .nc-button-line {
+  @apply bg-purple-300;
 }
 .nc-button.disabled.warning:active,
 .nc-button.disabled.warning:hover {
   @apply bg-yellow-400 dark:bg-yellow-500 border-yellow-300 dark:border-yellow-400 text-gray-100
   opacity-60;
 }
+.nc-button.lightBar.disabled.warning:active,
+.nc-button.lightBar.disabled.warning:hover,
+.nc-button.lightBar-top.disabled.warning:active,
+.nc-button.lightBar-top.disabled.warning:hover {
+  @apply bg-white dark:bg-black border-yellow-300 dark:border-yellow-400 text-yellow-400
+  opacity-60;
+}
+.nc-button.lightBar.disabled.warning:active .nc-button-line,
+.nc-button.lightBar-top.disabled.warning:active .nc-button-line {
+  @apply bg-yellow-300;
+}
 .nc-button.disabled.danger:active,
 .nc-button.disabled.danger:hover {
   @apply bg-red-400 dark:bg-red-500 border-red-300 dark:border-red-400 text-gray-100
   opacity-60;
+}
+.nc-button.lightBar.disabled.danger:active,
+.nc-button.lightBar.disabled.danger:hover,
+.nc-button.lightBar-top.disabled.danger:active,
+.nc-button.lightBar-top.disabled.danger:hover {
+  @apply bg-white dark:bg-black border-red-300 dark:border-red-400 text-red-400
+  opacity-60;
+}
+.nc-button.lightBar.disabled.danger:active .nc-button-line,
+.nc-button.lightBar-top.disabled.danger:active .nc-button-line {
+  @apply bg-red-300;
 }
 
 .nc-button.disabled.success:active .nc-button-inner-text,
@@ -277,5 +325,29 @@ var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 .nc-button.disabled.danger:active .nc-button-inner-text,
 .nc-button.disabled.danger:hover .nc-button-inner-text {
   @apply text-gray-100;
+}
+.nc-button.lightBar.disabled.success:hover .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.success:hover .nc-button-inner-text,
+.nc-button.lightBar.disabled.success:active .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.success:active .nc-button-inner-text {
+  @apply text-green-400;
+}
+.nc-button.lightBar.disabled.info:hover .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.info:hover .nc-button-inner-text,
+.nc-button.lightBar.disabled.info:active .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.info:active .nc-button-inner-text {
+  @apply text-purple-400;
+}
+.nc-button.lightBar.disabled.warning:hover .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.warning:hover .nc-button-inner-text,
+.nc-button.lightBar.disabled.warning:active .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.warning:active .nc-button-inner-text {
+  @apply text-yellow-400;
+}
+.nc-button.lightBar.disabled.danger:hover .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.danger:hover .nc-button-inner-text,
+.nc-button.lightBar.disabled.danger:active .nc-button-inner-text,
+.nc-button.lightBar-top.disabled.danger:active .nc-button-inner-text {
+  @apply text-red-400;
 }
 </style>
