@@ -77,3 +77,9 @@ function toggleLoading () {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.viewBox .nc-button {
+  @apply m-4;
+}
+</style>

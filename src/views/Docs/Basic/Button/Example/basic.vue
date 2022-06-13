@@ -22,3 +22,9 @@ const code = ref(`<template>
     <nc-button  meaning="danger">危险样式</nc-button>
 </template>`)
 </script>
+
+<style lang="postcss" scoped>
+.viewBox .nc-button {
+  @apply m-4;
+}
+</style>

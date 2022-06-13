@@ -41,7 +41,7 @@ function toggleCodeShow () {
 
 /* Assets Container */
 .assetsContainer {
-  @apply flex justify-evenly w-full;
+  @apply flex flex-wrap flex-row justify-center w-full h-full;
 }
 
 /* Code Container */

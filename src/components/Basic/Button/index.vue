@@ -2,7 +2,7 @@
   <button
     type="button"
     :disabled="disabled"
-    :class="['nc-button', disableClass, btnStyle, meaning, loadingClass]"
+    :class="['nc-button', disableClass, btnStyle, meaning, loadingClass, size]"
   >
     <span v-show="!loading || !loadingText" :class="['nc-button-inner-text']"
       ><slot></slot
@@ -37,9 +37,13 @@ var $props = defineProps({
   loadingText: {
     type: String,
     defalut: null
+  },
+  size: {
+    type: [String, Number],
+    defalut: 'normal'
   }
 })
-const { disabled, btnStyle, meaning, loading } = toRefs($props)
+const { disabled, btnStyle, meaning, loading, size } = toRefs($props)
 var disableClass = computed(() => (disabled.value ? 'disabled' : null))
 var loadingClass = computed(() => (loading.value ? 'loading' : null))
 </script>
@@ -47,9 +51,21 @@ var loadingClass = computed(() => (loading.value ? 'loading' : null))
 <style scoped lang="postcss">
 /* nc-button */
 .nc-button {
-  @apply relative inline-flex justify-center items-center py-1.5 px-5 m-0 max-w-min h-full border-2 rounded-md
+  @apply relative inline-flex justify-center items-center py-1.5 px-5 m-0 max-w-min border-2 rounded-md
   border-gray-200 dark:border-gray-600 bg-white dark:bg-black
   transition-all cursor-pointer overflow-hidden box-border;
+}
+.nc-button.mini {
+  @apply py-0 px-0.5;
+}
+.nc-button.small {
+  @apply py-0.5 px-2.5;
+}
+.nc-button.normal {
+  @apply py-2 px-5;
+}
+.nc-button.large {
+  @apply py-4 px-7;
 }
 /* Default */
 .nc-button:hover {
