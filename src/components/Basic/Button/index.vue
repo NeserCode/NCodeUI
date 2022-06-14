@@ -44,8 +44,8 @@ var $props = defineProps({
   }
 })
 const { disabled, btnStyle, meaning, loading, size } = toRefs($props)
-var disableClass = computed(() => (disabled.value ? 'disabled' : null))
-var loadingClass = computed(() => (loading.value ? 'loading' : null))
+const disableClass = computed(() => (disabled.value ? 'disabled' : null))
+const loadingClass = computed(() => (loading.value ? 'loading' : null))
 </script>
 
 <style scoped lang="postcss">
@@ -65,7 +65,7 @@ var loadingClass = computed(() => (loading.value ? 'loading' : null))
   @apply py-2 px-5;
 }
 .nc-button.large {
-  @apply py-4 px-7;
+  @apply py-3 px-6;
 }
 /* Default */
 .nc-button:hover {

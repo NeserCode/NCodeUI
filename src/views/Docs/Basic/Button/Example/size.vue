@@ -1,33 +1,33 @@
 <template>
   <viewBox :code="code">
-    <nc-button>默认样式</nc-button>
+    <nc-button :size="sizes[targetSize]">默认样式</nc-button>
     <nc-button
       meaning="success"
       @click="handleChangeSize()"
       :size="sizes[targetSize]"
       btnStyle="lightBar"
-      >成功样式</nc-button
+      >点击</nc-button
     >
     <nc-button
       meaning="info"
       @click="handleChangeSize()"
       :size="sizes[targetSize]"
-      btnStyle="lightBar-top"
-      >提醒样式</nc-button
+      >按钮</nc-button
     >
     <nc-button
       meaning="warning"
       @click="handleChangeSize()"
       :size="sizes[targetSize]"
+      disabled
       btnStyle="lightBar"
-      >警告样式</nc-button
+      >调整</nc-button
     >
     <nc-button
       meaning="danger"
       @click="handleChangeSize()"
       :size="sizes[targetSize]"
       btnStyle="lightBar-top"
-      >危险样式</nc-button
+      >尺寸</nc-button
     >
   </viewBox>
 </template>
@@ -40,10 +40,10 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-button btnStyle="lightBar-top">默认样式</nc-button>
-    <nc-button meaning="success" btnStyle="lightBar-top" @click="handleChangeSize()" :size="sizes[targetSize]">成功样式</nc-button> 
-    <nc-button meaning="info" btnStyle="lightBar-top" @click="handleChangeSize()" :size="sizes[targetSize]">提醒样式</nc-button>
-    <nc-button meaning="warning" btnStyle="lightBar-top" @click="handleChangeSize()" :size="sizes[targetSize]">警告样式</nc-button>
+    <nc-button :size="sizes[targetSize]">默认样式</nc-button>
+    <nc-button meaning="success" btnStyle="lightBar" @click="handleChangeSize()" :size="sizes[targetSize]">成功样式</nc-button> 
+    <nc-button meaning="info" @click="handleChangeSize()" :size="sizes[targetSize]">提醒样式</nc-button>
+    <nc-button meaning="warning" btnStyle="lightBar" @click="handleChangeSize()" disabled :size="sizes[targetSize]">警告样式</nc-button>
     <nc-button meaning="danger" btnStyle="lightBar-top" @click="handleChangeSize()" :size="sizes[targetSize]">危险样式</nc-button>
 </template>
 
@@ -55,7 +55,6 @@ var targetSize = ref(2)
 
 function handleChangeSize () {
   targetSize.value = targetSize.value === 3 ? 0 : targetSize.value + 1
-  console.log(targetSize.value)
 }
 <` + '/script>'
 )
@@ -64,7 +63,6 @@ var targetSize = ref(2)
 
 function handleChangeSize () {
   targetSize.value = targetSize.value === 3 ? 0 : targetSize.value + 1
-  console.log(targetSize.value)
 }
 </script>
 

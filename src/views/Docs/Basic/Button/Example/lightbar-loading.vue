@@ -31,6 +31,7 @@
       btnStyle="lightBar-top"
       :loading="isLoading"
       @click="toggleLoading"
+      :disabled="isLoading"
       >Loading</nc-button
     >
   </viewBox>
@@ -48,7 +49,7 @@ const code = ref(
     <nc-button meaning="success" btnStyle="lightBar" :loading="isLoading" loadingText="Clicking" @click="toggleLoading">点击</nc-button>
     <nc-button meaning="info" btnStyle="lightBar-top" :loading="isLoading" @click="toggleLoading">按钮</nc-button>
     <nc-button meaning="warning" btnStyle="lightBar" :loading="isLoading" @click="toggleLoading" disabled>开启</nc-button>
-    <nc-button meaning="danger" btnStyle="lightBar-top" :loading="isLoading" @click="toggleLoading">Loading</nc-button>
+    <nc-button meaning="danger" btnStyle="lightBar-top" :loading="isLoading" :disabled="isLoading" @click="toggleLoading">Loading</nc-button>
 </template>
 
 <script>
