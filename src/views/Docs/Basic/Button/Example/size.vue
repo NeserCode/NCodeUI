@@ -47,7 +47,7 @@ const code = ref(
     <nc-button meaning="danger" btnStyle="lightBar-top" @click="handleChangeSize()" :size="sizes[targetSize]">危险样式</nc-button>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
 var sizes = ref(['mini', 'small', 'normal', 'large'])

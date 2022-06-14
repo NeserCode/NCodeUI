@@ -52,7 +52,7 @@ const code = ref(
     <nc-button meaning="danger" btnStyle="lightBar-top" :loading="isLoading" :disabled="isLoading" @click="toggleLoading">Loading</nc-button>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
 var isLoading = ref(false)

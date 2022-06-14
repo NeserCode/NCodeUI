@@ -21,6 +21,14 @@
     >
     <para>需要注意的是，disabled 禁用的仅仅只是 Link 的链接跳转行为。</para>
     <example-link-disabled />
+    <headTitle :level="2">下划线</headTitle>
+    <para
+      >使用 underline 属性控制 Link 的下划线行为，该属性接受一个 Boolean
+      类型的值</para
+    >
+    <example-link-underline />
+    <headTitle :level="2">属性键值</headTitle>
+    <para>😥 这部分等我什么时候做出来表格再写</para>
     <placeholder />
   </div>
 </template>
@@ -32,6 +40,7 @@ import placeholder from '@/components/Native/Placeholder/index.vue'
 
 import ExampleLinkBasic from '@/views/Docs/Basic/Link/Example/basic.vue'
 import ExampleLinkDisabled from '@/views/Docs/Basic/Link/Example/disabled.vue'
+import ExampleLinkUnderline from '@/views/Docs/Basic/Link/Example/underline.vue'
 </script>
 
 <style scoped lang="postcss">

@@ -1,5 +1,5 @@
 <template>
-  <span :class="['nc-link', meaning, disabledClass]">
+  <span :class="['nc-link', meaning, disabledClass, underlineClass]">
     <a :href="hrefString" :target="target" :disabled="disabled"
       ><slot></slot
     ></a>
@@ -25,12 +25,17 @@ const $props = defineProps({
   meaning: {
     type: String,
     default: null
+  },
+  underline: {
+    type: Boolean,
+    default: true
   }
 })
 
-const { href, target, disabled, meaning } = toRefs($props)
+const { href, target, disabled, meaning, underline } = toRefs($props)
 const hrefString = computed(() => (disabled.value ? null : href.value ?? null))
 const disabledClass = computed(() => (disabled.value ? 'disabled' : null))
+const underlineClass = computed(() => (underline.value ? null : 'no-underline'))
 </script>
 
 <style lang="postcss" scoped>
@@ -87,6 +92,10 @@ const disabledClass = computed(() => (disabled.value ? 'disabled' : null))
 }
 .nc-link.danger:hover::after {
   @apply bg-red-300;
+}
+
+.nc-link.no-underline:hover::after {
+  @apply bg-transparent;
 }
 
 /* Disabled Style */
