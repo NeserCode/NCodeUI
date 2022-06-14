@@ -1,6 +1,8 @@
 <template>
   <viewBox :code="code">
-    <nc-link href="#" @click="handleDisabledLink">切换 Disabled 状态</nc-link>
+    <nc-link href="#" :disabled="isDisabled" @click="handleDisabledLink"
+      >切换 Disabled 状态</nc-link
+    >
     <nc-link href="#" target="_blank" :disabled="isDisabled" meaning="success"
       >Success 链接</nc-link
     >
@@ -24,7 +26,7 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-link href="#" @click="handleDisabledLink">切换 Disabled 状态</nc-link>
+    <nc-link href="#" :disabled="isDisabled" @click="handleDisabledLink">切换 Disabled 状态</nc-link>
     <nc-link href="#" target="_blank" :disabled="isDisabled" meaning="success">Success 链接</nc-link>
     <nc-link href="#" target="_blank" :disabled="isDisabled" meaning="info">Info 链接</nc-link>
     <nc-link href="#" target="_blank" :disabled="isDisabled" meaning="warning">Warning 链接</nc-link>
@@ -33,7 +35,7 @@ const code = ref(
 
 <script setup>
 import { ref } from 'vue'
-let isDisabled = ref(false)
+const isDisabled = ref(false)
 
 function handleDisabledLink(){
     isDisabled.value = !isDisabled.value
