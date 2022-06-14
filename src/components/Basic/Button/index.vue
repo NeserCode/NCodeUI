@@ -20,27 +20,27 @@ import { defineProps, computed, toRefs } from 'vue'
 var $props = defineProps({
   disabled: {
     type: Boolean,
-    defalut: false
+    default: false
   },
   btnStyle: {
     type: String,
-    defalut: null
+    default: null
   },
   meaning: {
     type: String,
-    defalut: null
+    default: null
   },
   loading: {
     type: Boolean,
-    defalut: false
+    default: false
   },
   loadingText: {
     type: String,
-    defalut: null
+    default: null
   },
   size: {
     type: [String, Number],
-    defalut: 'normal'
+    default: 'normal'
   }
 })
 const { disabled, btnStyle, meaning, loading, size } = toRefs($props)
@@ -211,7 +211,7 @@ const loadingClass = computed(() => (loading.value ? 'loading' : null))
 /* nc-button-line */
 .nc-button.lightBar .nc-button-line,
 .nc-button.lightBar-top .nc-button-line {
-  @apply absolute inline-block min-w-full h-1 bottom-0
+  @apply absolute inline-block min-w-full h-1 -bottom-px
   transition-all;
 }
 

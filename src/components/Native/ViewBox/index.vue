@@ -19,7 +19,7 @@ const $props = defineProps({
   code: String,
   lang: {
     type: String,
-    defalut: () => 'html'
+    default: () => 'html'
   }
 })
 

@@ -12,6 +12,6 @@
 
 /* format */
 .para {
-  text-indent: 2ch;
+  text-indent: 4ch;
 }
 </style>
