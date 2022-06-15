@@ -23,6 +23,11 @@ const routes = [
     component: () => import('@/views/Docs/Basic/Link/index.vue')
   },
   {
+    path: '/docs/basic/scrollbar',
+    name: 'Docs-Basic-Scrollbar',
+    component: () => import('@/views/Docs/Basic/Scrollbar/index.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/Home.vue')

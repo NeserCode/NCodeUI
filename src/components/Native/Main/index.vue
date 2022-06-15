@@ -146,9 +146,4 @@ function initNodeClass (id) {
 .view::-webkit-scrollbar {
   display: none;
 }
-
-/* Unsupport less */
-.view {
-  scroll-behavior: smooth;
-}
 </style>

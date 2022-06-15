@@ -22,7 +22,7 @@
             @mousedown="handleBarHold($event)"
           ></span>
         </div>
-        <div ref="realContent"><slot></slot></div>
+        <div class="realContent" ref="realContent"><slot></slot></div>
       </div>
     </div>
   </div>
@@ -311,7 +311,14 @@ span.verCell.focusing.actived {
   @apply opacity-50;
 }
 
+/* Unsupport less */
 .scrollContent::-webkit-scrollbar {
   display: none;
+}
+.horizontal,
+.vertical,
+span.horCell,
+span.verCell {
+  scroll-behavior: auto;
 }
 </style>

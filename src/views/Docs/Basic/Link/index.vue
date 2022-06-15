@@ -45,6 +45,6 @@ import ExampleLinkUnderline from '@/views/Docs/Basic/Link/Example/underline.vue'
 
 <style scoped lang="postcss">
 .doc-nc-link {
-  @apply flex flex-col w-full h-full;
+  @apply flex flex-col w-full h-full py-4 px-6;
 }
 </style>

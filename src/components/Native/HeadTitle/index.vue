@@ -1,6 +1,8 @@
 <template>
   <span class="headTitle" :id="nodeLink">
-    <a :class="['titleNode', haneleLevelClass()]" :href="'#' + nodeLink"
+    <a
+      :class="['titleNode', haneleLevelClass()]"
+      @click="handleScrollToTitle($event)"
       >#<sup>{{ level }}</sup></a
     >
     <span :class="['titleText', haneleLevelClass()]" ref="textContent"
@@ -21,7 +23,7 @@ var textContent = ref(null)
 var nodeLink = ref('')
 
 onMounted(() => {
-  nodeLink.value = textContent.value.textContent
+  nodeLink.value = textContent.value.textContent.replace(' ', '-')
 })
 
 nextTick(() => {
@@ -38,6 +40,15 @@ function handleThrowRename (s) {
       `Note that in this page you have multiple components (Native: headTitle) with the same title, which will affect the location of the anchor points on the page. The repeat title: ${s}`
     )
   }
+}
+
+function handleScrollToTitle (e) {
+  document
+    .querySelector('.view .nc-scrollbar .container .scrollContent')
+    .scrollTo({
+      top: e.target.offsetTop - 8,
+      behavior: 'smooth'
+    })
 }
 </script>
 
