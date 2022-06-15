@@ -18,6 +18,8 @@
       Boolean 类型的值。其中 vertical 即 y 轴是默认开启的</para
     >
     <example-scrollbar-vertical />
+    <headTitle :level="2">风格</headTitle>
+    <para>目前暂且只有 VsCode 风格</para>
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
     <placeholder />

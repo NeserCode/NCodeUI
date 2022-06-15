@@ -28,7 +28,7 @@ const code = ref(`<template>
 }
 .placeContainer span {
   @apply block w-64 text-center my-2
-  bg-blue-300;
+  bg-blue-300 dark:bg-gray-500;
 }
 </style>`)
 </script>
@@ -39,6 +39,6 @@ const code = ref(`<template>
 }
 .placeContainer span {
   @apply block w-64 text-center my-2
-  bg-blue-300;
+  bg-blue-300 dark:bg-gray-500;
 }
 </style>
