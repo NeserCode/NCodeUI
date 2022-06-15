@@ -196,10 +196,8 @@ function handleShow () {
     xbar.value.style.transition = 'opacity ease-in-out 0.32s'
     ythumb.value.style.transition = 'opacity ease-in-out 0.32s'
     xthumb.value.style.transition = 'opacity ease-in-out 0.32s'
-    ybar.value.style.opacity = '.3'
-    xbar.value.style.opacity = '.3'
-    ythumb.value.style.opacity = '.5'
-    xthumb.value.style.opacity = '.5'
+    ybar.value.classList.add('focusing')
+    xbar.value.classList.add('focusing')
   }
 }
 function handleHidden () {
@@ -208,17 +206,15 @@ function handleHidden () {
     xbar.value.style.transition = 'opacity ease-in-out 0.64s'
     ythumb.value.style.transition = 'opacity ease-in-out 0.64s'
     xthumb.value.style.transition = 'opacity ease-in-out 0.64s'
-    ybar.value.style.opacity = '0'
-    xbar.value.style.opacity = '0'
-    ythumb.value.style.opacity = '0'
-    xthumb.value.style.opacity = '0'
+    ybar.value.classList.remove('focusing')
+    xbar.value.classList.remove('focusing')
   }
 }
 function handleBarHold (e) {
   if (!isBarHold.value) {
     isBarHold.value = true
     e.target.style.transition = 'none'
-    e.target.style.opacity = '0.45'
+    e.target.classList.add('actived')
     prevY.value = e.pageY
     prevX.value = e.pageX
     document.onmousemove = (ev) => {
@@ -238,19 +234,19 @@ function handleBarHold (e) {
       }
     }
     document.onmouseup = () => {
-      handleBarFree()
+      handleBarFree(e)
       prevY.value = null
       prevX.value = null
     }
   }
 }
-function handleBarFree () {
+function handleBarFree (e) {
   if (isBarHold.value) {
     isBarHold.value = false
+    // hold class
+    e.target.classList.remove('actived')
     ybar.value.style.transition = 'opacity ease-in-out 0.64s'
-    ybar.value.style.opacity = '0.3'
     xbar.value.style.transition = 'opacity ease-in-out 0.64s'
-    xbar.value.style.opacity = '0.3'
     document.onmouseup = null
     document.onmousemove = null
   }
@@ -285,7 +281,7 @@ function handleBarFree () {
 }
 .nc-scrollbar div.container div.horizontal span.horCell,
 .nc-scrollbar div.container div.vertical span.verCell {
-  @apply relative block opacity-25;
+  @apply relative block;
 }
 .nc-scrollbar div.container div.horizontal span.horCell {
   @apply h-full min-h-full;
@@ -300,7 +296,19 @@ function handleBarFree () {
 }
 span.horCell,
 span.verCell {
-  @apply bg-black dark:bg-white hover:opacity-60;
+  @apply bg-black dark:bg-white opacity-25 hover:opacity-40;
+}
+span.horCell.focusing,
+span.verCell.focusing {
+  @apply opacity-25 hover:opacity-40;
+}
+span.horCell.actived,
+span.verCell.actived {
+  @apply opacity-50;
+}
+span.horCell.focusing.actived,
+span.verCell.focusing.actived {
+  @apply opacity-50;
 }
 
 .scrollContent::-webkit-scrollbar {
