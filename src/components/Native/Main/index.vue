@@ -11,7 +11,9 @@
       </span>
     </div>
     <div class="view">
-      <router-view></router-view>
+      <nc-scrollbar>
+        <router-view></router-view>
+      </nc-scrollbar>
     </div>
   </div>
 </template>
@@ -19,6 +21,7 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import NcScrollbar from '@/components/Basic/Scrollbar/index.vue'
 const $router = useRouter()
 const $route = useRoute()
 
@@ -123,7 +126,7 @@ function initNodeClass (id) {
 
 /* View */
 .view {
-  @apply p-4 px-6
+  @apply relative
   overflow-y-auto overflow-x-hidden;
 }
 

@@ -71,7 +71,7 @@ import ExampleButtonSize from '@/views/Docs/Basic/Button/Example/size.vue'
 
 <style scoped lang="postcss">
 .doc-nc-button {
-  @apply inline-flex flex-col w-full h-full min-h-full;
+  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 
 .nc-button {
