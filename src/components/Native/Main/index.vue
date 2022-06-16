@@ -42,6 +42,11 @@ var docs = ref([
     path: '/docs'
   },
   {
+    title: 'Dark',
+    type: 'node',
+    path: '/docs/dark'
+  },
+  {
     title: '基础',
     type: 'title'
   },

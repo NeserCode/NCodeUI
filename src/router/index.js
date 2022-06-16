@@ -13,6 +13,11 @@ const routes = [
     component: () => import('@/views/Docs/index.vue')
   },
   {
+    path: '/docs/dark',
+    name: 'Docs-Dark',
+    component: () => import('@/views/Docs/Others/dark.vue')
+  },
+  {
     path: '/docs/basic/button',
     name: 'Docs-Basic-Button',
     component: () => import('@/views/Docs/Basic/Button/index.vue')

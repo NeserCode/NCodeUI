@@ -6,6 +6,7 @@
     <para>在默认未传入 btnStyle 情况下，按钮将会以默认风格呈现</para>
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
+    <example-checkbox-basic />
     <placeholder />
   </div>
 </template>
@@ -15,6 +16,8 @@ import headTitle from '@/components/Native/HeadTitle/index.vue'
 import para from '@/components/Native/Para/index.vue'
 import placeholder from '@/components/Native/Placeholder/index.vue'
 // import { ref } from 'vue'
+
+import ExampleCheckboxBasic from '@/views/Docs/Forms/Checkbox/Example/basic.vue'
 </script>
 
 <style scoped lang="postcss">
