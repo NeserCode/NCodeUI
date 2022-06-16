@@ -28,7 +28,8 @@ onBeforeMount(() => {
 /* 404 Style */
 .mainFont {
   @apply font-mono font-black text-9xl
-  text-gray-800 dark:text-gray-100;
+  text-gray-800 dark:text-gray-100
+  select-none;
 }
 
 /* Explain Text */

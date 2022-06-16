@@ -187,6 +187,8 @@ function initBars () {
 
   ythumb.value.style.height = '0px'
   xthumb.value.style.width = '0px'
+  offsetThumbY.value = scrollLeft + offsetW - ythumb.value.offsetWidth
+  offsetThumbX.value = scrollTop + offsetH - xthumb.value.offsetHeight
 
   nextTick(() => {
     if (
@@ -205,6 +207,7 @@ function initBars () {
       catchBarHeight.value = h
       catchBarWidth.value = w
     }
+
     limit.value.ysmin = 0
     limit.value.ysmax = scrollH - offsetH
     scrollBarHeight.value = (offsetH / scrollH) * catchBarHeight.value
