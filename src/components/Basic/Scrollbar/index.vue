@@ -106,11 +106,9 @@ watch(offsetThumbX, () => {
 
 watch(catchBarHeight, () => {
   ythumb.value.style.height = `${catchBarHeight.value}px`
-  console.log(catchBarHeight.value)
 })
 watch(catchBarWidth, () => {
   xthumb.value.style.width = `${catchBarWidth.value}px`
-  console.log(catchBarHeight.value)
 })
 
 watch($route, () => {
@@ -313,7 +311,6 @@ function getComputedHeight (children, parent) {
         Number(window.getComputedStyle(parent).paddingTop.replace('px', '')) +
         Number(window.getComputedStyle(parent).paddingBottom.replace('px', ''))
     }
-    console.log(totalHeight)
     return totalHeight
   })
 }
@@ -335,7 +332,6 @@ function getComputedWidth (children, parent) {
         Number(window.getComputedStyle(parent).paddingLeft.replace('px', '')) +
         Number(window.getComputedStyle(parent).paddingRight.replace('px', ''))
     }
-    console.log(totalWidth)
     return totalWidth
   })
 }
@@ -343,19 +339,18 @@ function getComputedWidth (children, parent) {
 
 <style lang="postcss">
 .nc-scrollbar {
-  @apply relative top-0 left-0 w-full h-full
-  select-none;
+  @apply relative top-0 left-0 w-full h-full;
 }
 .scrollContent {
-  @apply relative w-full h-full overflow-scroll;
+  @apply relative w-full h-full overflow-scroll
+  select-text;
 }
 .nc-scrollbar div.container {
   @apply relative min-w-full min-h-full w-full h-full;
 }
 .nc-scrollbar div.container div.horizontal,
 .nc-scrollbar div.container div.vertical {
-  @apply absolute pointer-events-auto;
-  z-index: 2011;
+  @apply absolute pointer-events-auto select-none;
 }
 .nc-scrollbar div.container div.vertical {
   @apply right-0 top-0 w-3;

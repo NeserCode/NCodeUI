@@ -38,6 +38,11 @@
     <example-scrollbar-immediatehidden />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
+    <headTitle :level="2">已知BUG</headTitle>
+    <para
+      >🎃
+      在控制改变滚动轨道的高度时会撑起整个滚动容器的高度使得底部出现一部分空白区域。目前修复了一大半，在出现这种情况后离开空白区域如向上滚动后空白区域会消失</para
+    >
     <placeholder />
   </div>
 </template>

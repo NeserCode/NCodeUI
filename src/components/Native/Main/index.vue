@@ -1,14 +1,18 @@
 <template>
   <div class="main">
-    <div ref="aside" class="aside">
-      <span
-        :class="initNodeClass(index)"
-        v-for="(i, index) in docs"
-        :key="i"
-        @click="handleActiveItem(index, $event)"
-      >
-        {{ `${i.title}` }}
-      </span>
+    <div class="aside">
+      <nc-scrollbar>
+        <div class="asideContainer" ref="aside">
+          <span
+            :class="initNodeClass(index)"
+            v-for="(i, index) in docs"
+            :key="i"
+            @click="handleActiveItem(index, $event)"
+          >
+            {{ `${i.title}` }}
+          </span>
+        </div>
+      </nc-scrollbar>
     </div>
     <div class="view">
       <nc-scrollbar>
@@ -55,6 +59,50 @@ var docs = ref([
     title: 'Nc-Scrollbar',
     type: 'node',
     path: '/docs/basic/scrollbar'
+  },
+  {
+    title: '表单',
+    type: 'title'
+  },
+  {
+    title: 'Nc-Checkbox',
+    type: 'node',
+    path: '/docs/forms/checkbox'
+  },
+  {
+    title: 'Nc-Datepicker',
+    type: 'node',
+    path: '/docs/forms/datepicker'
+  },
+  {
+    title: 'Nc-Form',
+    type: 'node',
+    path: '/docs/forms/form'
+  },
+  {
+    title: 'Nc-Input',
+    type: 'node',
+    path: '/docs/forms/input'
+  },
+  {
+    title: 'Nc-Radio',
+    type: 'node',
+    path: '/docs/forms/radio'
+  },
+  {
+    title: 'Nc-Select',
+    type: 'node',
+    path: '/docs/forms/select'
+  },
+  {
+    title: 'Nc-Slider',
+    type: 'node',
+    path: '/docs/forms/slider'
+  },
+  {
+    title: 'Nc-Switch',
+    type: 'node',
+    path: '/docs/forms/switch'
   }
 ])
 
@@ -103,9 +151,12 @@ function initNodeClass (id) {
 
 /* Aside */
 .aside {
-  @apply flex flex-col w-48 p-4
+  @apply flex flex-col w-48
   bg-gray-200 dark:bg-gray-600
   overflow-auto;
+}
+.asideContainer {
+  @apply w-full h-full p-4;
 }
 
 /* Aside Item */
