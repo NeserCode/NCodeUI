@@ -36,7 +36,8 @@ import {
   defineProps,
   ref,
   toRefs,
-  watch
+  watch,
+  nextTick
 } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -54,6 +55,8 @@ const scrollBarHeight = ref(0)
 const scrollBarWidth = ref(0)
 const offsetThumbX = ref(0)
 const offsetThumbY = ref(0)
+const catchBarHeight = ref(0)
+const catchBarWidth = ref(0)
 const showH = ref(true)
 const showV = ref(true)
 const isBarHold = ref(false)
@@ -77,12 +80,10 @@ const $route = useRoute()
 
 watch(scrollYRate, () => {
   ybar.value.style.top = scrollYRate.value + 'px'
-  ythumb.value.style.height = content.value.scrollHeight + 'px'
 })
 
 watch(scrollXRate, () => {
   xbar.value.style.left = scrollXRate.value + 'px'
-  xthumb.value.style.width = content.value.scrollWidth + 'px'
 })
 
 watch(scrollBarHeight, () => {
@@ -103,6 +104,15 @@ watch(offsetThumbX, () => {
   ythumb.value.style.left = offsetThumbY.value + 'px'
 })
 
+watch(catchBarHeight, () => {
+  ythumb.value.style.height = `${catchBarHeight.value}px`
+  console.log(catchBarHeight.value)
+})
+watch(catchBarWidth, () => {
+  xthumb.value.style.width = `${catchBarWidth.value}px`
+  console.log(catchBarHeight.value)
+})
+
 watch($route, () => {
   content.value.scrollTop = 0
   content.value.scrollLeft = 0
@@ -114,8 +124,6 @@ watch($route, () => {
 
 onMounted(() => {
   resizeObserver.value = new ResizeObserver(() => {
-    ythumb.value.style.height = '0px'
-    xthumb.value.style.width = '0px'
     initBars()
   })
   resizeObserver.value.observe(ythumb.value.nextElementSibling)
@@ -134,9 +142,17 @@ const $props = defineProps({
   vertical: {
     type: Boolean,
     default: true
+  },
+  autoHidden: {
+    type: Boolean,
+    default: true
+  },
+  immediateHidden: {
+    type: Boolean,
+    default: true
   }
 })
-const { horizontal, vertical } = toRefs($props)
+const { horizontal, vertical, autoHidden, immediateHidden } = toRefs($props)
 
 function handleScroll () {
   const offsetW = content.value.offsetWidth
@@ -170,24 +186,52 @@ function initBars () {
   const scrollLeft = content.value.scrollLeft
   const offsetH = content.value.offsetHeight
   const scrollH = content.value.scrollHeight
-  limit.value.ysmin = 0
-  limit.value.ysmax = scrollH - offsetH
-  scrollBarHeight.value = (offsetH / scrollH) * offsetH
-  limit.value.ymin = 0
-  limit.value.ymax = offsetH - scrollBarHeight.value
-  limit.value.radixY = (scrollH - offsetH) / limit.value.ymax
-  limit.value.xsmin = 0
-  limit.value.xsmax = scrollW - offsetW
-  scrollBarWidth.value = (offsetW / scrollW) * offsetW
-  limit.value.xmin = 0
-  limit.value.xmax = offsetW - scrollBarWidth.value
-  limit.value.radixX = (scrollW - offsetW) / limit.value.xmax
-  showV.value = !(scrollH <= offsetH)
-  showH.value = !(scrollW <= offsetW)
-  if (vertical) scrollBarHeight.value = (offsetH / scrollH) * offsetH
-  if (horizontal) scrollBarWidth.value = (offsetW / scrollW) * offsetW
-  offsetThumbY.value = scrollLeft + offsetW - ythumb.value.offsetWidth
-  offsetThumbX.value = scrollTop + offsetH - xthumb.value.offsetHeight
+
+  ythumb.value.style.height = '0px'
+  xthumb.value.style.width = '0px'
+
+  nextTick(() => {
+    if (
+      ythumb.value.nextElementSibling &&
+      ythumb.value.nextElementSibling.children[0]
+    ) {
+      const h = getComputedHeight(
+        ythumb.value.nextElementSibling.children[0].children,
+        ythumb.value.nextElementSibling.children[0]
+      )
+      const w = getComputedWidth(
+        xthumb.value.nextElementSibling.children[0].children,
+        xthumb.value.nextElementSibling.children[0]
+      )
+
+      catchBarHeight.value = h
+      catchBarWidth.value = w
+    }
+    limit.value.ysmin = 0
+    limit.value.ysmax = scrollH - offsetH
+    scrollBarHeight.value = (offsetH / scrollH) * catchBarHeight.value
+    limit.value.ymin = 0
+    limit.value.ymax = offsetH - scrollBarHeight.value
+    limit.value.radixY = (scrollH - offsetH) / limit.value.ymax
+    limit.value.xsmin = 0
+    limit.value.xsmax = scrollW - offsetW
+    scrollBarWidth.value = (offsetW / scrollW) * catchBarWidth.value
+    limit.value.xmin = 0
+    limit.value.xmax = offsetW - scrollBarWidth.value
+    limit.value.radixX = (scrollW - offsetW) / limit.value.xmax
+    showV.value = !(scrollH <= offsetH)
+    showH.value = !(scrollW <= offsetW)
+    if (vertical) scrollBarHeight.value = (offsetH / scrollH) * offsetH
+    if (horizontal) scrollBarWidth.value = (offsetW / scrollW) * offsetW
+    offsetThumbY.value =
+      scrollLeft + catchBarWidth.value - ythumb.value.offsetWidth
+    offsetThumbX.value =
+      scrollTop + catchBarHeight.value - xthumb.value.offsetHeight
+    if (!immediateHidden.value) {
+      ybar.value.classList.add('focusing')
+      xbar.value.classList.add('focusing')
+    }
+  })
 }
 
 function handleShow () {
@@ -201,7 +245,7 @@ function handleShow () {
   }
 }
 function handleHidden () {
-  if (!isBarHold.value) {
+  if (autoHidden.value) {
     ybar.value.style.transition = 'opacity ease-in-out 0.64s'
     xbar.value.style.transition = 'opacity ease-in-out 0.64s'
     ythumb.value.style.transition = 'opacity ease-in-out 0.64s'
@@ -234,22 +278,66 @@ function handleBarHold (e) {
       }
     }
     document.onmouseup = () => {
-      handleBarFree(e)
+      handleBarFree(e.target)
       prevY.value = null
       prevX.value = null
     }
   }
 }
-function handleBarFree (e) {
+function handleBarFree (target) {
   if (isBarHold.value) {
     isBarHold.value = false
     // hold class
-    e.target.classList.remove('actived')
+    target.classList.remove('actived')
     ybar.value.style.transition = 'opacity ease-in-out 0.64s'
     xbar.value.style.transition = 'opacity ease-in-out 0.64s'
     document.onmouseup = null
     document.onmousemove = null
   }
+}
+function getComputedHeight (children, parent) {
+  nextTick(() => {
+    if (children && parent) {
+      var totalHeight = 0
+      for (let i = 0; i < children.length; i++) {
+        totalHeight +=
+          Number(
+            window.getComputedStyle(children[i]).marginTop.replace('px', '')
+          ) +
+          Number(
+            window.getComputedStyle(children[i]).marginBottom.replace('px', '')
+          ) +
+          children[i].offsetHeight
+      }
+      totalHeight +=
+        Number(window.getComputedStyle(parent).paddingTop.replace('px', '')) +
+        Number(window.getComputedStyle(parent).paddingBottom.replace('px', ''))
+    }
+    console.log(totalHeight)
+    return totalHeight
+  })
+}
+function getComputedWidth (children, parent) {
+  nextTick(() => {
+    if (children && parent) {
+      var totalWidth = 0
+      for (let i = 0; i < children.length; i++) {
+        totalWidth +=
+          Number(
+            window.getComputedStyle(children[i]).marginLeft.replace('px', '')
+          ) +
+          Number(
+            window.getComputedStyle(children[i]).marginRight.replace('px', '')
+          ) +
+          children[i].offsetWidth
+      }
+      totalWidth +=
+        Number(window.getComputedStyle(parent).paddingLeft.replace('px', '')) +
+        Number(window.getComputedStyle(parent).paddingRight.replace('px', ''))
+    }
+    console.log(totalWidth)
+    return totalWidth
+  })
 }
 </script>
 
@@ -270,10 +358,10 @@ function handleBarFree (e) {
   z-index: 2011;
 }
 .nc-scrollbar div.container div.vertical {
-  @apply right-0 top-0 w-3 h-full min-h-full;
+  @apply right-0 top-0 w-3;
 }
 .nc-scrollbar div.container div.horizontal {
-  @apply left-0 bottom-0 h-3 w-full min-w-full;
+  @apply left-0 bottom-0 h-3;
 }
 .nc-scrollbar div.container div.horizontal span.horCell,
 .nc-scrollbar div.container div.vertical span.verCell {
@@ -296,7 +384,7 @@ function handleBarFree (e) {
 }
 span.horCell,
 span.verCell {
-  @apply bg-black dark:bg-white opacity-25 hover:opacity-40;
+  @apply bg-black dark:bg-white opacity-0;
 }
 span.horCell.focusing,
 span.verCell.focusing {

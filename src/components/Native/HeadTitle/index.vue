@@ -46,7 +46,7 @@ function handleScrollToTitle (e) {
   document
     .querySelector('.view .nc-scrollbar .container .scrollContent')
     .scrollTo({
-      top: e.target.offsetTop - 8,
+      top: e.target.offsetTop - 16,
       behavior: 'smooth'
     })
 }

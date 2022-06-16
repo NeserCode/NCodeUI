@@ -34,6 +34,6 @@ const lang = ref(['shell', 'javascript'])
 
 <style scoped lang="postcss">
 .doc {
-  @apply flex flex-col w-full h-full;
+  @apply flex flex-col w-full h-full py-4 px-6;
 }
 </style>
