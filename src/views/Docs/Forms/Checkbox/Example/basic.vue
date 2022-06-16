@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-checkbox>title</nc-checkbox>
+    <nc-checkbox v-model:checked="isChecked" />
   </viewBox>
 </template>
 
@@ -13,6 +13,7 @@ import { ref } from 'vue'
 const code = ref(`<template>
     <nc-button >默认样式</nc-button>
 </template>`)
+const isChecked = ref(true)
 </script>
 
 <style lang="postcss" scoped>
