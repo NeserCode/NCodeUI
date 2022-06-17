@@ -1,25 +1,76 @@
 <template>
-  <div class="nc-checkbox">
+  <div
+    :class="['nc-checkbox', checkedClass, disabledClass, size]"
+    @click="toggleChecked"
+  >
     <input
       type="checkbox"
-      name="checkbox"
       class="nc-checkbox-body"
       ref="checkbox"
-      @change="$emit('update:checked', checked)"
+      :disabled="disabled"
+      v-model="isChecked"
     />
-    <span class="nc-checkbox-label">示例文字</span>
+    <span class="nc-checkbox-label">{{ label }}</span>
   </div>
 </template>
 
 <script setup>
-import { defineProps, toRefs } from 'vue'
+import {
+  ref,
+  defineProps,
+  toRefs,
+  defineEmits,
+  watch,
+  computed,
+  onBeforeMount
+} from 'vue'
+
+onBeforeMount(() => {
+  initModelValue()
+})
+
 const $props = defineProps({
-  checked: {
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  size: {
+    type: String,
+    default: null
+  },
+  disabled: {
     type: Boolean,
     default: false
   }
 })
-const { checked } = toRefs($props)
+const { modelValue, label, size, disabled } = toRefs($props)
+
+const isChecked = ref(false)
+const $emits = defineEmits(['update:modelValue'])
+
+watch(isChecked, () => {
+  handleChangeModel()
+})
+watch(modelValue, () => {
+  initModelValue()
+})
+
+const checkedClass = computed(() => (isChecked.value ? 'checked' : ''))
+const disabledClass = computed(() => (disabled.value ? 'disabled' : ''))
+
+function handleChangeModel () {
+  $emits('update:modelValue', isChecked.value)
+}
+function toggleChecked () {
+  if (!disabled.value) isChecked.value = !isChecked.value
+}
+function initModelValue () {
+  isChecked.value = modelValue.value
+}
 </script>
 
 <style lang="postcss" scoped>
@@ -29,12 +80,52 @@ const { checked } = toRefs($props)
 
 /* Checkbox Body */
 .nc-checkbox .nc-checkbox-body {
-  @apply inline-block h-full min-w-min mr-2;
+  @apply inline-block h-full min-w-min mr-2
+  bg-transparent;
 }
 
 /* Checkbox label */
 .nc-checkbox .nc-checkbox-label {
-  @apply inline-block h-full min-w-min font-light
-  select-none;
+  @apply inline-flex items-center h-full min-w-min font-light
+  select-none transition-all;
+}
+
+/* Size Style */
+.nc-checkbox.normal .nc-checkbox-label {
+  @apply text-base;
+}
+.nc-checkbox.normal .nc-checkbox-body {
+  @apply w-3.5 h-3.5;
+}
+
+.nc-checkbox.large .nc-checkbox-label {
+  @apply text-lg;
+}
+.nc-checkbox.large .nc-checkbox-body {
+  @apply w-4 h-4 mr-2.5;
+}
+
+.nc-checkbox.small .nc-checkbox-label {
+  @apply text-sm;
+}
+.nc-checkbox.small .nc-checkbox-body {
+  @apply w-3 h-3 mr-1.5;
+}
+
+.nc-checkbox.mini .nc-checkbox-label {
+  @apply text-xs;
+}
+.nc-checkbox.mini .nc-checkbox-body {
+  @apply w-2.5 h-2.5 mr-1;
+}
+
+/* Checked Style */
+.nc-checkbox.checked {
+  @apply text-green-500;
+}
+
+/* Disabled Style */
+.nc-checkbox.disabled {
+  @apply opacity-75 text-gray-800 dark:text-gray-100;
 }
 </style>
