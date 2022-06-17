@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['nc-checkbox', checkedClass, disabledClass, size]"
+    :class="['nc-checkbox', checkedClass, disabledClass, boxStyle, size]"
     @click="toggleChecked"
   >
     <input
@@ -45,9 +45,13 @@ const $props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  boxStyle: {
+    type: String,
+    default: null
   }
 })
-const { modelValue, label, size, disabled } = toRefs($props)
+const { modelValue, label, size, disabled, boxStyle } = toRefs($props)
 
 const isChecked = ref(false)
 const $emits = defineEmits(['update:modelValue'])
@@ -75,7 +79,7 @@ function initModelValue () {
 
 <style lang="postcss" scoped>
 .nc-checkbox {
-  @apply inline-flex justify-center items-center min-w-max;
+  @apply inline-flex justify-center items-center min-w-max px-1;
 }
 
 /* Checkbox Body */
@@ -86,7 +90,7 @@ function initModelValue () {
 
 /* Checkbox label */
 .nc-checkbox .nc-checkbox-label {
-  @apply inline-flex items-center h-full min-w-min font-light
+  @apply inline-flex items-center min-w-min font-light
   select-none transition-all;
 }
 
@@ -124,8 +128,32 @@ function initModelValue () {
   @apply text-green-500;
 }
 
+/* Box Style */
+.nc-checkbox.toggle {
+  @apply px-6 py-2 rounded-full border
+  bg-gray-900 text-white border-gray-600;
+}
+.nc-checkbox.toggle .nc-checkbox-body {
+  @apply absolute opacity-0;
+}
+.nc-checkbox.toggle.checked {
+  @apply bg-green-500 text-gray-100;
+}
+.nc-checkbox.toggle.large {
+  @apply px-6 py-3;
+}
+.nc-checkbox.toggle.normal {
+  @apply px-6 py-2;
+}
+.nc-checkbox.toggle.small {
+  @apply px-5 py-1.5;
+}
+.nc-checkbox.toggle.mini {
+  @apply px-3 py-0.5;
+}
+
 /* Disabled Style */
 .nc-checkbox.disabled {
-  @apply opacity-75 text-gray-800 dark:text-gray-100;
+  @apply opacity-50 text-gray-800 dark:text-gray-100;
 }
 </style>
