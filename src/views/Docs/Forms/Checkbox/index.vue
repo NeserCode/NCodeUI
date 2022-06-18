@@ -24,7 +24,7 @@
     >
     <example-checkbox-toggle />
     <headTitle :level="3">边框样式</headTitle>
-    <para>使用 boxStyle="border" 使用预设的边框风格</para>
+    <para>使用 boxStyle="bordered" 使用预设的边框风格</para>
     <example-checkbox-border />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>

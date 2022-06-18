@@ -79,7 +79,8 @@ function initModelValue () {
 
 <style lang="postcss" scoped>
 .nc-checkbox {
-  @apply inline-flex justify-center items-center min-w-max px-1;
+  @apply inline-flex justify-center items-center min-w-max px-1
+  transition-all;
 }
 
 /* Checkbox Body */
@@ -148,7 +149,7 @@ function initModelValue () {
   @apply px-5 py-1.5;
 }
 .nc-checkbox.toggle.mini {
-  @apply px-3 py-0.5;
+  @apply px-3 py-1;
 }
 .nc-checkbox.toggle.disabled {
   @apply hover:bg-gray-200 dark:hover:bg-gray-800;
@@ -157,19 +158,24 @@ function initModelValue () {
   @apply hover:bg-green-500;
 }
 
-.nc-checkbox.border.checked {
-  @apply px-4 py-2 rounded;
+.nc-checkbox.bordered {
+  @apply px-6 py-2 rounded border-2
+  border-gray-300 dark:border-gray-700;
 }
-.nc-checkbox.border.large {
+.nc-checkbox.bordered.checked {
+  @apply px-4 py-2 rounded
+  border-green-500;
+}
+.nc-checkbox.bordered.large {
   @apply px-4 py-3;
 }
-.nc-checkbox.border.normal {
+.nc-checkbox.bordered.normal {
   @apply px-4 py-2;
 }
-.nc-checkbox.border.small {
+.nc-checkbox.bordered.small {
   @apply px-3 py-1.5;
 }
-.nc-checkbox.border.mini {
+.nc-checkbox.bordered.mini {
   @apply px-2.5 py-1;
 }
 /* Disabled Style */
