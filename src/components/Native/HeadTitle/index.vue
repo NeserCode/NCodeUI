@@ -2,7 +2,8 @@
   <span class="headTitle" :id="nodeLink">
     <a
       :class="['titleNode', haneleLevelClass()]"
-      @click="handleScrollToTitle($event)"
+      :href="'#' + nodeLink"
+      @click.prevent="handleScrollToTitle($event)"
       >#<sup>{{ level }}</sup></a
     >
     <span :class="['titleText', haneleLevelClass()]" ref="textContent"

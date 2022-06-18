@@ -41,7 +41,7 @@ function toggleCodeShow () {
 
 /* Assets Container */
 .assetsContainer {
-  @apply flex flex-wrap flex-row justify-center w-full h-full;
+  @apply flex flex-wrap flex-row justify-center items-center w-full h-full;
 }
 
 /* Code Container */

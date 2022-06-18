@@ -18,8 +18,14 @@
     <headTitle :level="2">风格样式</headTitle>
     <para>使用 boxStyle 属性使用预设风格</para>
     <headTitle :level="3">平切样式</headTitle>
-    <para>使用 boxStyle="toggle" 使用预设的平切风格</para>
+    <para
+      >使用 boxStyle="toggle"
+      使用预设的平切风格，该风格会隐藏原有的多选框样式</para
+    >
     <example-checkbox-toggle />
+    <headTitle :level="3">边框样式</headTitle>
+    <para>使用 boxStyle="border" 使用预设的边框风格</para>
+    <example-checkbox-border />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
 
@@ -37,6 +43,7 @@ import ExampleCheckboxBasic from '@/views/Docs/Forms/Checkbox/Example/basic.vue'
 import ExampleCheckboxSize from '@/views/Docs/Forms/Checkbox/Example/size.vue'
 import ExampleCheckboxDisabled from '@/views/Docs/Forms/Checkbox/Example/disabled.vue'
 import ExampleCheckboxToggle from '@/views/Docs/Forms/Checkbox/Example/toggle.vue'
+import ExampleCheckboxBorder from '@/views/Docs/Forms/Checkbox/Example/border.vue'
 </script>
 
 <style scoped lang="postcss">

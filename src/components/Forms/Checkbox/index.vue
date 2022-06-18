@@ -84,8 +84,7 @@ function initModelValue () {
 
 /* Checkbox Body */
 .nc-checkbox .nc-checkbox-body {
-  @apply inline-block h-full min-w-min mr-2
-  bg-transparent;
+  @apply inline-block min-w-min mr-2;
 }
 
 /* Checkbox label */
@@ -131,13 +130,13 @@ function initModelValue () {
 /* Box Style */
 .nc-checkbox.toggle {
   @apply px-6 py-2 rounded-full border
-  bg-gray-900 text-white border-gray-600;
+  bg-transparent hover:bg-gray-200 dark:hover:bg-gray-800 border-gray-600;
 }
 .nc-checkbox.toggle .nc-checkbox-body {
   @apply absolute opacity-0;
 }
 .nc-checkbox.toggle.checked {
-  @apply bg-green-500 text-gray-100;
+  @apply bg-green-500 text-gray-100 hover:bg-green-600;
 }
 .nc-checkbox.toggle.large {
   @apply px-6 py-3;
@@ -151,7 +150,28 @@ function initModelValue () {
 .nc-checkbox.toggle.mini {
   @apply px-3 py-0.5;
 }
+.nc-checkbox.toggle.disabled {
+  @apply hover:bg-gray-200 dark:hover:bg-gray-800;
+}
+.nc-checkbox.toggle.checked.disabled {
+  @apply hover:bg-green-500;
+}
 
+.nc-checkbox.border.checked {
+  @apply px-4 py-2 rounded;
+}
+.nc-checkbox.border.large {
+  @apply px-4 py-3;
+}
+.nc-checkbox.border.normal {
+  @apply px-4 py-2;
+}
+.nc-checkbox.border.small {
+  @apply px-3 py-1.5;
+}
+.nc-checkbox.border.mini {
+  @apply px-2.5 py-1;
+}
 /* Disabled Style */
 .nc-checkbox.disabled {
   @apply opacity-50 text-gray-800 dark:text-gray-100;
