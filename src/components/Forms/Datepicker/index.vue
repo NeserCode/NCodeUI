@@ -4,12 +4,12 @@
       class="nc-outerSelect"
       v-show="!isDatePanelShow"
       @click="handleDatePanelShow"
-      >{{ pickerPlaceholder }}</span
+      >{{ modelValue.toLocaleDateString() ?? pickerPlaceholder }}</span
     >
     <span
       class="datePanel"
       v-show="isDatePanelShow"
-      @click="handleDatePanelShow"
+      @click="handleChangeModelValue"
     >
       <span
         class="dateWeekdayFormat"
@@ -51,20 +51,22 @@ const $props = defineProps({
 })
 const { modelValue } = toRefs($props)
 
-$emit('update:modelValue', modelValue)
-
 onBeforeMount(() => {
   dateTotalContent.value = getMonthDays()
   console.log(getCurrentDayinMonth(), getNextMonthRest())
   getLastMonthRest()
 })
 
+function handleChangeModelValue () {
+  $emit('update:modelValue', modelValue.value)
+}
+
 function handleDatePanelShow () {
   isDatePanelShow.value = !isDatePanelShow.value
 }
 
 function getLastMonthRest () {
-  const t = new Date()
+  const t = modelValue.value
 
   const limit = getMonthDays(
     t.getFullYear(),
@@ -113,19 +115,20 @@ function getMonthDays (year, month) {
   @apply relative inline-flex items-center min-w-min px-4 py-2 border-2 rounded
   text-gray-400 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:text-blue-300
   hover:border-blue-400 dark:hover:border-blue-500 dark:hover:text-blue-400
-  cursor-pointer select-none;
+  cursor-pointer select-none transition-all;
 }
 
 /* Date Panel */
 .datePanel {
   @apply flex flex-wrap w-52 p-4 border-2 rounded-sm
-  border-gray-300 dark:border-gray-700;
+  border-gray-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500
+  transition-all;
 }
 
 /* Format Style */
 .datePanel .dateWeekdayFormat {
   @apply inline-flex justify-center items-center w-6 h-6 pb-1.5 pt-0.5 border-b font-semibold text-xs
-  hover:bg-gray-200 dark:hover:bg-gray-600 border-gray-300 dark:border-gray-600
+  border-gray-300 dark:border-gray-600
   select-none cursor-pointer;
 }
 .datePanel .dateDays {

@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-datepicker></nc-datepicker>
+    <nc-datepicker v-model="t" />
   </viewBox>
 </template>
 
@@ -10,6 +10,7 @@ import NcDatepicker from '@/components/Forms/Datepicker/index.vue'
 
 import { ref } from 'vue'
 
+const t = ref(new Date(2021, 5, 19))
 const code = ref(
   `<template>
     <nc-checkbox v-model="isNamed1" label="选项一" size="large" boxStyle="toggle" />
