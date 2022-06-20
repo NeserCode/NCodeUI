@@ -20,7 +20,12 @@
       <span class="restDays" v-for="rest in dateLastMonthRest" :key="rest">{{
         rest
       }}</span>
-      <span class="dateDays" v-for="day in dateTotalContent" :key="day">
+      <span
+        class="dateDays"
+        v-for="day in dateTotalContent"
+        :key="day"
+        @click="handleDatePanelShow"
+      >
         {{ day }}
       </span>
       <span class="nextDays" v-for="next in dateNextMonthRest" :key="next">{{
@@ -31,15 +36,24 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, toRefs, ref, onBeforeMount } from 'vue'
+import {
+  defineEmits,
+  defineProps,
+  toRefs,
+  ref,
+  computed,
+  onBeforeMount
+} from 'vue'
 
 const pickerPlaceholder = ref('选择日期')
 const dateWeekdayFormat = ref(['一', '二', '三', '四', '五', '六', '七'])
 const isDatePanelShow = ref(false)
 
-const dateTotalContent = ref(1)
-const dateLastMonthRest = ref([])
-const dateNextMonthRest = ref(1)
+const dateTotalContent = computed(() =>
+  getMonthDays(modelValue.value.getFullYear(), modelValue.value.getMonth() + 1)
+)
+const dateLastMonthRest = computed(() => getLastMonthRest())
+const dateNextMonthRest = computed(() => getNextMonthRest())
 
 const $emit = defineEmits(['update:modelValue'])
 
@@ -52,9 +66,7 @@ const $props = defineProps({
 const { modelValue } = toRefs($props)
 
 onBeforeMount(() => {
-  dateTotalContent.value = getMonthDays()
-  console.log(getCurrentDayinMonth(), getNextMonthRest())
-  getLastMonthRest()
+  console.log('当月', getCurrentDayinMonth())
 })
 
 function handleChangeModelValue () {
@@ -67,42 +79,49 @@ function handleDatePanelShow () {
 
 function getLastMonthRest () {
   const t = modelValue.value
+  const arr = []
 
   const limit = getMonthDays(
     t.getFullYear(),
-    t.getMonth() === 0 ? 11 : t.getMonth()
+    t.getMonth() === 11 ? 0 : t.getMonth()
   )
 
   const currentMonthFirstDay = new Date(t.getFullYear(), t.getMonth(), 1)
-  for (let i = 0; i < currentMonthFirstDay.getDay() - 1; i++) {
-    dateLastMonthRest.value.unshift(limit - i)
+  for (
+    let i = 0;
+    i <
+    (currentMonthFirstDay.getDay() === 0
+      ? 6
+      : currentMonthFirstDay.getDay() - 1);
+    i++
+  ) {
+    arr.unshift(limit - i)
   }
-  return dateLastMonthRest.value
+  return arr
 }
 function getNextMonthRest () {
-  const t = new Date()
+  const t = modelValue.value
+  let number = 0
   const currentMonthLastDay = new Date(
     t.getFullYear(),
     t.getMonth(),
-    getMonthDays()
+    getMonthDays(t.getFullYear(), t.getMonth() + 1)
   )
 
-  dateNextMonthRest.value = 7 - currentMonthLastDay.getDay()
-  return dateNextMonthRest.value
+  number = 7 - currentMonthLastDay.getDay()
+  return number
 }
 function getCurrentDayinMonth (s) {
   return s
     ? new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() + 1,
+      modelValue.value.getFullYear(),
+      modelValue.value.getMonth(),
       s ?? 0
     ).getDate()
-    : new Date().getDate()
+    : modelValue.value.getDate()
 }
 function getMonthDays (year, month) {
-  return year && month
-    ? new Date(year, month, 0).getDate()
-    : new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
+  return new Date(year, month, 0).getDate()
 }
 </script>
 
