@@ -21,6 +21,6 @@ import ExampleDatepickerBasic from '@/views/Docs/Forms/Datepicker/Example/basic.
 
 <style scoped lang="postcss">
 .doc-nc-datepicker {
-  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
+  @apply inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 </style>

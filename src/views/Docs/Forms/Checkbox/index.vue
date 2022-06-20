@@ -48,6 +48,6 @@ import ExampleCheckboxBorder from '@/views/Docs/Forms/Checkbox/Example/border.vu
 
 <style scoped lang="postcss">
 .doc-nc-checkbox {
-  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
+  @apply inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 </style>

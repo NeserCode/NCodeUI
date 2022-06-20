@@ -36,10 +36,10 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-checkbox v-model="isNamed1" label="选项一" size="large" boxStyle="border" />
-    <nc-checkbox v-model="isNamed2" label="选项二" size="normal" boxStyle="border" />
-    <nc-checkbox v-model="isNamed3" label="选项三" size="small" boxStyle="border" />
-    <nc-checkbox v-model="isNamed4" label="选项四" size="mini" disabled boxStyle="border" />
+    <nc-checkbox v-model="isNamed1" label="选项一" size="large" boxStyle="bordered" />
+    <nc-checkbox v-model="isNamed2" label="选项二" size="normal" boxStyle="bordered" />
+    <nc-checkbox v-model="isNamed3" label="选项三" size="small" boxStyle="bordered" />
+    <nc-checkbox v-model="isNamed4" label="选项四" size="mini" disabled boxStyle="bordered" />
 </template>
 
 <script setup>

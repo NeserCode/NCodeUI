@@ -11,6 +11,18 @@
       v-show="isDatePanelShow"
       @click="handleChangeModelValue"
     >
+      <span class="dateSelection">
+        <span class="year">
+          <span class="reduce">-</span>
+          <span class="yearText">{{ yearString }}</span>
+          <span class="increase">+</span>
+        </span>
+        <span class="month">
+          <span class="reduce">-</span>
+          <span class="monthText">{{ monthString }}</span>
+          <span class="increase">+</span>
+        </span>
+      </span>
       <span
         class="dateWeekdayFormat"
         v-for="weekdayFormat in dateWeekdayFormat"
@@ -54,6 +66,9 @@ const dateTotalContent = computed(() =>
 )
 const dateLastMonthRest = computed(() => getLastMonthRest())
 const dateNextMonthRest = computed(() => getNextMonthRest())
+
+const yearString = computed(() => modelValue.value.getFullYear())
+const monthString = computed(() => modelValue.value.getMonth() + 1)
 
 const $emit = defineEmits(['update:modelValue'])
 
@@ -142,6 +157,21 @@ function getMonthDays (year, month) {
   @apply flex flex-wrap w-52 p-4 border-2 rounded-sm
   border-gray-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500
   transition-all;
+}
+
+/* Date Selection Style */
+.datePanel .dateSelection {
+  @apply inline-flex justify-evenly items-center w-full h-6 mb-2;
+}
+.datePanel .dateSelection .year,
+.datePanel .dateSelection .month {
+  @apply inline-flex items-center;
+}
+.datePanel .dateSelection .reduce,
+.datePanel .dateSelection .increase {
+  @apply inline-flex justify-center items-center w-4 mx-2
+  hover:bg-gray-200 dark:hover:bg-gray-800
+  select-none box-border;
 }
 
 /* Format Style */
