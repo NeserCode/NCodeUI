@@ -6,21 +6,17 @@
       @click="handleDatePanelShow"
       >{{ modelValue.toLocaleDateString() ?? pickerPlaceholder }}</span
     >
-    <span
-      class="datePanel"
-      v-show="isDatePanelShow"
-      @click="handleChangeModelValue"
-    >
+    <span class="datePanel" v-show="isDatePanelShow">
       <span class="dateSelection">
         <span class="year">
-          <span class="reduce">-</span>
+          <span class="reduce" @click="handleReduceYear">-</span>
           <span class="yearText">{{ yearString }}</span>
-          <span class="increase">+</span>
+          <span class="increase" @click="handleIncreaseYear">+</span>
         </span>
         <span class="month">
-          <span class="reduce">-</span>
+          <span class="reduce" @click="handleReduceMonth">-</span>
           <span class="monthText">{{ monthString }}</span>
-          <span class="increase">+</span>
+          <span class="increase" @click="handleIncreaseMonth">+</span>
         </span>
       </span>
       <span
@@ -36,7 +32,7 @@
         class="dateDays"
         v-for="day in dateTotalContent"
         :key="day"
-        @click="handleDatePanelShow"
+        @click="handleSelectDay(day)"
       >
         {{ day }}
       </span>
@@ -80,12 +76,47 @@ const $props = defineProps({
 })
 const { modelValue } = toRefs($props)
 
-onBeforeMount(() => {
-  console.log('当月', getCurrentDayinMonth())
-})
+onBeforeMount(() => {})
 
-function handleChangeModelValue () {
-  $emit('update:modelValue', modelValue.value)
+function handleChangeModelValue (year, month, day) {
+  $emit('update:modelValue', new Date(year, month, day))
+}
+
+function handleIncreaseMonth () {
+  handleChangeModelValue(
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth() + 1,
+    modelValue.value.getDate()
+  )
+}
+function handleReduceMonth () {
+  handleChangeModelValue(
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth() - 1,
+    modelValue.value.getDate()
+  )
+}
+function handleIncreaseYear () {
+  handleChangeModelValue(
+    modelValue.value.getFullYear() + 1,
+    modelValue.value.getMonth(),
+    modelValue.value.getDate()
+  )
+}
+function handleReduceYear () {
+  handleChangeModelValue(
+    modelValue.value.getFullYear() - 1,
+    modelValue.value.getMonth(),
+    modelValue.value.getDate()
+  )
+}
+function handleSelectDay (day) {
+  handleChangeModelValue(
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth(),
+    day
+  )
+  handleDatePanelShow()
 }
 
 function handleDatePanelShow () {
@@ -93,15 +124,18 @@ function handleDatePanelShow () {
 }
 
 function getLastMonthRest () {
-  const t = modelValue.value
   const arr = []
 
   const limit = getMonthDays(
-    t.getFullYear(),
-    t.getMonth() === 11 ? 0 : t.getMonth()
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth() === 11 ? 0 : modelValue.value.getMonth()
   )
 
-  const currentMonthFirstDay = new Date(t.getFullYear(), t.getMonth(), 1)
+  const currentMonthFirstDay = new Date(
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth(),
+    1
+  )
   for (
     let i = 0;
     i <
@@ -115,25 +149,18 @@ function getLastMonthRest () {
   return arr
 }
 function getNextMonthRest () {
-  const t = modelValue.value
   let number = 0
   const currentMonthLastDay = new Date(
-    t.getFullYear(),
-    t.getMonth(),
-    getMonthDays(t.getFullYear(), t.getMonth() + 1)
+    modelValue.value.getFullYear(),
+    modelValue.value.getMonth(),
+    getMonthDays(
+      modelValue.value.getFullYear(),
+      modelValue.value.getMonth() + 1
+    )
   )
 
   number = 7 - currentMonthLastDay.getDay()
   return number
-}
-function getCurrentDayinMonth (s) {
-  return s
-    ? new Date(
-      modelValue.value.getFullYear(),
-      modelValue.value.getMonth(),
-      s ?? 0
-    ).getDate()
-    : modelValue.value.getDate()
 }
 function getMonthDays (year, month) {
   return new Date(year, month, 0).getDate()
