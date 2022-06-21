@@ -24,14 +24,7 @@ const code = ref(
   import { ref } from 'vue'
 
   const t = ref(new Date(2022, 0, 19))
-<` +
-    `/script>
-
-<style lang="postcss" scoped>
-.nc-checkbox {
-  @apply mx-2;
-}
-</style>`
+<` + '/script>'
 )
 </script>
 
