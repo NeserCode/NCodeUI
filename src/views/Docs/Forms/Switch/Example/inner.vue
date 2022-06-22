@@ -1,6 +1,11 @@
 <template>
   <viewBox :code="code">
-    <nc-switch v-model="isActived"></nc-switch>
+    <nc-switch
+      v-model="isActived"
+      active-text="开"
+      inactive-text="关"
+      inner-mode
+    ></nc-switch>
   </viewBox>
 </template>
 
@@ -12,7 +17,12 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-switch v-model="isActived"></nc-switch>
+    <nc-switch
+      v-model="isActived"
+      active-text="开"
+      inactive-text="关"
+      inner-mode
+    ></nc-switch>
 </template>
 
 <script setup>
