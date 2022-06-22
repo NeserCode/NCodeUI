@@ -1,5 +1,6 @@
 <template>
   <viewBox :code="code">
+    <nc-datepicker />
     <nc-datepicker v-model="t" />
   </viewBox>
 </template>
@@ -13,6 +14,7 @@ const t = ref(new Date(2022, 0, 1))
 
 const code = ref(
   `<template>
+    <nc-datepicker />
     <nc-datepicker v-model="t" />
 </template>
 
@@ -20,9 +22,21 @@ const code = ref(
   import { ref } from 'vue'
 
   const t = ref(new Date(2022, 0, 1))
-<` + '/script>'
+<` +
+    '/script>' +
+    `
+    
+<style lang="postcss" scoped>
+.nc-datepicker {
+  @apply mx-2;
+}
+</style>
+`
 )
 </script>
 
 <style lang="postcss" scoped>
+.nc-datepicker {
+  @apply mx-2;
+}
 </style>

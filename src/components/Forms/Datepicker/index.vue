@@ -29,7 +29,7 @@
         rest
       }}</span>
       <span
-        class="dateDays"
+        :class="['dateDays', day === dayString ? 'selected' : '']"
         v-for="day in dateTotalContent"
         :key="day"
         @click="handleSelectDay(day)"
@@ -65,6 +65,7 @@ const dateNextMonthRest = computed(() => getNextMonthRest())
 
 const yearString = computed(() => modelValue.value.getFullYear())
 const monthString = computed(() => modelValue.value.getMonth() + 1)
+const dayString = computed(() => modelValue.value.getDate())
 
 const $emit = defineEmits(['update:modelValue'])
 
@@ -210,7 +211,10 @@ function getMonthDays (year, month) {
 .datePanel .dateDays {
   @apply inline-flex justify-center items-center w-6 h-6 font-thin
   hover:bg-gray-200 dark:hover:bg-gray-600
-  select-none cursor-pointer;
+  select-none cursor-pointer box-border;
+}
+.datePanel .dateDays.selected {
+  @apply bg-blue-300 hover:bg-gray-200 dark:hover:bg-gray-600;
 }
 .datePanel .restDays {
   @apply inline-flex justify-center items-center w-6 h-6 font-thin opacity-60
