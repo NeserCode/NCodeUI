@@ -40,6 +40,9 @@
     <example-switch-round />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
+    <headTitle :level="2">Todo</headTitle>
+    <para>✨ Loading 等待状态</para>
+    <para>✨ meaning 内置配色风格</para>
     <placeholder />
   </div>
 </template>
