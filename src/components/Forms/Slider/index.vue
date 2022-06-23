@@ -9,8 +9,9 @@
       :min="min"
       :step="step"
     />
-    <span class="nc-slider-thumb" ref="thumb">
-      <span v-for="i in max / step" class="stop" :key="i"></span>
+    <span class="nc-slider-thumb" ref="thumb"></span>
+    <span class="nc-slider-stop-thumb">
+      <span v-for="i in max / step - 2" class="stop" :key="i"></span>
     </span>
   </div>
 </template>
@@ -79,14 +80,24 @@ function handleChangeThumbProcess () {
 }
 .nc-slider-body::-webkit-slider-thumb {
   @apply appearance-none block w-4 h-4 rounded-full
-  bg-blue-600
-    transform -translate-y-1.5 z-10;
+  bg-blue-400
+    transform -translate-y-1.5;
 }
 
 /* Runnable Style */
 .nc-slider-thumb {
-  @apply block h-1
+  @apply inline-block h-1
   bg-blue-400
-  pointer-events-none transform -translate-y-full z-20;
+  pointer-events-none transform -translate-y-full;
+}
+.nc-slider-stop-thumb {
+  @apply flex justify-between h-1 w-full px-1
+  bg-blue-400
+  pointer-events-none transform -translate-y-2;
+}
+.nc-slider-stop-thumb .stop {
+  @apply inline-block h-1.5 w-1.5 rounded-full
+  bg-white
+  transform -translate-y-px;
 }
 </style>
