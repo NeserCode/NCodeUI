@@ -16,7 +16,11 @@
     </div>
     <div class="view">
       <nc-scrollbar>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </router-view>
       </nc-scrollbar>
     </div>
   </div>

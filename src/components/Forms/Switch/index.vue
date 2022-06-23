@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nc-switch', isActived ? 'actived' : null]">
+  <div :class="['nc-switch', activeClass, disabledClass, roundClass]">
     <span
       class="nc-switch-inactive-text"
       v-if="!innerMode && inactiveText && activeText"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, toRefs, computed } from 'vue'
+import { defineProps, defineEmits, ref, toRefs, computed, watch } from 'vue'
 const isActived = ref(false)
 
 const $emit = defineEmits(['update:modelValue'])
@@ -38,9 +38,18 @@ const $props = defineProps({
   innerMode: {
     type: Boolean,
     default: () => false
+  },
+  roundMode: {
+    type: Boolean,
+    default: () => false
+  },
+  disabled: {
+    type: Boolean,
+    default: () => false
   }
 })
-const { modelValue, activeText, inactiveText, innerMode } = toRefs($props)
+const { modelValue, activeText, inactiveText, innerMode, roundMode, disabled } =
+  toRefs($props)
 
 const computedStatusText = computed(() =>
   activeText.value && inactiveText.value
@@ -49,10 +58,20 @@ const computedStatusText = computed(() =>
       : inactiveText.value
     : null
 )
+const activeClass = computed(() => (isActived.value ? 'actived' : null))
+const disabledClass = computed(() => (disabled.value ? 'disabled' : null))
+const roundClass = computed(() => (roundMode.value ? 'round' : null))
+
+watch(modelValue, () => {
+  initActiveStatus()
+})
 
 function toggleActiveStatus () {
-  isActived.value = !isActived.value
-  $emit('update:modelValue', isActived.value)
+  if (disabled.value) return 0
+  else {
+    isActived.value = !isActived.value
+    $emit('update:modelValue', isActived.value)
+  }
 }
 
 function initActiveStatus () {
@@ -110,5 +129,18 @@ initActiveStatus()
 }
 .nc-switch.actived .nc-switch-active-text {
   @apply text-blue-300;
+}
+
+/* Disabled Style */
+.nc-switch.disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+
+/* Rounded Style */
+.nc-switch.round .nc-switch-container {
+  @apply rounded-full;
+}
+.nc-switch.round .nc-switch-container .nc-switch-body {
+  @apply rounded-full;
 }
 </style>

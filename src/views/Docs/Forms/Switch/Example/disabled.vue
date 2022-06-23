@@ -5,12 +5,13 @@
       active-text="开"
       inactive-text="关"
       inner-mode
+      disabled
     ></nc-switch>
     <nc-switch
       v-model="isActived"
       active-text="是"
       inactive-text="否"
-      inner-mode
+      disabled
     ></nc-switch>
   </viewBox>
 </template>
@@ -28,12 +29,13 @@ const code = ref(
       active-text="开"
       inactive-text="关"
       inner-mode
-    ></nc-switch>
+      disabled
+    ></nc-switch> 
     <nc-switch
       v-model="isActived"
       active-text="是"
       inactive-text="否"
-      inner-mode
+      disabled
     ></nc-switch>
 </template>
 
