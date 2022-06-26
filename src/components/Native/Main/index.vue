@@ -1,18 +1,16 @@
 <template>
   <div class="main">
     <div class="aside">
-      <nc-scrollbar>
-        <div class="asideContainer" ref="aside">
-          <span
-            :class="initNodeClass(index)"
-            v-for="(i, index) in docs"
-            :key="i"
-            @click="handleActiveItem(index, $event)"
-          >
-            {{ `${i.title}` }}
-          </span>
-        </div>
-      </nc-scrollbar>
+      <div class="asideContainer" ref="aside">
+        <span
+          :class="initNodeClass(index)"
+          v-for="(i, index) in docs"
+          :key="i"
+          @click="handleActiveItem(index, $event)"
+        >
+          {{ `${i.title}` }}
+        </span>
+      </div>
     </div>
     <div class="view">
       <nc-scrollbar>
