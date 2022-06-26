@@ -1,5 +1,5 @@
 <template>
-  <div class="nc-slider">
+  <div :class="['nc-slider', disabledClass]">
     <input
       class="nc-slider-body"
       type="range"
@@ -8,16 +8,14 @@
       :max="max"
       :min="min"
       :step="step"
+      :disabled="disabled"
     />
     <span class="nc-slider-thumb" ref="thumb"></span>
-    <span class="nc-slider-stop-thumb">
-      <span v-for="i in max / step - 2" class="stop" :key="i"></span>
-    </span>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, toRefs, watch } from 'vue'
+import { defineProps, defineEmits, ref, toRefs, watch, computed } from 'vue'
 
 const $emit = defineEmits(['update:modelValue'])
 const $props = defineProps({
@@ -36,9 +34,14 @@ const $props = defineProps({
   step: {
     type: Number,
     default: () => 1
+  },
+  disabled: {
+    type: Boolean,
+    default: () => false
   }
 })
-const { modelValue, max, min, step } = toRefs($props)
+const { modelValue, max, min, step, disabled } = toRefs($props)
+const disabledClass = computed(() => (disabled.value ? 'disabled' : ''))
 const rangeCount = ref(0)
 
 const slider = ref(null)
@@ -61,7 +64,9 @@ function initModelvalue () {
 
 // function initThumbStop () {}
 function handleChangeThumbProcess () {
-  thumb.value.style.width = `${rangeCount.value}%`
+  thumb.value.style.width = `${
+    ((rangeCount.value - min.value) / (max.value - min.value)) * 100
+  }%`
 }
 </script>
 
@@ -72,7 +77,7 @@ function handleChangeThumbProcess () {
 
 /* Reset Style */
 .nc-slider-body {
-  @apply appearance-none outline-none;
+  @apply appearance-none outline-none rounded-full;
 }
 .nc-slider-body::-webkit-slider-runnable-track {
   @apply appearance-none h-1 rounded-full
@@ -81,23 +86,31 @@ function handleChangeThumbProcess () {
 .nc-slider-body::-webkit-slider-thumb {
   @apply appearance-none block w-4 h-4 rounded-full
   bg-blue-400
-    transform -translate-y-1.5;
+    transform -translate-y-1.5 z-10;
+  cursor: -webkit-grab;
+}
+.nc-slider-body::-webkit-slider-thumb:hover {
+  @apply scale-105 transition-all transform -translate-y-1.5;
+}
+.nc-slider-body::-webkit-slider-thumb:focus,
+.nc-slider-body::-webkit-slider-thumb:active {
+  cursor: -webkit-grabbing;
 }
 
 /* Runnable Style */
 .nc-slider-thumb {
-  @apply inline-block h-1
+  @apply inline-block h-1 float-none rounded-full
   bg-blue-400
   pointer-events-none transform -translate-y-full;
 }
-.nc-slider-stop-thumb {
-  @apply flex justify-between h-1 w-full px-1
-  bg-blue-400
-  pointer-events-none transform -translate-y-2;
+
+/* Disabled Style */
+.nc-slider.disabled {
+  @apply opacity-60 cursor-not-allowed;
 }
-.nc-slider-stop-thumb .stop {
-  @apply inline-block h-1.5 w-1.5 rounded-full
-  bg-white
-  transform -translate-y-px;
+.nc-slider.disabled .nc-slider-body::-webkit-slider-thumb,
+.nc-slider.disabled .nc-slider-body::-webkit-slider-thumb:focus,
+.nc-slider.disabled .nc-slider-body::-webkit-slider-thumb:active {
+  @apply cursor-not-allowed;
 }
 </style>
