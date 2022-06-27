@@ -18,11 +18,11 @@ const code = ref(
 <script setup>
   import { ref } from 'vue'
 
-  const usage = ref('a')
+  const usage = ref('北京')
 <` + '/script>'
 )
 const usage = ref('a')
-const i = ref(['a', 'b', 'c', 'wokezhenshidiaonimade'])
+const i = ref(['北京', '武汉', '上海', '杭州', '深圳', '广东', '长沙'])
 </script>
 
 <style lang="postcss" scoped>

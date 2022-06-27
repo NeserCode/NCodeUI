@@ -1,18 +1,34 @@
 <template>
-  <div class="nc-select">
+  <div :class="['nc-select', activeString]">
     <span class="nc-select-body" @click="toggleShow">
       {{ selectedString }}
     </span>
-    <span class="nc-select-items" v-show="isSelectionsShow">
-      <span class="nc-select-item" v-for="item in items" :key="item">{{
-        item
-      }}</span>
+    <span class="nc-select-items">
+      <span
+        class="nc-select-item"
+        v-for="item in items"
+        :key="item"
+        tabindex="1"
+        @click="handleChangeSelection(item)"
+        >{{ item }}</span
+      >
+    </span>
+    <span class="nc-select-icon" @click="toggleShow">
+      <span class="selection"></span>
     </span>
   </div>
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, toRefs, watch, computed } from 'vue'
+import {
+  ref,
+  defineProps,
+  defineEmits,
+  toRefs,
+  watch,
+  computed,
+  nextTick
+} from 'vue'
 
 const $props = defineProps({
   modelValue: {
@@ -29,7 +45,7 @@ const $props = defineProps({
   }
 })
 const { modelValue, items } = toRefs($props)
-const $emit = defineEmits('update:modelValue')
+const $emit = defineEmits(['update:modelValue'])
 
 const selectedValue = ref(null)
 const isSelectionsShow = ref(false)
@@ -37,8 +53,9 @@ const isSelectionsShow = ref(false)
 const selectedString = computed(() =>
   modelValue.value === null
     ? 'UnChecked'
-    : items.value.find((item) => item === modelValue.value).toString()
+    : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
 )
+const activeString = computed(() => (isSelectionsShow.value ? 'active' : null))
 
 watch(modelValue, () => {
   initModelvalue()
@@ -54,49 +71,74 @@ function handleChangeModelvalue () {
   $emit('update:modelValue', selectedValue.value)
 }
 
-function initItemType () {
-  if (items.value.length === 0) console.log('items is empty')
-  else console.log(typeof items.value[0])
+function handleChangeSelection (item) {
+  selectedValue.value = item
+  toggleShow()
 }
-
-// function toggleSelections () {
-//   if (isSelectionsShow.value) {
-//     isSelectionsShow.value = false
-//     document.removeEventListener('click', toggleShow())
-//   } else {
-//     isSelectionsShow.value = true
-//     document.addEventListener('click', toggleShow())
-//   }
-// }
 
 function toggleShow () {
   isSelectionsShow.value = !isSelectionsShow.value
 }
 
-initItemType()
+nextTick(() => {})
 </script>
 
 <style lang="postcss" scoped>
 .nc-select {
-  @apply inline-flex flex-col shadow;
+  @apply relative inline-flex flex-col justify-center min-w-max;
 }
 
 /* Select Body */
 .nc-select-body {
-  @apply inline-flex justify-center items-center border border-b-4 min-w-max rounded-t-sm
+  @apply inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0 rounded-tl-sm
   border-gray-400 dark:border-gray-600
-  box-border cursor-pointer;
+  transition-all box-border cursor-pointer select-none;
+}
+.nc-select .nc-select-icon {
+  @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 rounded-tr-sm opacity-100 px-1.5
+  border-gray-400 dark:border-gray-600
+  transition-all;
+}
+.nc-select .nc-select-icon .selection {
+  @apply w-2 h-2 border-t border-r transform rotate-135 -translate-y-0.5
+  border-gray-600;
 }
 
 /* Items Container */
 .nc-select-items {
-  @apply flex flex-col w-full min-w-max border
-  border-gray-400 dark:border-gray-600
-  box-border;
+  @apply absolute inline-flex flex-col w-full h-0 top-0 left-full min-w-max border-none
+  transition-all overflow-hidden box-border;
 }
 
 /* Item Style */
 .nc-select-items .nc-select-item {
-  @apply flex flex-row items-center px-4;
+  @apply flex flex-row items-center px-2
+  hover:bg-gray-200 dark:hover:bg-gray-700 bg-white dark:bg-gray-900
+  cursor-pointer;
+}
+
+/* Active Style */
+.nc-select.active .nc-select-body {
+  @apply border-blue-300 border-r;
+}
+.nc-select.active .nc-select-items {
+  @apply h-32 border
+  border-gray-400 dark:border-gray-600
+  overflow-x-hidden overflow-y-auto;
+}
+.nc-select.active .nc-select-icon {
+  @apply opacity-0;
+}
+
+/* Reset Scrollbar */
+.nc-select.active .nc-select-items::-webkit-scrollbar {
+  @apply w-1;
+}
+.nc-select.active .nc-select-items::-webkit-scrollbar-track {
+  @apply w-1;
+}
+.nc-select.active .nc-select-items::-webkit-scrollbar-thumb {
+  @apply w-1
+  bg-gray-300;
 }
 </style>

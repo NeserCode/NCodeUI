@@ -219,6 +219,7 @@ module.exports = {
       30: '30deg',
       60: '60deg',
       90: '90deg',
+      135: '135deg',
       180: '180deg',
     },
     invert: {
@@ -642,6 +643,7 @@ module.exports = {
       12: '12deg',
       45: '45deg',
       90: '90deg',
+      135: '135deg',
       180: '180deg',
     },
     saturate: {
