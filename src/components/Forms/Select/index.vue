@@ -50,11 +50,13 @@ const $emit = defineEmits(['update:modelValue'])
 const selectedValue = ref(null)
 const isSelectionsShow = ref(false)
 
-const selectedString = computed(() =>
-  modelValue.value === null
-    ? 'UnChecked'
-    : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
-)
+const selectedString = computed(() => {
+  if (typeof items[0] === 'string') {
+    return modelValue.value === null
+      ? 'UnChecked'
+      : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
+  } else return modelValue.value === null ? 'UnChecked' : modelValue.value
+})
 const activeString = computed(() => (isSelectionsShow.value ? 'active' : null))
 
 watch(modelValue, () => {

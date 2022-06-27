@@ -12,13 +12,14 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    
+    <nc-select v-model="usage" :items="i" />
 </template>
 
 <script setup>
   import { ref } from 'vue'
 
   const usage = ref('北京')
+  const i = ref(['北京', '武汉', '上海', '杭州', '深圳', '广东', '长沙'])
 <` + '/script>'
 )
 const usage = ref('北京')
