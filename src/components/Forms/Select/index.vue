@@ -10,8 +10,12 @@
         :key="item"
         tabindex="1"
         @click="handleChangeSelection(item)"
-        >{{ item }}&nbsp;
-        <span>{{ selectedString === item ? "•" : null }}</span>
+        >{{ item.bound ?? item }}&nbsp;
+        <span>{{
+          selectedString.value === (isOptionTyped.value ? item.bound : item)
+            ? "•"
+            : null
+        }}</span>
       </span>
     </span>
     <span class="nc-select-icon" @click="toggleShow">
@@ -43,14 +47,14 @@ const $emit = defineEmits(['update:modelValue'])
 const selectedValue = ref(null)
 const isSelectionsShow = ref(false)
 
-const selectedString = computed(() => {
-  if (typeof items[0] === 'string') {
-    return modelValue.value === null
-      ? 'UnChecked'
-      : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
-  } else return modelValue.value === null ? 'UnChecked' : modelValue.value
-})
+const isOptionTyped = computed(() => typeof items.value[0] === 'object')
 const activeString = computed(() => (isSelectionsShow.value ? 'active' : null))
+const selectedString = computed(() => {
+  return isOptionTyped.value
+    ? items.value.find((item) => item.bound === modelValue.value).bound ??
+        'UnChecked'
+    : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
+})
 
 watch(modelValue, () => {
   initModelvalue()
@@ -67,7 +71,7 @@ function handleChangeModelvalue () {
 }
 
 function handleChangeSelection (item) {
-  selectedValue.value = item
+  selectedValue.value = isOptionTyped.value ? item.bound : item
   toggleShow()
 }
 
@@ -85,7 +89,7 @@ function toggleShow () {
 .nc-select-body {
   @apply inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0
   border-gray-400 dark:border-gray-600
-  transition-all cursor-pointer select-none;
+  transition-all cursor-pointer box-border select-none;
 }
 .nc-select .nc-select-icon {
   @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 opacity-100 px-1.5
@@ -100,6 +104,7 @@ function toggleShow () {
 /* Items Container */
 .nc-select-items {
   @apply absolute inline-flex flex-col w-full h-0 top-0 left-full min-w-max
+  bg-white dark:bg-gray-900
   transition-all overflow-hidden;
 }
 
@@ -109,10 +114,13 @@ function toggleShow () {
   hover:bg-gray-200 dark:hover:bg-gray-700 bg-white dark:bg-gray-900
   cursor-pointer select-none;
 }
+.nc-select-items .nc-select-item.selected {
+  @apply text-blue-400;
+}
 
 /* Active Style */
 .nc-select.active .nc-select-body {
-  @apply border-blue-300 border-r;
+  @apply border-blue-300;
 }
 .nc-select.active .nc-select-items {
   @apply h-32 border
