@@ -5,13 +5,14 @@
     </span>
     <span class="nc-select-items">
       <span
-        class="nc-select-item"
+        :class="['nc-select-item', selectedString === item ? 'selected' : null]"
         v-for="item in items"
         :key="item"
         tabindex="1"
         @click="handleChangeSelection(item)"
-        >{{ item }}</span
-      >
+        >{{ item }}&nbsp;
+        <span>{{ selectedString === item ? "•" : null }}</span>
+      </span>
     </span>
     <span class="nc-select-icon" @click="toggleShow">
       <span class="selection"></span>
@@ -20,15 +21,7 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  defineProps,
-  defineEmits,
-  toRefs,
-  watch,
-  computed,
-  nextTick
-} from 'vue'
+import { ref, defineProps, defineEmits, toRefs, watch, computed } from 'vue'
 
 const $props = defineProps({
   modelValue: {
@@ -81,8 +74,6 @@ function handleChangeSelection (item) {
 function toggleShow () {
   isSelectionsShow.value = !isSelectionsShow.value
 }
-
-nextTick(() => {})
 </script>
 
 <style lang="postcss" scoped>
@@ -92,12 +83,12 @@ nextTick(() => {})
 
 /* Select Body */
 .nc-select-body {
-  @apply inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0 rounded-tl-sm
+  @apply inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0
   border-gray-400 dark:border-gray-600
-  transition-all box-border cursor-pointer select-none;
+  transition-all cursor-pointer select-none;
 }
 .nc-select .nc-select-icon {
-  @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 rounded-tr-sm opacity-100 px-1.5
+  @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 opacity-100 px-1.5
   border-gray-400 dark:border-gray-600
   transition-all;
 }
@@ -108,15 +99,15 @@ nextTick(() => {})
 
 /* Items Container */
 .nc-select-items {
-  @apply absolute inline-flex flex-col w-full h-0 top-0 left-full min-w-max border-none
-  transition-all overflow-hidden box-border;
+  @apply absolute inline-flex flex-col w-full h-0 top-0 left-full min-w-max
+  transition-all overflow-hidden;
 }
 
 /* Item Style */
 .nc-select-items .nc-select-item {
   @apply flex flex-row items-center px-2
   hover:bg-gray-200 dark:hover:bg-gray-700 bg-white dark:bg-gray-900
-  cursor-pointer;
+  cursor-pointer select-none;
 }
 
 /* Active Style */
@@ -129,7 +120,7 @@ nextTick(() => {})
   overflow-x-hidden overflow-y-auto;
 }
 .nc-select.active .nc-select-icon {
-  @apply opacity-0;
+  @apply opacity-0 pointer-events-none;
 }
 
 /* Reset Scrollbar */
