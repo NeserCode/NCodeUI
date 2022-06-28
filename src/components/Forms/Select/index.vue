@@ -1,21 +1,17 @@
 <template>
-  <div :class="['nc-select', activeString]">
+  <div :class="['nc-select', activeString, disabledClass]">
     <span class="nc-select-body" @click="toggleShow">
       {{ selectedString }}
     </span>
     <span class="nc-select-items">
       <span
-        :class="['nc-select-item', selectedString === item ? 'selected' : null]"
-        v-for="item in items"
-        :key="item"
+        :class="['nc-select-item', selectedClass(item)]"
+        v-for="(item, index) in items"
+        :key="item.id ?? item"
         tabindex="1"
-        @click="handleChangeSelection(item)"
+        @click="handleChangeSelection(item, index)"
         >{{ item.bound ?? item }}&nbsp;
-        <span>{{
-          selectedString.value === (isOptionTyped.value ? item.bound : item)
-            ? "•"
-            : null
-        }}</span>
+        <span>{{ selectedIconString(item) }}</span>
       </span>
     </span>
     <span class="nc-select-icon" @click="toggleShow">
@@ -36,25 +32,43 @@ const $props = defineProps({
     type: Array,
     default: () => []
   },
+  uncheckedText: {
+    type: String,
+    default: () => 'Unchecked'
+  },
   disabled: {
     type: Boolean,
     default: false
   }
 })
-const { modelValue, items } = toRefs($props)
+const { modelValue, items, uncheckedText, disabled } = toRefs($props)
 const $emit = defineEmits(['update:modelValue'])
 
 const selectedValue = ref(null)
 const isSelectionsShow = ref(false)
 
 const isOptionTyped = computed(() => typeof items.value[0] === 'object')
+const disabledClass = computed(() => (disabled.value ? 'disabled' : null))
 const activeString = computed(() => (isSelectionsShow.value ? 'active' : null))
 const selectedString = computed(() => {
   return isOptionTyped.value
     ? items.value.find((item) => item.bound === modelValue.value).bound ??
-        'UnChecked'
-    : items.value.find((item) => item === modelValue.value) ?? 'UnChecked'
+        uncheckedText.value
+    : items.value.find((item) => item === modelValue.value) ??
+        uncheckedText.value
 })
+const selectedIconString = computed(
+  () => (item) =>
+    selectedString.value === (isOptionTyped.value ? item.bound : item)
+      ? '•'
+      : null
+)
+const selectedClass = computed(
+  () => (item) =>
+    selectedString.value === (isOptionTyped.value ? item.bound : item)
+      ? 'selected'
+      : null
+)
 
 watch(modelValue, () => {
   initModelvalue()
@@ -64,32 +78,46 @@ watch(selectedValue, () => {
 })
 
 function initModelvalue () {
-  selectedValue.value = modelValue.value
+  if (isOptionTyped.value) {
+    if (
+      items.value.findIndex((item) => item.bound === modelValue.value) !== -1 &&
+      items.value.find((item) => item.bound === modelValue.value).disabled
+    ) {
+      selectedValue.value = uncheckedText.value
+    } else selectedValue.value = modelValue.value
+  } else selectedValue.value = modelValue.value
 }
 function handleChangeModelvalue () {
   $emit('update:modelValue', selectedValue.value)
 }
 
-function handleChangeSelection (item) {
-  selectedValue.value = isOptionTyped.value ? item.bound : item
-  toggleShow()
+function handleChangeSelection (item, index) {
+  if (isOptionTyped.value) {
+    if (!items.value[index].disabled) {
+      selectedValue.value = isOptionTyped.value ? item.bound : item
+    }
+  } else selectedValue.value = isOptionTyped.value ? item.bound : item
+
+  toggleShow(true)
 }
 
-function toggleShow () {
+function toggleShow (val) {
+  if (disabled.value) return 0
+  if (typeof val === 'boolean') isSelectionsShow.value = val
   isSelectionsShow.value = !isSelectionsShow.value
 }
 </script>
 
 <style lang="postcss" scoped>
 .nc-select {
-  @apply relative inline-flex flex-col justify-center min-w-max;
+  @apply relative inline-flex flex-col justify-center min-w-max mr-6 z-0;
 }
 
 /* Select Body */
 .nc-select-body {
-  @apply inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0
+  @apply relative inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0
   border-gray-400 dark:border-gray-600
-  transition-all cursor-pointer box-border select-none;
+  transition-all cursor-pointer box-border select-none z-20;
 }
 .nc-select .nc-select-icon {
   @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 opacity-100 px-1.5
@@ -103,7 +131,7 @@ function toggleShow () {
 
 /* Items Container */
 .nc-select-items {
-  @apply absolute inline-flex flex-col w-full h-0 top-0 left-full min-w-max
+  @apply absolute inline-flex flex-col w-full h-0 top-full left-0 min-w-max
   bg-white dark:bg-gray-900
   transition-all overflow-hidden;
 }
@@ -119,16 +147,27 @@ function toggleShow () {
 }
 
 /* Active Style */
-.nc-select.active .nc-select-body {
+.nc-select.active .nc-select-body,
+.nc-select.active .nc-select-icon {
   @apply border-blue-300;
 }
-.nc-select.active .nc-select-items {
-  @apply h-32 border
-  border-gray-400 dark:border-gray-600
-  overflow-x-hidden overflow-y-auto;
+.nc-select.active .nc-select-item {
+  @apply border-gray-400 dark:border-gray-600
+  z-10;
 }
-.nc-select.active .nc-select-icon {
-  @apply opacity-0 pointer-events-none;
+.nc-select.active .nc-select-items {
+  @apply h-32 border border-r
+  border-gray-400 dark:border-gray-600
+  overflow-x-hidden overflow-y-auto z-10;
+}
+
+/* Disabled Style */
+.nc-select.disabled {
+  @apply opacity-60;
+}
+.nc-select.disabled,
+.nc-select.disabled .nc-select-body {
+  @apply cursor-not-allowed;
 }
 
 /* Reset Scrollbar */

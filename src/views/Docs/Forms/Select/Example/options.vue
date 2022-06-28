@@ -12,33 +12,33 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-select v-model="usage" :items="i" />
+      <nc-select v-model="usage" :items="i" />
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  const usage = ref('北京')
-  const i = ref([{
-    bound: '北京',
-  }, {
-    bound: '上海',
-  }, {
-    bound: '广州',
-  }])
+const usage = ref('北京')
+const i = ref([
+  { id: 1, bound: '北京' },
+  { id: 2, bound: '武汉' },
+  { id: 3, bound: '上海' },
+  { id: 4, bound: '杭州' },
+  { id: 5, bound: '深圳' },
+  { id: 6, bound: '广东' },
+  { id: 7, bound: '长沙' },
+])
 <` + '/script>'
 )
 const usage = ref('北京')
 const i = ref([
-  {
-    bound: '北京'
-  },
-  {
-    bound: '上海'
-  },
-  {
-    bound: '广州'
-  }
+  { id: 1, bound: '北京' },
+  { id: 2, bound: '武汉' },
+  { id: 3, bound: '上海' },
+  { id: 4, bound: '杭州' },
+  { id: 5, bound: '深圳' },
+  { id: 6, bound: '广东' },
+  { id: 7, bound: '长沙' }
 ])
 </script>
 
