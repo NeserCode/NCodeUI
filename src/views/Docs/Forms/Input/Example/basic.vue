@@ -9,7 +9,7 @@ import viewBox from '@/components/Native/ViewBox/index.vue'
 import NcInput from '@/components/Forms/Input/index.vue'
 
 import { ref } from 'vue'
-const t = ref('abc')
+const t = ref('ABC')
 
 const code = ref(
   `<template>
