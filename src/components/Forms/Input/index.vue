@@ -5,6 +5,8 @@
       :type="type"
       v-model="inputValue"
       placeholder=" "
+      :autocomplete="autocomplete"
+      :spellcheck="spellcheck"
     />
     <label for="">{{ placeholder }}</label>
   </div>
@@ -22,11 +24,20 @@ const $props = defineProps({
   },
   placeholder: {
     type: String
+  },
+  autocomplete: {
+    type: Boolean,
+    default: false
+  },
+  spellcheck: {
+    type: Boolean,
+    default: false
   }
 })
 const $emit = defineEmits(['update:modelValue'])
 
-const { modelValue, placeholder, type } = toRefs($props)
+const { modelValue, placeholder, type, autocomplete, spellcheck } =
+  toRefs($props)
 
 const inputValue = ref(null)
 

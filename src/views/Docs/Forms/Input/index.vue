@@ -3,6 +3,12 @@
     <headTitle :level="1">Nc-Input 输入</headTitle>
     <para>常用的表单组件</para>
     <headTitle :level="2">基础用法</headTitle>
+    <headTitle :level="3">原生属性</headTitle>
+    <para
+      >此组件有较多的原生属性可以使用。如 spellcheck autocomplete
+      等不参与组件独有功能的属性可以按照原有的用法直接使用</para
+    >
+    <example-input-basic />
     <headTitle :level="3">受控绑定</headTitle>
     <para>此组件是一个受控的组件，在接受 v-model 绑定之前无法改变或传入值</para>
     <example-input-basic />
