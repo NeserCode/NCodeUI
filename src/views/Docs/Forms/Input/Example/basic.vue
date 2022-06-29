@@ -1,6 +1,7 @@
 <template>
   <viewBox :code="code">
     <nc-input v-model="t" />
+    <nc-input v-model="num" type="number" />
   </viewBox>
 </template>
 
@@ -10,6 +11,7 @@ import NcInput from '@/components/Forms/Input/index.vue'
 
 import { ref } from 'vue'
 const t = ref('ABC')
+const num = ref(0)
 
 const code = ref(
   `<template>

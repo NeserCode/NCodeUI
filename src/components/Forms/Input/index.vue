@@ -2,10 +2,11 @@
   <div class="nc-input">
     <input
       :class="['nc-input-origin']"
-      type="text"
+      :type="type"
       v-model="inputValue"
       placeholder=" "
     />
+    <label for="">{{ placeholder }}</label>
   </div>
 </template>
 
@@ -16,13 +17,16 @@ const $props = defineProps({
   modelValue: {
     type: [String, Number]
   },
+  type: {
+    default: () => 'text'
+  },
   placeholder: {
     type: String
   }
 })
 const $emit = defineEmits(['update:modelValue'])
 
-const { modelValue } = toRefs($props)
+const { modelValue, placeholder, type } = toRefs($props)
 
 const inputValue = ref(null)
 
