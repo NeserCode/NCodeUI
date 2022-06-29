@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-select v-model="usage" :items="i" unchecked-text="未选择" />
+    <nc-select v-model="usage" :items="i" unchecked-text="🙄 未选择" />
     <nc-select v-model="usage" :items="i" />
   </viewBox>
 </template>
@@ -13,7 +13,7 @@ import { ref } from 'vue'
 
 const code = ref(
   `<template>
-    <nc-select v-model="usage" :items="i" unchecked-text="未选择" />
+    <nc-select v-model="usage" :items="i" unchecked-text="🙄 未选择" />
     <nc-select v-model="usage" :items="i" />
 </template>
 
@@ -35,6 +35,3 @@ const i = ref([
   '长沙 City Park'
 ])
 </script>
-
-<style lang="postcss" scoped>
-</style>

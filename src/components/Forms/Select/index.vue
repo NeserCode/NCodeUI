@@ -1,11 +1,17 @@
 <template>
   <div :class="['nc-select', activeString, disabledClass]">
-    <span class="nc-select-body" @click="toggleShow">
-      {{ selectedString }}
-    </span>
+    <div class="nc-select-main">
+      <span class="nc-select-body" @click="toggleShow">
+        {{ selectedString }}
+      </span>
+    </div>
     <span class="nc-select-items">
       <span
-        :class="['nc-select-item', selectedClass(item)]"
+        :class="[
+          'nc-select-item',
+          selectedClass(item),
+          disabledItemClass(item),
+        ]"
         v-for="(item, index) in items"
         :key="item.id ?? item"
         tabindex="1"
@@ -49,13 +55,18 @@ const isSelectionsShow = ref(false)
 
 const isOptionTyped = computed(() => typeof items.value[0] === 'object')
 const disabledClass = computed(() => (disabled.value ? 'disabled' : null))
+const disabledItemClass = computed(
+  () => (item) => item.disabled ? 'disabledItem' : null
+)
 const activeString = computed(() => (isSelectionsShow.value ? 'active' : null))
 const selectedString = computed(() => {
   return isOptionTyped.value
-    ? items.value.find((item) => item.bound === modelValue.value).bound ??
-        uncheckedText.value
+    ? (items.value.find((item) => item.bound === modelValue.value).disabled
+      ? null
+      : items.value.find((item) => item.bound === modelValue.value).bound) ??
+        (uncheckedText.value.length === 0 ? 'Unchecked' : uncheckedText.value)
     : items.value.find((item) => item === modelValue.value) ??
-        uncheckedText.value
+        (uncheckedText.value.length === 0 ? 'Unchecked' : uncheckedText.value)
 })
 const selectedIconString = computed(
   () => (item) =>
@@ -110,14 +121,17 @@ function toggleShow (val) {
 
 <style lang="postcss" scoped>
 .nc-select {
-  @apply relative inline-flex flex-col justify-center min-w-max mr-6 z-0;
+  @apply relative flex flex-col justify-center w-auto mr-6 z-0 overflow-ellipsis;
 }
 
 /* Select Body */
+.nc-select-main {
+  @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+}
 .nc-select-body {
-  @apply relative inline-flex justify-center items-center w-full border px-2 border-b-4 border-r-0
+  @apply relative flex items-center border px-2 border-b-4 border-r-0
   border-gray-400 dark:border-gray-600
-  transition-all cursor-pointer box-border select-none z-20;
+  transition-all cursor-pointer box-border select-none z-20 overflow-ellipsis;
 }
 .nc-select .nc-select-icon {
   @apply absolute inline-flex justify-center items-center h-full left-full top-0 border border-l-0 border-b-4 opacity-100 px-1.5
@@ -125,8 +139,12 @@ function toggleShow (val) {
   transition-all;
 }
 .nc-select .nc-select-icon .selection {
-  @apply w-2 h-2 border-t border-r transform rotate-135 -translate-y-0.5
-  border-gray-600;
+  @apply w-2 h-2 border-t border-r
+  border-gray-600
+  transition-all transform rotate-135 -translate-y-0.5 origin-center;
+}
+.nc-select:hover .nc-select-icon .selection {
+  @apply rotate-45 translate-y-0;
 }
 
 /* Items Container */
@@ -156,9 +174,12 @@ function toggleShow (val) {
   z-10;
 }
 .nc-select.active .nc-select-items {
-  @apply h-32 border border-r
+  @apply h-32 border
   border-gray-400 dark:border-gray-600
   overflow-x-hidden overflow-y-auto z-10;
+}
+.nc-select.active .nc-select-icon .selection {
+  @apply translate-y-0.5 rotate-315;
 }
 
 /* Disabled Style */
@@ -168,6 +189,13 @@ function toggleShow (val) {
 .nc-select.disabled,
 .nc-select.disabled .nc-select-body {
   @apply cursor-not-allowed;
+}
+.nc-select.disabled:hover .nc-select-icon .selection {
+  @apply rotate-135 -translate-y-0.5;
+}
+.nc-select-items .nc-select-item.disabledItem {
+  @apply hover:bg-white dark:hover:bg-gray-900
+  opacity-60 cursor-not-allowed;
 }
 
 /* Reset Scrollbar */

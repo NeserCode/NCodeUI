@@ -33,6 +33,8 @@
     <example-select-disabled />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
+    <headTitle :level="2">Todo</headTitle>
+    <para>✨ 分组(子菜单)</para>
     <placeholder />
   </div>
 </template>
@@ -51,6 +53,6 @@ import ExampleSelectDisabled from '@/views/Docs/Forms/Select/Example/disabled.vu
 
 <style scoped lang="postcss">
 .doc-nc-select {
-  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
+  @apply inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 </style>

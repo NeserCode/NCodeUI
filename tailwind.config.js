@@ -645,6 +645,7 @@ module.exports = {
       90: '90deg',
       135: '135deg',
       180: '180deg',
+      315: '315deg',
     },
     saturate: {
       0: '0',
