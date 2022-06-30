@@ -11,7 +11,17 @@
     <example-input-basic />
     <headTitle :level="3">受控绑定</headTitle>
     <para>此组件是一个受控的组件，在接受 v-model 绑定之前无法改变或传入值</para>
+    <example-input-basic :isVmodel="false" />
+    <headTitle :level="2">并用标签</headTitle>
+    <para>原生 placeholder 属性的进阶用法</para>
+    <headTitle :level="3">基础风格</headTitle>
     <example-input-basic />
+    <headTitle :level="2">清除内容</headTitle>
+    <para
+      >使用 clearable 属性控制组件的清除行为，该属性接受一个 Boolean
+      类型的值，默认为 false</para
+    >
+    <example-input-clearable />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
     <placeholder />
@@ -24,6 +34,7 @@ import para from '@/components/Native/Para/index.vue'
 import placeholder from '@/components/Native/Placeholder/index.vue'
 // import { ref } from 'vue'
 import ExampleInputBasic from '@/views/Docs/Forms/Input/Example/basic.vue'
+import ExampleInputClearable from '@/views/Docs/Forms/Input/Example/clearable.vue'
 </script>
 <style scoped lang="postcss">
 .doc-nc-input {

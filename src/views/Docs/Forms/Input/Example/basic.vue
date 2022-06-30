@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-input v-model="t" />
+    <nc-input v-model="t" :id="id" placeholder="框架名称" />
   </viewBox>
 </template>
 
@@ -8,18 +8,34 @@
 import viewBox from '@/components/Native/ViewBox/index.vue'
 import NcInput from '@/components/Forms/Input/index.vue'
 
-import { ref } from 'vue'
-const t = ref('NCodeUI')
+import { ref, defineProps, toRefs } from 'vue'
 
-const code = ref(
-  `<template>
-    <nc-input v-model="t" />
+const $props = defineProps({
+  isVmodel: {
+    type: Boolean,
+    default: true
+  }
+})
+const { isVmodel } = toRefs($props)
+
+const t = isVmodel.value ? ref('NCodeUI') : ref(undefined)
+const id = isVmodel.value ? ref('input') : ref('not-model-input')
+
+const code = isVmodel.value
+  ? ref(
+      `<template>
+    <nc-input v-model="t" :id="id" placeholder="框架名称" />
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  const t = ref(1)
+const t = ref("NCodeUI")
 <` + '/script>'
-)
+  )
+  : ref(
+      `<template>
+    <nc-input :id="id" placeholder="框架名称" />
+</template>`
+  )
 </script>
