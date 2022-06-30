@@ -19,7 +19,7 @@ const $props = defineProps({
 const { isVmodel } = toRefs($props)
 
 const t = isVmodel.value ? ref('NCodeUI') : ref(undefined)
-const id = isVmodel.value ? ref('input') : ref('not-model-input')
+const id = ref('basic-example-' + (Math.random() * 20).toFixed(2))
 
 const code = isVmodel.value
   ? ref(
@@ -31,11 +31,19 @@ const code = isVmodel.value
 import { ref } from 'vue'
 
 const t = ref("NCodeUI")
+const id = ref('basic-example' + (Math.random() * 20).toFixed(2))
 <` + '/script>'
   )
   : ref(
       `<template>
     <nc-input :id="id" placeholder="框架名称" />
-</template>`
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const t = ref("NCodeUI")
+const id = ref('basic-example' + (Math.random() * 20).toFixed(2))
+<` + '/script>'
   )
 </script>

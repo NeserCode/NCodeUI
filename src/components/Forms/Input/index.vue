@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nc-input', clearableClass]">
+  <div :class="['nc-input', clearableClass, movableClass]">
     <input
       :class="['nc-input-origin']"
       :type="type"
@@ -10,7 +10,9 @@
       :spellcheck="spellcheck"
     />
     <label class="nc-input-placeholder" :for="id">{{ placeholder }}</label>
-    <span class="clearBtn" v-if="clearable">×</span>
+    <span class="clearBtn" v-if="clearable" @click="handleClearInputValue"
+      >×</span
+    >
   </div>
 </template>
 
@@ -42,6 +44,9 @@ const $props = defineProps({
   clearable: {
     type: Boolean,
     default: false
+  },
+  movable: {
+    type: String
   }
 })
 const $emit = defineEmits(['update:modelValue'])
@@ -53,12 +58,16 @@ const {
   id,
   autocomplete,
   spellcheck,
-  clearable
+  clearable,
+  movable
 } = toRefs($props)
 
 const inputValue = ref(null)
 
 const clearableClass = computed(() => (clearable.value ? 'clearable' : null))
+const movableClass = computed(() =>
+  movable.value ? `move-${movable.value}` : null
+)
 
 watch(inputValue, () => {
   if (modelValue.value === undefined) {
@@ -72,8 +81,12 @@ watch(modelValue, () => {
 function initModelValue () {
   inputValue.value = modelValue.value
 }
-function handleChangeInputValue () {
-  $emit('update:modelValue', inputValue.value)
+function handleChangeInputValue (val) {
+  $emit('update:modelValue', val ?? inputValue.value)
+}
+
+function handleClearInputValue () {
+  handleChangeInputValue('')
 }
 
 initModelValue()
@@ -99,7 +112,7 @@ initModelValue()
 
 /* Placeholder Style */
 .nc-input .nc-input-placeholder {
-  @apply absolute inline-block left-3 py-1.5
+  @apply absolute inline-block px-3 left-0 py-1.5
   transition-all select-none opacity-100;
 }
 .nc-input
@@ -120,10 +133,37 @@ initModelValue()
   hover:text-red-400
   select-none box-border cursor-pointer;
 }
-.nc-input .nc-input-origin:focus:not(:placeholder-shown) ~ .clearBtn {
+.nc-input .nc-input-origin:focus:not(:placeholder-shown) ~ .clearBtn,
+.nc-input .nc-input-origin ~ .clearBtn:hover {
   @apply inline-flex;
 }
 .nc-input.clearable .nc-input-origin:focus:not(:placeholder-shown) {
   @apply pr-6;
+}
+
+/* Movable Style */
+/* Left */
+.nc-input.move-left
+  .nc-input-origin:not(:placeholder-shown)
+  ~ .nc-input-placeholder {
+  @apply transform -translate-x-full opacity-100 inline-block;
+}
+.nc-input.move-left .nc-input-origin:not(:placeholder-shown) {
+  @apply transform translate-x-1;
+}
+.nc-input.move-left {
+  @apply mx-1;
+}
+/* Up */
+.nc-input.move-up
+  .nc-input-origin:not(:placeholder-shown)
+  ~ .nc-input-placeholder {
+  @apply transform -translate-y-full opacity-100 inline-block pl-0;
+}
+.nc-input.move-up .nc-input-origin:not(:placeholder-shown) {
+  @apply transform translate-y-1;
+}
+.nc-input.move-up {
+  @apply my-1;
 }
 </style>

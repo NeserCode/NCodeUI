@@ -14,8 +14,15 @@
     <example-input-basic :isVmodel="false" />
     <headTitle :level="2">并用标签</headTitle>
     <para>原生 placeholder 属性的进阶用法</para>
-    <headTitle :level="3">基础风格</headTitle>
-    <example-input-basic />
+    <headTitle :level="3">移动标签</headTitle>
+    <para
+      >使用 movable 属性控制组件的并用标签预设位置 该属性接受一个 String
+      类型的值</para
+    >
+    <para
+      >使用此功能时请注意组件标签的预设空间是否足够标签的显示，否则用户体验差</para
+    >
+    <example-input-movable />
     <headTitle :level="2">清除内容</headTitle>
     <para
       >使用 clearable 属性控制组件的清除行为，该属性接受一个 Boolean
@@ -35,6 +42,7 @@ import placeholder from '@/components/Native/Placeholder/index.vue'
 // import { ref } from 'vue'
 import ExampleInputBasic from '@/views/Docs/Forms/Input/Example/basic.vue'
 import ExampleInputClearable from '@/views/Docs/Forms/Input/Example/clearable.vue'
+import ExampleInputMovable from '@/views/Docs/Forms/Input/Example/movable.vue'
 </script>
 <style scoped lang="postcss">
 .doc-nc-input {
