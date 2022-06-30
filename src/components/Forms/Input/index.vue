@@ -13,6 +13,7 @@
     <span class="clearBtn" v-if="clearable" @click="handleClearInputValue"
       >×</span
     >
+    <span class="nc-input-count">{{ countString }}</span>
   </div>
 </template>
 
@@ -75,6 +76,9 @@ const movableClass = computed(() =>
 )
 const moveHiddenClass = computed(() =>
   autoHidden.value && movable ? 'auto-hidden' : null
+)
+const countString = computed(() =>
+  inputValue.value ? inputValue.value.length : 0
 )
 
 watch(inputValue, () => {
@@ -198,5 +202,10 @@ initModelValue()
 }
 .nc-input.move-up.auto-hidden {
   @apply my-0;
+}
+
+/* Count Style */
+.nc-input-count {
+  @apply absolute inline-block top-0 -right-0 py-1.5 px-2 text-lg font-semibold;
 }
 </style>

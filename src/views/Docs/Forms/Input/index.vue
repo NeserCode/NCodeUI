@@ -27,6 +27,12 @@
     <headTitle :level="4">自动隐藏</headTitle>
     <para>使用移动标签功能后才能启用该功能，让运动标签仅在用户输入时显示</para>
     <example-input-hidden />
+    <headTitle :level="2">范围控制</headTitle>
+    <para
+      >使用原生的 min 与 max 控制范围，这两种属性都接受一个 Number
+      类型的值</para
+    >
+    <example-input-range />
     <headTitle :level="2">清除内容</headTitle>
     <para
       >使用 clearable 属性控制组件的清除行为，该属性接受一个 Boolean
@@ -48,9 +54,10 @@ import ExampleInputBasic from '@/views/Docs/Forms/Input/Example/basic.vue'
 import ExampleInputClearable from '@/views/Docs/Forms/Input/Example/clearable.vue'
 import ExampleInputMovable from '@/views/Docs/Forms/Input/Example/movable.vue'
 import ExampleInputHidden from '@/views/Docs/Forms/Input/Example/hidden.vue'
+import ExampleInputRange from '@/views/Docs/Forms/Input/Example/range.vue'
 </script>
 <style scoped lang="postcss">
 .doc-nc-input {
-  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
+  @apply inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 </style>
