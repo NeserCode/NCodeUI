@@ -80,6 +80,7 @@ const selectedClass = computed(
       ? 'selected'
       : null
 )
+const computedHeight = computed(() => items.value.length * 24)
 
 watch(modelValue, () => {
   initModelvalue()
@@ -174,9 +175,10 @@ function toggleShow (val) {
   z-10;
 }
 .nc-select.active .nc-select-items {
-  @apply h-32 border
+  @apply max-h-28 border
   border-gray-400 dark:border-gray-600
   overflow-x-hidden overflow-y-auto z-10;
+  height: v-bind("computedHeight");
 }
 .nc-select.active .nc-select-icon .selection {
   @apply translate-y-0.5 rotate-315;

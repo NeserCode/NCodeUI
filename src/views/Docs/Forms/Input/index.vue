@@ -19,10 +19,14 @@
       >使用 movable 属性控制组件的并用标签预设位置 该属性接受一个 String
       类型的值</para
     >
+    <headTitle :level="4">功能使用</headTitle>
     <para
       >使用此功能时请注意组件标签的预设空间是否足够标签的显示，否则用户体验差</para
     >
     <example-input-movable />
+    <headTitle :level="4">自动隐藏</headTitle>
+    <para>使用移动标签功能后才能启用该功能，让运动标签仅在用户输入时显示</para>
+    <example-input-hidden />
     <headTitle :level="2">清除内容</headTitle>
     <para
       >使用 clearable 属性控制组件的清除行为，该属性接受一个 Boolean
@@ -43,6 +47,7 @@ import placeholder from '@/components/Native/Placeholder/index.vue'
 import ExampleInputBasic from '@/views/Docs/Forms/Input/Example/basic.vue'
 import ExampleInputClearable from '@/views/Docs/Forms/Input/Example/clearable.vue'
 import ExampleInputMovable from '@/views/Docs/Forms/Input/Example/movable.vue'
+import ExampleInputHidden from '@/views/Docs/Forms/Input/Example/hidden.vue'
 </script>
 <style scoped lang="postcss">
 .doc-nc-input {

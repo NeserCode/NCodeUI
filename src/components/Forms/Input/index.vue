@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nc-input', clearableClass, movableClass]">
+  <div :class="['nc-input', clearableClass, movableClass, moveHiddenClass]">
     <input
       :class="['nc-input-origin']"
       :type="type"
@@ -47,9 +47,13 @@ const $props = defineProps({
   },
   movable: {
     type: String
+  },
+  autoHidden: {
+    type: Boolean,
+    default: false
   }
 })
-const $emit = defineEmits(['update:modelValue'])
+const $emit = defineEmits(['update:modelValue', 'input'])
 
 const {
   modelValue,
@@ -59,7 +63,8 @@ const {
   autocomplete,
   spellcheck,
   clearable,
-  movable
+  movable,
+  autoHidden
 } = toRefs($props)
 
 const inputValue = ref(null)
@@ -67,6 +72,9 @@ const inputValue = ref(null)
 const clearableClass = computed(() => (clearable.value ? 'clearable' : null))
 const movableClass = computed(() =>
   movable.value ? `move-${movable.value}` : null
+)
+const moveHiddenClass = computed(() =>
+  autoHidden.value && movable ? 'auto-hidden' : null
 )
 
 watch(inputValue, () => {
@@ -83,6 +91,7 @@ function initModelValue () {
 }
 function handleChangeInputValue (val) {
   $emit('update:modelValue', val ?? inputValue.value)
+  $emit('input', val ?? inputValue.value)
 }
 
 function handleClearInputValue () {
@@ -146,13 +155,25 @@ initModelValue()
 .nc-input.move-left
   .nc-input-origin:not(:placeholder-shown)
   ~ .nc-input-placeholder {
-  @apply transform -translate-x-full opacity-100 inline-block;
+  @apply transform -translate-x-full opacity-100;
+}
+.nc-input.move-left.auto-hidden
+  .nc-input-origin:not(:focus):not(:placeholder-shown)
+  ~ .nc-input-placeholder {
+  @apply transform translate-x-0 opacity-0;
 }
 .nc-input.move-left .nc-input-origin:not(:placeholder-shown) {
   @apply transform translate-x-1;
 }
+.nc-input.move-left.auto-hidden
+  .nc-input-origin:not(:focus):not(:placeholder-shown) {
+  @apply transform translate-x-0;
+}
 .nc-input.move-left {
   @apply mx-1;
+}
+.nc-input.move-left.auto-hidden {
+  @apply mx-0;
 }
 /* Up */
 .nc-input.move-up
@@ -160,10 +181,22 @@ initModelValue()
   ~ .nc-input-placeholder {
   @apply transform -translate-y-full opacity-100 inline-block pl-0;
 }
+.nc-input.move-up.auto-hidden
+  .nc-input-origin:not(:focus):not(:placeholder-shown)
+  ~ .nc-input-placeholder {
+  @apply transform translate-y-0 opacity-0 px-3;
+}
 .nc-input.move-up .nc-input-origin:not(:placeholder-shown) {
   @apply transform translate-y-1;
 }
+.nc-input.move-up.auto-hidden
+  .nc-input-origin:not(:focus):not(:placeholder-shown) {
+  @apply transform translate-y-0;
+}
 .nc-input.move-up {
   @apply my-1;
+}
+.nc-input.move-up.auto-hidden {
+  @apply my-0;
 }
 </style>
