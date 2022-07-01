@@ -14,6 +14,7 @@
       :min="min"
       :maxlength="maxlength"
       :minlength="minlength"
+      :step="step"
     />
     <label class="nc-input-placeholder" :for="id">{{ placeholder }}</label>
     <span class="clearBtn" v-if="clearable" @click="handleClearInputValue"
@@ -73,6 +74,9 @@ const $props = defineProps({
   minlength: {
     type: Number
   },
+  step: {
+    type: Number
+  },
   showCount: {
     type: Boolean,
     default: false
@@ -98,6 +102,7 @@ const {
   min,
   maxlength,
   minlength,
+  step,
   showCount,
   showLimit
 } = toRefs($props)
@@ -255,7 +260,7 @@ initModelValue()
 
 /* Count Style */
 .nc-input-count {
-  @apply inline-flex justify-center items-center top-0 py-1.5 px-2 text-xs font-thin
+  @apply inline-flex justify-center items-center top-0 py-1.5 px-2 text-xs
   pointer-events-none select-none transition-all opacity-0;
 }
 .nc-input.move-left.auto-hidden ~ .nc-input-count {

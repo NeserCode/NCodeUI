@@ -3,10 +3,12 @@
     <headTitle :level="1">Nc-Input 输入</headTitle>
     <para>常用的表单组件</para>
     <headTitle :level="2">基础用法</headTitle>
+    <para>此组件必须传递一个 id，否则将影响后续功能</para>
     <headTitle :level="3">原生属性</headTitle>
     <para
       >此组件有较多的原生属性可以使用。如 spellcheck autocomplete
-      等不参与组件独有功能的属性可以按照原有的用法直接使用</para
+      等不参与组件独有功能的属性可以按照原有的用法直接使用，
+      但必须是页末属性键值列举的可选值</para
     >
     <example-input-basic />
     <headTitle :level="3">受控绑定</headTitle>
@@ -19,7 +21,7 @@
       >使用 movable 属性控制组件的并用标签预设位置 该属性接受一个 String
       类型的值</para
     >
-    <headTitle :level="4">功能使用</headTitle>
+    <headTitle :level="4">基础用法</headTitle>
     <para
       >使用此功能时请注意组件标签的预设空间是否足够标签的显示，否则用户体验差</para
     >
