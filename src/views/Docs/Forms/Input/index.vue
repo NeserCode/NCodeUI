@@ -43,6 +43,8 @@
     <example-input-clearable />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
+    <headTitle :level="2">Todo</headTitle>
+    <para>✨ readonly等属性的增添</para>
     <placeholder />
   </div>
 </template>
