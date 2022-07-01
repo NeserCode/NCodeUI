@@ -29,7 +29,7 @@
     <example-input-hidden />
     <headTitle :level="2">范围控制</headTitle>
     <para
-      >使用原生的 min 与 max 控制范围，这两种属性都接受一个 Number
+      >使用原生的 minlength 与 maxlength 控制范围，这两种属性都接受一个 Number
       类型的值</para
     >
     <example-input-range />

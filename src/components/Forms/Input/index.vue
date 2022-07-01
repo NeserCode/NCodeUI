@@ -8,12 +8,20 @@
       placeholder=" "
       :autocomplete="autocomplete"
       :spellcheck="spellcheck"
+      @focus="handleInputFocus(true)"
+      @blur="handleInputFocus(false)"
+      :max="max"
+      :min="min"
+      :maxlength="maxlength"
+      :minlength="minlength"
     />
     <label class="nc-input-placeholder" :for="id">{{ placeholder }}</label>
     <span class="clearBtn" v-if="clearable" @click="handleClearInputValue"
       >×</span
     >
-    <span class="nc-input-count">{{ countString }}</span>
+  </div>
+  <div class="nc-input-count" ref="count" v-if="showCount || showLimit">
+    <span class="nc-input-count-string">{{ countString }}</span>
   </div>
 </template>
 
@@ -52,6 +60,26 @@ const $props = defineProps({
   autoHidden: {
     type: Boolean,
     default: false
+  },
+  max: {
+    type: Number
+  },
+  min: {
+    type: Number
+  },
+  maxlength: {
+    type: Number
+  },
+  minlength: {
+    type: Number
+  },
+  showCount: {
+    type: Boolean,
+    default: false
+  },
+  showLimit: {
+    type: Boolean,
+    default: false
   }
 })
 const $emit = defineEmits(['update:modelValue', 'input'])
@@ -65,8 +93,16 @@ const {
   spellcheck,
   clearable,
   movable,
-  autoHidden
+  autoHidden,
+  max,
+  min,
+  maxlength,
+  minlength,
+  showCount,
+  showLimit
 } = toRefs($props)
+
+const count = ref(null)
 
 const inputValue = ref(null)
 
@@ -77,9 +113,15 @@ const movableClass = computed(() =>
 const moveHiddenClass = computed(() =>
   autoHidden.value && movable ? 'auto-hidden' : null
 )
-const countString = computed(() =>
-  inputValue.value ? inputValue.value.length : 0
-)
+const countString = computed(() => {
+  if (showCount.value && !showLimit.value) {
+    return inputValue.value ? inputValue.value.length : 0
+  } else if (showCount.value && showLimit.value) {
+    return `${inputValue.value ? inputValue.value.length : 0} / ${
+      maxlength.value
+    }`
+  } else return null
+})
 
 watch(inputValue, () => {
   if (modelValue.value === undefined) {
@@ -100,6 +142,13 @@ function handleChangeInputValue (val) {
 
 function handleClearInputValue () {
   handleChangeInputValue('')
+}
+
+function handleInputFocus (va) {
+  if (showCount.value || showLimit.value) {
+    if (va) count.value.classList.add('actived')
+    else count.value.classList.remove('actived')
+  }
 }
 
 initModelValue()
@@ -206,6 +255,16 @@ initModelValue()
 
 /* Count Style */
 .nc-input-count {
-  @apply absolute inline-block top-0 -right-0 py-1.5 px-2 text-lg font-semibold;
+  @apply inline-flex justify-center items-center top-0 py-1.5 px-2 text-xs font-thin
+  pointer-events-none select-none transition-all opacity-0;
+}
+.nc-input.move-left.auto-hidden ~ .nc-input-count {
+  @apply ml-1;
+}
+.nc-input.move-up.auto-hidden ~ .nc-input-count {
+  @apply mt-1;
+}
+.nc-input-count.actived {
+  @apply opacity-100;
 }
 </style>

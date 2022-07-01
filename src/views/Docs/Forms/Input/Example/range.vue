@@ -6,7 +6,11 @@
       auto-hidden
       placeholder="框架名称"
       movable="left"
-      :max="10"
+      show-count
+      show-limit
+      clearable
+      :maxlength="10"
+      :minlength="5"
     />
   </viewBox>
 </template>
