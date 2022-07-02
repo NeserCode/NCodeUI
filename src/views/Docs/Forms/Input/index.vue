@@ -3,7 +3,7 @@
     <headTitle :level="1">Nc-Input 输入</headTitle>
     <para>常用的表单组件</para>
     <headTitle :level="2">基础用法</headTitle>
-    <para>此组件必须传递一个 id，否则将影响后续功能</para>
+    <para>此组件必须传递一个 id，否则将影响后续进阶功能如并用标签等</para>
     <headTitle :level="3">原生属性</headTitle>
     <para
       >此组件有较多的原生属性可以使用。如 spellcheck autocomplete
