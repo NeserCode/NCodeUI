@@ -34,6 +34,7 @@
       >使用原生的 minlength 与 maxlength 控制范围，这两种属性都接受一个 Number
       类型的值</para
     >
+    <para>在使用 maxlength 的基础上使用 show-limit 配合 show-count 属性控制组件的统计字符串的显示与内容</para>
     <example-input-range />
     <headTitle :level="2">清除内容</headTitle>
     <para
