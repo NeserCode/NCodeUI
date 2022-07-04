@@ -1,40 +1,33 @@
 <template>
-  <div :class="['nc-radio', checkedString]">
+  <div :class="['nc-radio']">
     <input
       type="radio"
       class="nc-radio-body"
-      :id="id"
+      v-model="checkedValue"
+      :value="label"
       :name="name"
-      :checked="checkedValue"
+      :id="id"
     />
-    <label class="nc-radio-label" :for="id"><slot></slot></label>
+    <label class="nc-radio-label" :for="id">{{ label }}</label>
   </div>
 </template>
 
 <script setup>
-import { ref, defineProps, toRefs, defineEmits, computed, watch } from 'vue'
+import { ref, defineEmits, defineProps, watch, inject, toRefs } from 'vue'
+import { radioGroupKey } from '@/tokens/radio'
 
+const $emit = defineEmits(['change'])
 const $props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false
-  },
   id: {
-    type: String,
-    required: true
+    type: String
   },
-  name: {
-    type: String,
-    required: true
+  label: {
+    type: String
   }
 })
 
-const { id, name, modelValue } = toRefs($props)
-
-const $emit = defineEmits(['update:modelValue'])
-
-const checkedString = computed(() => (checkedValue.value ? 'checked' : null))
-
+const { id, label } = toRefs($props)
+const { name, modelValue } = toRefs(inject(radioGroupKey, undefined))
 const checkedValue = ref(false)
 
 watch(checkedValue, () => {
@@ -48,7 +41,10 @@ function initModelValue () {
   checkedValue.value = modelValue.value
 }
 function handleChangeCheckedValue () {
-  $emit('update:modelValue', checkedValue.value)
+  if (label.value === checkedValue.value) {
+    $emit('change', label.value)
+    console.log('emitted')
+  }
 }
 
 initModelValue()
