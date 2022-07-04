@@ -3,7 +3,7 @@
     <headTitle :level="1">Nc-Radio 单选</headTitle>
     <para>常用的操作组件</para>
     <headTitle :level="2">基础用法</headTitle>
-    <para>在默认未传入 btnStyle 情况下，按钮将会以默认风格呈现</para>
+    <para>此组件必须传入 id 与 name 属性，二者都接受一个 String 类型的值</para>
     <example-radio-basic />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
