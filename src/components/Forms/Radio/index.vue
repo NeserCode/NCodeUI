@@ -13,10 +13,9 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps, watch, inject, toRefs } from 'vue'
-import { radioGroupKey } from '@/tokens/radio'
+import { ref, defineProps, watch, inject, toRefs } from 'vue'
+import { radioGroupKey, radioGroupUpdateKey } from '@/tokens/radio'
 
-const $emit = defineEmits(['change'])
 const $props = defineProps({
   id: {
     type: String
@@ -28,10 +27,11 @@ const $props = defineProps({
 
 const { id, label } = toRefs($props)
 const { name, modelValue } = toRefs(inject(radioGroupKey, undefined))
+const { updateModelValue } = inject(radioGroupUpdateKey, undefined)
 const checkedValue = ref(false)
 
 watch(checkedValue, () => {
-  handleChangeCheckedValue()
+  updateModelValue(checkedValue.value)
 })
 watch(modelValue, () => {
   initModelValue()
@@ -39,12 +39,6 @@ watch(modelValue, () => {
 
 function initModelValue () {
   checkedValue.value = modelValue.value
-}
-function handleChangeCheckedValue () {
-  if (label.value === checkedValue.value) {
-    $emit('change', label.value)
-    console.log('emitted')
-  }
 }
 
 initModelValue()

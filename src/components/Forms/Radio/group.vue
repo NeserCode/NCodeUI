@@ -1,12 +1,12 @@
 <template>
   <div class="nc-radio-group" ref="radioGroupRef">
-    <slot @change="handleChangeModelValue" />
+    <slot />
   </div>
 </template>
 
 <script setup>
 import { defineEmits, defineProps, ref, provide, reactive, toRefs } from 'vue'
-import { radioGroupKey } from '@/tokens/radio'
+import { radioGroupKey, radioGroupUpdateKey } from '@/tokens/radio'
 
 const $emit = defineEmits(['update:modelValue'])
 const $props = defineProps({
@@ -18,13 +18,11 @@ const $props = defineProps({
   }
 })
 
-const groupValue = ref(null)
 const radioGroupRef = ref(null)
 
-function handleChangeModelValue (val) {
-  groupValue.value = val
-  console.log(val)
+function updateModelValue (val) {
   $emit('update:modelValue', val)
+  console.log(val)
 }
 
 provide(
@@ -34,6 +32,7 @@ provide(
     radioGroupRef
   })
 )
+provide(radioGroupUpdateKey, { updateModelValue })
 </script>
 
 <style lang="postcss" scoped>

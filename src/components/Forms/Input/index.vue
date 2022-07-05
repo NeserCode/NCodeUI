@@ -180,7 +180,8 @@ initModelValue()
 /* Placeholder Style */
 .nc-input .nc-input-placeholder {
   @apply absolute inline-block px-3 left-0 py-1.5
-  transition-all select-none opacity-100;
+  transition-all select-none opacity-100
+  pointer-events-none;
 }
 .nc-input
   .nc-input-origin:not(:focus):placeholder-shown

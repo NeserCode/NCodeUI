@@ -20,15 +20,18 @@ const radio1 = ref('单选1')
 
 const code = ref(
   `<template>
-    <nc-radio id="radio1" name="g1">单选1</nc-radio>
-    <nc-radio id="radio2" name="g1">单选2</nc-radio>
-    <nc-radio id="radio3" name="g2">单选3</nc-radio>
-    <nc-radio id="radio4" name="g2">单选4</nc-radio>
+    <nc-radio-group v-model="radio1" name="g1">
+      <nc-radio id="radio1" label="单选1" />
+      <nc-radio id="radio2" label="单选2" />
+      <nc-radio id="radio3" label="单选3" />
+      <nc-radio id="radio4" label="单选4" />
+    </nc-radio-group>
 </template>
 
 <script>
 import { ref } from 'vue'
 
+const radio1 = ref('单选1')
 </` + 'script>'
 )
 </script>
