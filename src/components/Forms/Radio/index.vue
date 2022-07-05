@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nc-radio', disabledClass]">
+  <div :class="['nc-radio', disabledClass, size]">
     <input
       type="radio"
       class="nc-radio-body"
@@ -41,13 +41,20 @@ const $props = defineProps({
   value: {
     type: [String, Number, Boolean]
   },
+  size: {
+    type: String,
+    validator (sizeString) {
+      return ['mini', 'small', 'normal', 'large'].includes(sizeString)
+    },
+    default: 'normal'
+  },
   disabled: {
     type: Boolean,
     default: false
   }
 })
 
-const { id, label, value, disabled } = toRefs($props)
+const { id, label, value, disabled, size } = toRefs($props)
 const { name, modelValue, isAllDisabled } = toRefs(
   inject(radioGroupKey, undefined)
 )
@@ -61,7 +68,6 @@ const computedDisabled = computed(() => {
   return isAllDisabled.value || disabled.value
 })
 const computedValue = computed(() => {
-  console.log('computedValue', value.value)
   return value.value === undefined ? label.value : value.value
 })
 
@@ -81,7 +87,8 @@ initModelValue()
 
 <style lang="postcss" scoped>
 .nc-radio {
-  @apply inline-flex items-center justify-center;
+  @apply inline-flex items-center justify-center
+  box-border;
 }
 
 /* Radio Body Style */
@@ -91,8 +98,49 @@ initModelValue()
 
 /* Radio Label Style */
 .nc-radio-label {
-  @apply inline-flex items-center justify-center px-1.5
+  @apply inline-flex items-center justify-center pl-1.5
   select-none;
+}
+
+/* Size Style */
+.nc-radio.mini {
+  @apply p-0.5;
+}
+.nc-radio.mini .nc-radio-body {
+  @apply transform scale-75;
+}
+.nc-radio.mini .nc-radio-label {
+  @apply text-xs;
+}
+
+.nc-radio.small {
+  @apply py-0.5 px-1;
+}
+.nc-radio.small .nc-radio-body {
+  @apply transform scale-90;
+}
+.nc-radio.small .nc-radio-label {
+  @apply text-sm;
+}
+
+.nc-radio.normal {
+  @apply py-1 px-1.5;
+}
+.nc-radio.normal .nc-radio-body {
+  @apply transform scale-100;
+}
+.nc-radio.normal .nc-radio-label {
+  @apply text-base;
+}
+
+.nc-radio.large {
+  @apply py-1.5 px-2;
+}
+.nc-radio.large .nc-radio-body {
+  @apply transform scale-110;
+}
+.nc-radio.large .nc-radio-label {
+  @apply text-lg;
 }
 
 /* Disabled Style */
