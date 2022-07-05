@@ -6,6 +6,10 @@
     <para>此组件必须传入 id 与 name 属性，二者都接受一个 String 类型的值</para>
     <para>配合容器 nc-radio-group 使用</para>
     <example-radio-basic />
+    <headTitle :level="2">禁用状态</headTitle>
+    <para>使用 disabled 属性控制组件和容器的禁用行为</para>
+    <para>禁用容器则将其包含的 radio 组件全部禁用</para>
+    <example-radio-disabled />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
     <placeholder />
@@ -18,6 +22,7 @@ import para from '@/components/Native/Para/index.vue'
 import placeholder from '@/components/Native/Placeholder/index.vue'
 // import { ref } from 'vue'
 import ExampleRadioBasic from '@/views/Docs/Forms/Radio/Example/basic.vue'
+import ExampleRadioDisabled from '@/views/Docs/Forms/Radio/Example/disabled.vue'
 </script>
 
 <style scoped lang="postcss">
