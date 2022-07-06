@@ -53,7 +53,7 @@ const loadingClass = computed(() => (loading.value ? 'loading' : null))
 .nc-button {
   @apply relative inline-flex justify-center items-center py-1.5 px-5 m-0 max-w-min border-2 rounded-md
   border-gray-200 dark:border-gray-600 bg-white dark:bg-black
-  transition-all cursor-pointer overflow-hidden box-border;
+  transition-all cursor-pointer overflow-hidden box-border select-none;
 }
 .nc-button.mini {
   @apply py-0 px-0.5;

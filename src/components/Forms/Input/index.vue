@@ -10,6 +10,7 @@
       :spellcheck="spellcheck"
       @focus="handleInputFocus(true)"
       @blur="handleInputFocus(false)"
+      :required="required"
       :max="max"
       :min="min"
       :maxlength="maxlength"
@@ -39,6 +40,10 @@ const $props = defineProps({
   },
   type: {
     default: 'text'
+  },
+  required: {
+    type: Boolean,
+    default: false
   },
   placeholder: {
     type: String
@@ -93,6 +98,7 @@ const {
   placeholder,
   type,
   id,
+  required,
   autocomplete,
   spellcheck,
   clearable,
