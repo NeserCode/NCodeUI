@@ -69,9 +69,12 @@ const $props = defineProps({
 })
 
 const { id, label, value, disabled, size, radioStyle } = toRefs($props)
-const { name, modelValue, isAllDisabled, isAllStyle } = toRefs(
-  inject(radioGroupKey, undefined)
-)
+const {
+  name,
+  modelValue,
+  disabled: isAllDisabled,
+  radioStyle: isAllStyle
+} = toRefs(inject(radioGroupKey, undefined))
 const { updateModelValue } = inject(radioGroupUpdateKey, undefined)
 const checkedValue = ref(false)
 

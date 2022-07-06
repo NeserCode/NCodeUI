@@ -27,7 +27,6 @@ const $props = defineProps({
     }
   }
 })
-const { modelValue, name, disabled, radioStyle } = toRefs($props)
 const radioGroupRef = ref(null)
 
 function updateModelValue (val) {
@@ -37,10 +36,7 @@ function updateModelValue (val) {
 provide(
   radioGroupKey,
   reactive({
-    modelValue,
-    name,
-    isAllDisabled: disabled,
-    isAllStyle: radioStyle,
+    ...toRefs($props),
     radioGroupRef
   })
 )

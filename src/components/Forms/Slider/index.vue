@@ -15,7 +15,15 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, toRefs, watch, computed } from 'vue'
+import {
+  defineProps,
+  defineEmits,
+  ref,
+  toRefs,
+  watch,
+  computed,
+  nextTick
+} from 'vue'
 
 const $emit = defineEmits(['update:modelValue'])
 const $props = defineProps({
@@ -42,7 +50,7 @@ const $props = defineProps({
 })
 const { modelValue, max, min, step, disabled } = toRefs($props)
 const disabledClass = computed(() => (disabled.value ? 'disabled' : ''))
-const rangeCount = min ?? ref(0)
+const rangeCount = ref(0)
 
 const slider = ref(null)
 const thumb = ref(null)
@@ -68,6 +76,14 @@ function handleChangeThumbProcess () {
     ((rangeCount.value - min.value) / (max.value - min.value)) * 100
   }%`
 }
+
+function initDefaultValue () {
+  nextTick(() => {
+    $emit('update:modelValue', Number(min.value ?? 0))
+  })
+}
+
+initDefaultValue()
 </script>
 
 <style lang="postcss" scoped>

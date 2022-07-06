@@ -212,7 +212,7 @@ initModelValue()
   @apply inline-flex;
 }
 .nc-input.clearable .nc-input-origin:focus:not(:placeholder-shown) {
-  @apply pr-6;
+  @apply pr-7;
 }
 
 /* Movable Style */

@@ -9,6 +9,6 @@
 
 <style lang="postcss" scoped>
 .nc-form-item {
-  @apply flex items-center justify-center w-full h-full py-2;
+  @apply flex items-center w-full h-full py-2;
 }
 </style>

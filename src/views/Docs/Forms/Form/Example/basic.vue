@@ -1,9 +1,9 @@
 <template>
   <viewBox :code="code">
-    <nc-form @submit.prevent="log">
+    <nc-form @submit.prevent="logForm">
       <nc-form-item>
         <nc-input
-          v-model="frameName"
+          v-model="frame.name"
           :id="frameNameInputId"
           placeholder="框架名称"
           movable="left"
@@ -14,12 +14,14 @@
       </nc-form-item>
       <nc-form-item>
         <nc-input
-          v-model="frameVersion"
-          :id="frameVersionInputId"
-          placeholder="框架版本号"
+          type="search"
+          v-model="frame.id"
+          :id="frameNumberInputId"
+          placeholder="框架编号"
           movable="left"
           :minlength="4"
           auto-hidden
+          clearable
           required
         />
       </nc-form-item>
@@ -38,13 +40,15 @@ import NcInput from '@/components/Forms/Input/index.vue'
 import NcButton from '@/components/Basic/Button/index.vue'
 
 import { ref } from 'vue'
-const frameName = ref('')
+const frame = ref({
+  name: '',
+  id: ''
+})
 const frameNameInputId = ref('form-input-frameName')
-const frameVersion = ref('')
-const frameVersionInputId = ref('form-input-frameVersion')
+const frameNumberInputId = ref('form-input-frameNumber')
 
-function log () {
-  console.log('submit')
+function logForm (e) {
+  console.log(e, frame.value)
 }
 
 const code = ref(
@@ -61,4 +65,7 @@ const code = ref(
 </script>
 
 <style lang="postcss" scoped>
+.nc-form-item {
+  @apply pl-32;
+}
 </style>
