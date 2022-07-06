@@ -23,6 +23,7 @@
     <headTitle :level="2">预设风格</headTitle>
     <para>使用 radioStyle 属性控制组件预设风格样式。</para>
     <para>对容器使用将会覆盖掉所有组件已设 radioStyle 值</para>
+    <headTitle :level="3">边框样式</headTitle>
     <example-radio-bordered />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
