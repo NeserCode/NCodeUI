@@ -42,7 +42,7 @@ const $props = defineProps({
 })
 const { modelValue, max, min, step, disabled } = toRefs($props)
 const disabledClass = computed(() => (disabled.value ? 'disabled' : ''))
-const rangeCount = ref(0)
+const rangeCount = min ?? ref(0)
 
 const slider = ref(null)
 const thumb = ref(null)
