@@ -19,9 +19,15 @@ const $props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  radioStyle: {
+    type: String,
+    validator (radioStyleString) {
+      return ['bordered'].includes(radioStyleString)
+    }
   }
 })
-const { modelValue, name, disabled } = toRefs($props)
+const { modelValue, name, disabled, radioStyle } = toRefs($props)
 const radioGroupRef = ref(null)
 
 function updateModelValue (val) {
@@ -34,6 +40,7 @@ provide(
     modelValue,
     name,
     isAllDisabled: disabled,
+    isAllStyle: radioStyle,
     radioGroupRef
   })
 )

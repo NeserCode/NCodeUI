@@ -1,5 +1,13 @@
 <template>
-  <div :class="['nc-radio', disabledClass, size]">
+  <div
+    :class="[
+      'nc-radio',
+      disabledClass,
+      size,
+      computedStyleClass,
+      computedCheckedClass,
+    ]"
+  >
     <input
       type="radio"
       class="nc-radio-body"
@@ -51,11 +59,17 @@ const $props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  radioStyle: {
+    type: String,
+    validator (radioStyleString) {
+      return ['bordered'].includes(radioStyleString)
+    }
   }
 })
 
-const { id, label, value, disabled, size } = toRefs($props)
-const { name, modelValue, isAllDisabled } = toRefs(
+const { id, label, value, disabled, size, radioStyle } = toRefs($props)
+const { name, modelValue, isAllDisabled, isAllStyle } = toRefs(
   inject(radioGroupKey, undefined)
 )
 const { updateModelValue } = inject(radioGroupUpdateKey, undefined)
@@ -69,6 +83,12 @@ const computedDisabled = computed(() => {
 })
 const computedValue = computed(() => {
   return value.value === undefined ? label.value : value.value
+})
+const computedStyleClass = computed(() => {
+  return isAllStyle.value ?? radioStyle.value ?? null
+})
+const computedCheckedClass = computed(() => {
+  return value.value === modelValue.value ? 'checked' : null
 })
 
 watch(checkedValue, () => {
@@ -88,7 +108,7 @@ initModelValue()
 <style lang="postcss" scoped>
 .nc-radio {
   @apply inline-flex items-center justify-center
-  box-border;
+  box-border transition-all;
 }
 
 /* Radio Body Style */
@@ -104,7 +124,7 @@ initModelValue()
 
 /* Size Style */
 .nc-radio.mini {
-  @apply p-0.5;
+  @apply py-0.5 px-1;
 }
 .nc-radio.mini .nc-radio-body {
   @apply transform scale-75;
@@ -114,7 +134,7 @@ initModelValue()
 }
 
 .nc-radio.small {
-  @apply py-0.5 px-1;
+  @apply py-0.5 px-1.5;
 }
 .nc-radio.small .nc-radio-body {
   @apply transform scale-90;
@@ -124,7 +144,7 @@ initModelValue()
 }
 
 .nc-radio.normal {
-  @apply py-1 px-1.5;
+  @apply py-1 px-2;
 }
 .nc-radio.normal .nc-radio-body {
   @apply transform scale-100;
@@ -134,13 +154,22 @@ initModelValue()
 }
 
 .nc-radio.large {
-  @apply py-1.5 px-2;
+  @apply py-1.5 px-2.5;
 }
 .nc-radio.large .nc-radio-body {
   @apply transform scale-110;
 }
 .nc-radio.large .nc-radio-label {
   @apply text-lg;
+}
+
+/* Bordered Style */
+.nc-radio.bordered {
+  @apply border-2 rounded
+  border-gray-300 dark:border-gray-700;
+}
+.nc-radio.bordered.checked {
+  @apply border-green-400 dark:border-green-500;
 }
 
 /* Disabled Style */
