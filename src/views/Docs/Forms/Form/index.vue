@@ -21,6 +21,6 @@ import ExampleFormBasic from '@/views/Docs/Forms/Form/Example/basic.vue'
 
 <style scoped lang="postcss">
 .doc-nc-form {
-  @apply relative inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
+  @apply inline-flex flex-col w-full h-full py-4 px-6 min-h-full;
 }
 </style>

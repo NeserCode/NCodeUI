@@ -8,20 +8,17 @@
           placeholder="框架名称"
           movable="left"
           :minlength="4"
-          auto-hidden
+          clearable
           required
         />
       </nc-form-item>
       <nc-form-item>
         <nc-input
-          type="search"
           v-model="frame.id"
           :id="frameNumberInputId"
           placeholder="框架编号"
           movable="left"
           :minlength="4"
-          auto-hidden
-          clearable
           required
         />
       </nc-form-item>
@@ -47,25 +44,58 @@ const frame = ref({
 const frameNameInputId = ref('form-input-frameName')
 const frameNumberInputId = ref('form-input-frameNumber')
 
-function logForm (e) {
-  console.log(e, frame.value)
+function logForm () {
+  console.log(frame.value)
 }
 
 const code = ref(
   `<template>
-    <nc-datepicker v-model="t" />
+    <nc-form @submit.prevent="logForm">
+      <nc-form-item>
+        <nc-input
+          v-model="frame.name"
+          :id="frameNameInputId"
+          placeholder="框架名称"
+          movable="left"
+          :minlength="4"
+          auto-hidden
+          required
+        />
+      </nc-form-item>
+      <nc-form-item>
+        <nc-input
+          type="search"
+          v-model="frame.id"
+          :id="frameNumberInputId"
+          placeholder="框架编号"
+          movable="left"
+          :minlength="4"
+          auto-hidden
+          clearable
+          required
+        />
+      </nc-form-item>
+      <nc-form-item>
+        <nc-button type="sumbit" size="small">提交</nc-button>
+      </nc-form-item>
+    </nc-form>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+import { ref } from 'vue'
+const frame = ref({
+  name: '',
+  id: ''
+})
+const frameNameInputId = ref('form-input-frameName')
+const frameNumberInputId = ref('form-input-frameNumber')
 
-  const t = ref(new Date(2022, 0, 1))
+function logForm (e) {
+  console.log(e, frame.value)
+}
 <` + '/script>'
 )
 </script>
 
 <style lang="postcss" scoped>
-.nc-form-item {
-  @apply pl-32;
-}
 </style>
