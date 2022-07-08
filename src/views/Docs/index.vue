@@ -11,6 +11,7 @@
     <highlightjs :lang="lang[0]" :code="code[1]" />
     <para>安装完 Vue 后, 创建一个新的工程, 并在 main.js 中添加：</para>
     <highlightjs :lang="lang[1]" :code="code[2]" />
+    <para>! 当前项目处于未完成状态，NCodeUI 组件库还未发布</para>
   </div>
 </template>
 
