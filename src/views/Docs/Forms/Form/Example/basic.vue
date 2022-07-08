@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-form @submit.prevent="logForm">
+    <nc-form @submit.prevent="logForm" size="small">
       <nc-form-item>
         <nc-input
           v-model="frame.name"
@@ -23,7 +23,7 @@
         />
       </nc-form-item>
       <nc-form-item>
-        <nc-button type="sumbit" size="small">提交</nc-button>
+        <nc-button type="submit" size="small">提交</nc-button>
       </nc-form-item>
     </nc-form>
   </viewBox>
@@ -44,8 +44,8 @@ const frame = ref({
 const frameNameInputId = ref('form-input-frameName')
 const frameNumberInputId = ref('form-input-frameNumber')
 
-function logForm () {
-  console.log(frame.value)
+function logForm (e) {
+  console.log(e, frame.value)
 }
 
 const code = ref(
@@ -58,20 +58,17 @@ const code = ref(
           placeholder="框架名称"
           movable="left"
           :minlength="4"
-          auto-hidden
+          clearable
           required
         />
       </nc-form-item>
       <nc-form-item>
         <nc-input
-          type="search"
           v-model="frame.id"
           :id="frameNumberInputId"
           placeholder="框架编号"
           movable="left"
           :minlength="4"
-          auto-hidden
-          clearable
           required
         />
       </nc-form-item>

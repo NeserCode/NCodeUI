@@ -9,7 +9,6 @@
     </div>
     <div class="right">
       <span class="links" @click="openExtraLinks(uiLink)">Github</span>
-      <span class="links" @click="openExtraLinks(authorLink)">作者</span>
     </div>
   </div>
 </template>
@@ -22,7 +21,6 @@ const $route = useRoute()
 
 var isDark = ref(false)
 const uiLink = 'http://github.com/NeserCode/NCodeUI'
-const authorLink = 'http://github.com/NeserCode'
 
 onBeforeMount(() => {
   isDark.value = Boolean(localStorage.getItem('theme'))

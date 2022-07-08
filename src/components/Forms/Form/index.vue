@@ -5,6 +5,23 @@
 </template>
 
 <script setup>
+import { defineProps, toRefs, provide, reactive } from 'vue'
+import { FormGroupKey } from '@/tokens/form.js'
+
+const $props = defineProps({
+  size: {
+    type: String,
+    validator: (value) => ['large', 'normal', 'small'].includes(value),
+    default: 'normal'
+  }
+})
+
+provide(
+  FormGroupKey,
+  reactive({
+    ...toRefs($props)
+  })
+)
 </script>
 
 <style lang="postcss" scoped>

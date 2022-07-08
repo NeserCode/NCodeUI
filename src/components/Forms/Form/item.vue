@@ -1,11 +1,12 @@
 <template>
-  <div :class="['nc-form-item', align]">
+  <div :class="['nc-form-item', align, size]">
     <slot />
   </div>
 </template>
 
 <script setup>
-import { defineProps, toRefs } from 'vue'
+import { defineProps, toRefs, inject } from 'vue'
+import { FormGroupKey } from '@/tokens/form.js'
 
 const $props = defineProps({
   align: {
@@ -15,11 +16,13 @@ const $props = defineProps({
   }
 })
 const { align } = toRefs($props)
+
+const { size } = inject(FormGroupKey, undefined)
 </script>
 
 <style lang="postcss" scoped>
 .nc-form-item {
-  @apply flex items-center w-full h-full py-2;
+  @apply flex items-center w-full h-full;
 }
 
 /* Align Style */
@@ -31,5 +34,16 @@ const { align } = toRefs($props)
 }
 .nc-form-item.right {
   @apply justify-end;
+}
+
+/* Size Style */
+.nc-form-item.large {
+  @apply py-4;
+}
+.nc-form-item.normal {
+  @apply py-2;
+}
+.nc-form-item.small {
+  @apply py-1;
 }
 </style>
