@@ -13,6 +13,11 @@ const $props = defineProps({
     type: String,
     validator: (value) => ['large', 'normal', 'small'].includes(value),
     default: 'normal'
+  },
+  align: {
+    type: String,
+    validator: (value) => ['left', 'center', 'right'].includes(value),
+    default: 'center'
   }
 })
 

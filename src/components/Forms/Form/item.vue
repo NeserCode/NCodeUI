@@ -1,23 +1,36 @@
 <template>
-  <div :class="['nc-form-item', align, size]">
+  <div :class="['nc-form-item', alignClass, sizeClass]">
     <slot />
   </div>
 </template>
 
 <script setup>
-import { defineProps, toRefs, inject } from 'vue'
+import { defineProps, toRefs, inject, computed } from 'vue'
 import { FormGroupKey } from '@/tokens/form.js'
 
 const $props = defineProps({
+  size: {
+    type: String,
+    validator: (value) => ['large', 'normal', 'small'].includes(value)
+  },
   align: {
     type: String,
-    validator: (value) => ['left', 'center', 'right'].includes(value),
-    default: 'center'
+    validator: (value) => ['left', 'center', 'right'].includes(value)
   }
 })
-const { align } = toRefs($props)
+const { size, align } = toRefs($props)
 
-const { size } = inject(FormGroupKey, undefined)
+const alignClass = computed(() => {
+  return FormGroupAlign !== undefined ? FormGroupAlign : align.value
+})
+const sizeClass = computed(() => {
+  return FormGroupAlign !== undefined ? FormGroupSize : size.value
+})
+
+const { size: FormGroupSize, align: FormGroupAlign } = inject(
+  FormGroupKey,
+  undefined
+)
 </script>
 
 <style lang="postcss" scoped>

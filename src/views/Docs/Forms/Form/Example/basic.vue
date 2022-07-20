@@ -1,12 +1,12 @@
 <template>
   <viewBox :code="code">
-    <nc-form @submit.prevent="logForm" size="small">
+    <nc-form @submit.prevent="logForm" align="right">
       <nc-form-item>
         <nc-input
           v-model="frame.name"
           :id="frameNameInputId"
           placeholder="框架名称"
-          movable="left"
+          movable="up"
           :minlength="4"
           clearable
           required
@@ -17,7 +17,7 @@
           v-model="frame.id"
           :id="frameNumberInputId"
           placeholder="框架编号"
-          movable="left"
+          movable="up"
           :minlength="4"
           required
         />
