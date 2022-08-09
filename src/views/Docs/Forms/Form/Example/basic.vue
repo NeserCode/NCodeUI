@@ -1,6 +1,6 @@
 <template>
   <viewBox :code="code">
-    <nc-form @submit.prevent="logForm" align="right">
+    <nc-form @submit.prevent="logForm" align="center">
       <nc-form-item>
         <nc-input
           v-model="frame.name"
