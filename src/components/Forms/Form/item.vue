@@ -20,17 +20,17 @@ const $props = defineProps({
 })
 const { size, align } = toRefs($props)
 
+const { size: FormGroupSize, align: FormGroupAlign } = inject(
+  FormGroupKey,
+  undefined
+)
+
 const alignClass = computed(() => {
   return FormGroupAlign !== undefined ? FormGroupAlign : align.value
 })
 const sizeClass = computed(() => {
   return FormGroupAlign !== undefined ? FormGroupSize : size.value
 })
-
-const { size: FormGroupSize, align: FormGroupAlign } = inject(
-  FormGroupKey,
-  undefined
-)
 </script>
 
 <style lang="postcss" scoped>

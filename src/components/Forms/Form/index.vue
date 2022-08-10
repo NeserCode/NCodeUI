@@ -11,13 +11,11 @@ import { FormGroupKey } from '@/tokens/form.js'
 const $props = defineProps({
   size: {
     type: String,
-    validator: (value) => ['large', 'normal', 'small'].includes(value),
-    default: 'normal'
+    validator: (value) => ['large', 'normal', 'small'].includes(value)
   },
   align: {
     type: String,
-    validator: (value) => ['left', 'center', 'right'].includes(value),
-    default: 'center'
+    validator: (value) => ['left', 'center', 'right'].includes(value)
   }
 })
 

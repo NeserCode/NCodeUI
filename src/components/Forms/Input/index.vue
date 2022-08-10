@@ -39,7 +39,10 @@ const $props = defineProps({
     required: true
   },
   type: {
-    default: 'text'
+    type: String,
+    default: 'text',
+    validator: (value) =>
+      ['text', 'password', 'number', 'email', 'url', 'tel'].includes(value)
   },
   required: {
     type: Boolean,
@@ -187,7 +190,7 @@ initModelValue()
 .nc-input .nc-input-placeholder {
   @apply absolute inline-block px-3 left-0 py-1.5
   transition-all select-none opacity-100
-  pointer-events-none;
+  pointer-events-none whitespace-nowrap;
 }
 .nc-input
   .nc-input-origin:not(:focus):placeholder-shown
@@ -203,7 +206,7 @@ initModelValue()
 
 /* Clear Button Style */
 .nc-input .clearBtn {
-  @apply absolute hidden justify-center items-center h-full px-2 right-0 top-0 text-lg font-bold
+  @apply absolute hidden justify-center items-center h-full mx-2 right-0 top-0 text-lg font-bold
   hover:text-red-400
   select-none box-border cursor-pointer;
 }
@@ -212,7 +215,12 @@ initModelValue()
   @apply inline-flex;
 }
 .nc-input.clearable .nc-input-origin:focus:not(:placeholder-shown) {
-  @apply pr-7;
+  @apply pr-8;
+}
+.nc-input.move-up.clearable
+  .nc-input-origin:not(:placeholder-shown)
+  ~ .clearBtn {
+  @apply transform translate-y-1;
 }
 
 /* Movable Style */
@@ -259,7 +267,7 @@ initModelValue()
   @apply transform translate-y-0;
 }
 .nc-input.move-up {
-  @apply my-1;
+  @apply my-2;
 }
 .nc-input.move-up.auto-hidden {
   @apply my-0;

@@ -17,7 +17,11 @@
       >对 form 总容器添加 size 属性，控制 item 间距，该属性接受一个 String
       类型的值。预设值含有 large / small / normal， 默认为 normal</para
     >
-    <example-form-basic />
+    <para
+      >对于特定的组件如设置了 movable 为 up 的 nc-input
+      组件来说，组件本身的外边距会撑开 size 的外边距预设值。</para
+    >
+    <example-form-size />
     <headTitle :level="2">属性键值</headTitle>
     <para>😥 这部分等我什么时候做出来表格再写</para>
     <placeholder />
@@ -30,6 +34,7 @@ import para from '@/components/Native/Para/index.vue'
 import placeholder from '@/components/Native/Placeholder/index.vue'
 // import { ref } from 'vue'
 import ExampleFormBasic from '@/views/Docs/Forms/Form/Example/basic.vue'
+import ExampleFormSize from '@/views/Docs/Forms/Form/Example/size.vue'
 </script>
 
 <style scoped lang="postcss">
