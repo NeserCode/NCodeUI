@@ -6,7 +6,7 @@
           v-model="frame.name"
           :id="frameNameInputId"
           placeholder="框架名称"
-          movable="up"
+          movable="left"
           :minlength="4"
           clearable
           required
@@ -17,7 +17,7 @@
           v-model="frame.id"
           :id="frameNumberInputId"
           placeholder="框架编号"
-          movable="up"
+          movable="left"
           :minlength="4"
           required
         />
@@ -30,22 +30,22 @@
 </template>
 
 <script setup>
-import viewBox from '@/components/Native/ViewBox/index.vue'
-import NcForm from '@/components/Forms/Form/index.vue'
-import NcFormItem from '@/components/Forms/Form/item.vue'
-import NcInput from '@/components/Forms/Input/index.vue'
-import NcButton from '@/components/Basic/Button/index.vue'
+import viewBox from "@/components/Native/ViewBox/index.vue";
+import NcForm from "@/components/Forms/Form/index.vue";
+import NcFormItem from "@/components/Forms/Form/item.vue";
+import NcInput from "@/components/Forms/Input/index.vue";
+import NcButton from "@/components/Basic/Button/index.vue";
 
-import { ref } from 'vue'
+import { ref } from "vue";
 const frame = ref({
-  name: '',
-  id: ''
-})
-const frameNameInputId = ref('form-input-frameName')
-const frameNumberInputId = ref('form-input-frameNumber')
+  name: "",
+  id: "",
+});
+const frameNameInputId = ref("form-input-frameName");
+const frameNumberInputId = ref("form-input-frameNumber");
 
-function logForm (e) {
-  console.log(e, frame.value)
+function logForm(e) {
+  console.log(e, frame.value);
 }
 
 const code = ref(
@@ -90,9 +90,8 @@ const frameNumberInputId = ref('form-input-frameNumber')
 function logForm (e) {
   console.log(e, frame.value)
 }
-<` + '/script>'
-)
+<` + "/script>"
+);
 </script>
 
-<style lang="postcss" scoped>
-</style>
+<style lang="postcss" scoped></style>
